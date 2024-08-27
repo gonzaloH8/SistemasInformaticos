@@ -1,0 +1,197 @@
+Instalacion del comando tree: sudo apt-get install tree
+Instalacion del idioma español: sudo apt-get update; sudo apt-get install manpage-es manpage-es-extra
+Instalacion de grupos y usuarios: sudo apt-get install gnome-system-tools
+sudo apt install build-essential(ejecutar este comando antes de instalar la guess addition)
+
+falta uno?
+
+DIRECTORIOS ESPECIFICOS
+dev: contiene los arvhivos de dispositivos especiales para todos los dispositivos hardware
+/dev/sda: es el primer disco duro de linux
+/dev/null: es un archivo nulo, que se usa para no dejar rastro del comando usado?
+/etc/passwd: fichero que almacena la información sobre los usuarios del sistema.
+/etc/group: fichero que almacena la información sobre los grupos del sistema.
+
+COMANDOS GENERICOS
+Limpia el terminal: clear
+Ayuda sobre el uso de comandos: man + comando
+Ayuda sobre un comando: comando + --help
+Salimos de la ayuda: Q
+
+COMANDO DIRECTORIOS
+Ruta absoluta: pwd(/home/Gonzalo/)
+Ruta Relativa: home/Gonzalo
+Contenido del directorio: -ls -l
+Contenido del directorio con sus permisos: ls -la
+Muestra el arbol del contenido del siguiente nivel del directorio: tree -L 1 nombreDirectorio
+Permite ver la estructura: tree + directorio
+Crea directorios: -mkdir + nombre del directorio
+	Crear varios directorios a la vez jerarquicamente: mkdir -p
+	Establecer unos permisos al momento de crear el directorio: -m u=rwx,g=rwx,o=rwx
+Elimina los directorios vacios: -rmdir
+	Borra toda la jerarquia: -p
+Elimina el directorio y todo su contenido: rm -r NombreDirectorio
+Mover o renombrar: mv + directorio original + directorio al que mueves o renombras
+Copiar: cp + directorio original + directorio al que copias
+Moverme de directorio: cd + directorio
+				    cd(te envia al directorio home)
+				    /(te envia al directorio raiz)
+
+COMANDOS ARCHIVOS
+Ver contenido del fichero: cat + fichero
+Para movernos: more
+Mover o renombrar: mv + fichero
+Copiar: cp + fichero + directorio al que copias
+Eliminar: rm + fichero
+Crear archivos vacios: touch
+
+OPERACIONES CON ARCHIVOS
+Comprime o empaqueta un directorio: tar -cvf + ruta del empaquetado + direccion donde se envia
+Desempaqueta : tar -xvf + rutaempaquetado + direccion donde se envia
+Busca archivos y directorios: find + opcion + archivo/directorio
+	Localiza por nombre o por patrón de nombre, en este caso con “”: -name
+	*: engloba una palabra en la busqueda
+	-o: indica una opcion u otra
+	Localiza teniendo en cuenta los permisos: -perm
+	Por usuario: -user
+	Por grupo: -group
+	Para limitar niveles: -maxdepth
+	Si son ficheros, directorios: -type
+	Devuelve true si el resultado es 0: -exec
+	Ficheros que se ejecuten: -executable
+	Pregunta al usuario para ejecutar el comando: -ok
+Enlaces duros: ln
+Enlaces simbolicos: ln -s
+Visualiza archivos en pantalla, paginandolo por tamaño del terminal: more(ayuda h)
+Visualiza las ultimas 10 lineas de un fichero: tail --lines +numero + fichero?
+Visualiza las 10 primeras lineas de un fichero: head + -numero + fichero
+Cuenta las lineas, palabras y caracteres que contengan los archivos: wc + -opcion + archivo
+Busca cadenas de caracteres en archivos: grep + opciones + "palabra" + archivos
+Comienzo de Linea: ^
+Fin de Linea: $
+Busca la palabra concreta que este entre: % %
+Alberga todo: *
+Busca la cadena de caracteres sin importar su posicion: .
+Comprime, reduce o sustituye las repeticiones de una cadena: tr -s caracter1 caracter2
+Clasifica y/o fusiona archivos: sort + -t + separador(/*._-) + -k1,2
+	Copiar el contenido nuevo a otro fichero: sort + -t + separador(/*._-) + -k1,2 <fichero>fichero2?
+Extrae ciertos campos de cada linea del archivo: cut + -d + separador(/*._-) + -f1,4 + fichero
+Escribe un argumento por pantalla: echo "argumento"
+Junta líneas de archivos en una sola: paste + archivo + archivo2
+Conservar un archivo Intermedio de una tuberia: tee + opcion + fichero(no creo que entre)
+Comando Explicacion:tee
+
+PERMISOS
+Permisos simbolicos:
+r: permisos de lectura
+w: permisos de escritura
+x: permisos de ejecucion
+	u(usuarios): u=rwx
+	g(grupos):g=rwx
+	o(otros): o=rwx
+	a(todos): a=rwx
+Comando de permisos: chmod u=rwx,g=r,o=fichero
+Permisos Octal
+0 = Sin Permisos
+1 = Ejecucion
+2 = Escritura
+3 = Escritura y Ejecucion
+4 = Lectura
+5 = Lectura y Ejecucion
+6 = Lectura y Escritura
+7 = Lectura, Escritura y Ejecucion
+
+AGREGAR O QUITAR SOFTAWARE DE ALTO NIVEL
+Instalar paquete: apt-get install paquete
+Actualizar repositorios: apt-get update
+Actualizar todos los paquetes instalados previamente: apt-get upgrade
+Desinstalar paquete: apt-get remove/purge paquete
+Descargar paquete sin instalar: apt-get dowload paquete
+
+CREACION DE USUARIOS Y GRUPOS
+Añadir usuarios: adduser + nombreUsuario
+Crear un grupo: sudo addgroup + nombreGrupo
+Añadir un usuario al grupo: sudo adduser + nombreUsuario + nombreGrupo
+Comprobacion de en que grupos esta el usuario: groups + nombreUsuario
+Cambiar de usuario: su + nombreUsuario
+
+Establecer grupos secundarios: sudo usermod -G grupo1,grupo2 usuario
+Añadiendo al grupo sisinf, sin borrar los anteriores: sudo usermod -a -G sinsinf usuario
+Cambio de grupo principal de un usuario, manteniendo el anterior como secundario: sudo usermod g nuevogrupo -G anteriorgrupo usuario
+Cambio de directorio personal: sudo usermod -d /home/nuevousuario
+Copia del contenido del antiguo directorio personal se añade: -m
+
+Cambio de propietario: sudo chown nuevopropietario fichero_o_directorio
+Cambio de propietario y grupo: sudo chown nuevopropietario: nuevogrupo fichero_o_directorio
+Cambio de grupo: sudo chown: nuevogrupo fichero_o_directorio
+
+Para borrar un usuario: sudo deluser usuario
+Para borrar un usuario y su carpeta personal: sudo deluser usuario --remove-home
+Para borrar un usuario del grupo: sudo deluser usuario grupo
+Para borrar un grupo: sudo delgroup grupo
+Para borrar un grupo y su carpeta personal: sudo deluser usuario --group grupo
+
+PROCESOS
+	SID: identifica la sesion
+	TTY: identifica el terminal desde el que se ejecuta
+	PR y NI: indica la prioridad asignada por el kernel
+	VIRT y REST: valores de ocupación de memoria del proceso
+STAT: estado del proceso
+	D Uninterruptible sleep (usualmente IO)
+	R Ejecutándose(running) o en cola de ejecución
+	S Interruptible sleep (p.e. esperando un evento)
+	T Detenido
+	Z Zombie, terminado pero su proceso padre sigue vivo, y no ha detectado que el proceso ya murió.
+	X Muerto. Esto nunca deberíamos verlo
+
+Comandos para la gestion del proceso
+para ver las señales de Ubuntu: kill -L
+Visualizar los procesos: ps o -l o -aux (muestra los procesos mas detallado) 
+Parar proceso: kill -19 o kill -STOP nºproceso
+Continuar proceso: kill -18 nºproceso o kill -CONT nºproceso
+Terminar un proceso: kill nºproceso
+Fuerza la finalizacion del proceso: kill -9 nºproceso
+
+Editar las tareas programadas del usuario: crontab -e
+Listar las tareas programadas del usuario: crontab -l
+Borrar el contrab que esta configurado: crontab -d
+Editar las tareas programadas a nivel administrador: sudo crontab -e minuto hora dia/mes mes/año dia/semana
+Ejemplo: 
+min hora dia mes dia/semana direccion/script(comando de crear un directorio y eliminarlo)
+El día 11 de noviembre a las 7:30 a.m. y que sea domingo se ejecutará el ejem2.sh
+30 7 11 11 sun /home/curso/scripts/ejem2.sh
+ 
+FIREWALL
+Comprobar estado: sudo ufw status
+Activar firewall: sudo ufw enable
+Desactivar firewall: sudo ufw disable
+
+CONTROL DE LOS SERVICIOS EN SYSTEM
+Status del servicio: systemctl status(muestra una lista de todos lo servicios que estan ejecutandose actualmente)
+SYSTEMD(conjuntos de demonios de administracion de sistema, bibliotecas y herramientas diseñado para interacturar con el nucleo del sistema operativo GNU/Linux)
+Sintaxis para controlar los servicios en SYSTEMD
+Detener un servicio: systemctl stop nombreServicio
+Iniciar un servicio: systemctl start nombreServicio
+Reiniciar un servicio: systemctl restart nombreServicio
+Status del servicio: systemctl status nombreServicio
+
+Proceso de eliminacion de un servicio
+Detener un servicio: systemctl stop nombreServicio
+Desactivar un servicio: systemctl disable NombreServicio
+Eliminar el servicio en systemd(desde archivo): rm + ruta del servicio
+Recarga systemd: systemctl daemon-reload
+Por ultimo: systemctl reset-failed
+
+Para ver todas las unidades activas que systemd conoce usamos el comando
+systemctl list-units
+	UNIT: nombre de la unidad de systemd
+	LOAD: configuracion de la unidad que ha sido analizada por systemd
+	ACTIVE: estado resumida que indica si la unidad esta activa.
+	SUB: da mas informacion detallada sobre la unidad
+	DESCRIPTION: descripcion textual breve de que es y que hace la unidad
+Para ver las que ha intentado cargar pero no ha sido posible:
+systemctl list-units --all
+Para ver las unidades de servicio activas, usamos:
+systemctl list-units --type=service
+
+TEMA 8
