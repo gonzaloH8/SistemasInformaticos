@@ -1,0 +1,23 @@
+<h1>PLACA BASE</h1>
+
+<h1>PROCESADOR</h1>
+
+<h1>TARJETA GRAFICA</h1>
+
+<h1>DISCOS DUROS</h1>
+
+<h1>RAM</h1>
+
+<h1>VENTILADOR</h1>
+
+<h1>CAJAS</h1>
+
+<h1>FUENTA DE ALIMENTACION</h1>
+
+<h1>TECLADOS</h1>
+
+<h1>RATON</h1>
+
+<h1>CASCOS</h1>
+
+<h1>PANTALLAS</h1>
