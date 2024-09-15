@@ -13,6 +13,9 @@
   <li>Seguir los pasos</li>
   <li>Instalacion de Ubuntu</li>
   <li>Instalacion de las Guesst Addition</li>
+  <li>Instalacion en terminal: sudo apt install gcc make perl</li>
+  <li>Nos situamos en el usuario y ruta /media/Usuario/VBox_GAs_6.1.16</li>
+  <li>Ejecutamos sudo ./VBoxLinuxAdditions.run</li>
 </ul>
 
 <h1>ESTANDAR DE JERARQUIA DE DIRECTORIOS O FHS</h1>
