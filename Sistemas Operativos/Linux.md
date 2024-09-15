@@ -5,6 +5,16 @@
   <li><a href="https://computernewage.com/2013/04/10/como-manejar-archivos-y-carpetas-desde-la-terminal-de-linux/">COMANDOS</a></li>
 </ul>
 
+<h1>INSTALACION</h1>
+<a href="https://ubuntu.com/download/desktop">DESCARGA DE UBUNTU</a>
+<ul>
+  <li>Descargar de la pagina el SO de Ubuntu</li>
+  <li>Hacer una Maquina Virtual de Linux</li>
+  <li>Seguir los pasos</li>
+  <li>Instalacion de Ubuntu</li>
+  <li>Instalacion de las Guesst Addition</li>
+</ul>
+
 <h1>ESTANDAR DE JERARQUIA DE DIRECTORIOS O FHS</h1>
 
 Filesystem Hierarchy Standard(FHS): es la jerarquia para los sistemas de archivos en sistemas Linux y otros derivados de UNIX
@@ -110,8 +120,3 @@ El subdirectorio /var/tmp almacena archivos temporales, pero su contenido no se 
 <h2>VAR</h2>
 Contiene varios archivos con informacion del sistema, como archivos de logs, emails de los usuarios del sistema, bases de datos, informacion almacenada en la cache, informacion relativa a los paquetes de apliaciones almacenados en /opt, etc
 Actua a modo de registro de sistema
-
-<h2>LISTAS Y VISUALIZAR LAS DIFERENTES CARPETAS</h2>
-
-
-
