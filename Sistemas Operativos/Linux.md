@@ -8,8 +8,8 @@
 <h1>INSTALACION</h1>
 
 <ul>
-  <li><a href="https://www.oracle.com/es/virtualization/virtualbox/"> Virtual Box</a>DESCARGAR MAQUINA VIRTUAL(VIRTUALBOX)</li>
-  <li><a href="https://ubuntu.com/download/desktop"> DESCARGA DE UBUNTU</a>Descargar de la pagina el SO de Ubuntu</li>
+  <li><a href="https://www.oracle.com/es/virtualization/virtualbox/"> Virtual Box </a>    DESCARGAR MAQUINA VIRTUAL(VIRTUALBOX)</li>
+  <li><a href="https://ubuntu.com/download/desktop"> DESCARGA DE UBUNTU </a>    (Descargar de la pagina el SO de Ubuntu)</li>
   <li>Hacer una nueva maquina</li>
   <li>Nombre: Ubuntu y su version</li>
   <li>Aplicar SO adecuado</li>
