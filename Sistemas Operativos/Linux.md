@@ -21,6 +21,7 @@
   <li>lsb_release -a: vemos que esta instalado la versión de Linux</li>
   <li>sudo apt Update -y: nor permite actualizar</li>
   <li>sudo apt install bzip2: instalación necesaria para las guesst adiction</li>
+  <li>Volver a ejecutar la aplicacion de las Guest Adition</li>
   <li>Hacemos una isntantanea de la maquina recién instalada por si ocurre algo, seleccionamos la instantánea y damos a restaurar</li>
 </ul>
 
