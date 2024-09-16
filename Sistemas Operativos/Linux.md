@@ -2,7 +2,7 @@
 <ul>
   <li><a href="https://computernewage.com/2015/06/14/el-arbol-de-directorios-de-linux-al-detalle-que-contiene-cada-carpeta/#estructura-directorios">DOCUMENTACION</a></li>
   <li><a href="https://tldp.org/LDP/Linux-Filesystem-Hierarchy/html/index.html">DOCUMENTACION INGLES EXTENDIDA</a></li>
-  <li><a href="https://computernewage.com/2013/04/10/como-manejar-archivos-y-carpetas-desde-la-terminal-de-linux/">COMANDOS</a></li>
+  <li><a href="https://computernewage.com/2013/04/10/como-manejar-archivos-y-carpetas-desde-la-terminal-de-linux/" target="_blank">COMANDOS</a></li>
 </ul>
 
 <h1>INSTALACION</h1>
