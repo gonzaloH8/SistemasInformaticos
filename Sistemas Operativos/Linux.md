@@ -6,16 +6,22 @@
 </ul>
 
 <h1>INSTALACION</h1>
-<a href="https://ubuntu.com/download/desktop">DESCARGA DE UBUNTU</a>
+
 <ul>
-  <li>Descargar de la pagina el SO de Ubuntu</li>
-  <li>Hacer una Maquina Virtual de Linux</li>
-  <li>Seguir los pasos</li>
-  <li>Instalacion de Ubuntu</li>
-  <li>Instalacion de las Guesst Addition</li>
-  <li>Instalacion en terminal: sudo apt install gcc make perl</li>
-  <li>Nos situamos en el usuario y ruta /media/Usuario/VBox_GAs_6.1.16</li>
-  <li>Ejecutamos sudo ./VBoxLinuxAdditions.run</li>
+  <li><a href="https://www.oracle.com/es/virtualization/virtualbox/"> Virtual Box</a>DESCARGAR MAQUINA VIRTUAL(VIRTUALBOX)</li>
+  <li><a href="https://ubuntu.com/download/desktop"> DESCARGA DE UBUNTU</a>Descargar de la pagina el SO de Ubuntu</li>
+  <li>Hacer una nueva maquina</li>
+  <li>Nombre: Ubuntu y su version</li>
+  <li>Aplicar SO adecuado</li>
+  <li>Aumentar la RAM,ROM,Procesadores,Memoria de Video, Carpetas Compartidas,</li>
+  <li>Iniciar la instalacion y seleccionar try and install Ubuntu</li>
+  <li>--------------------------------------------------------------------------</li>
+  <li>Instalacion de las Guest Adicctions</li>
+  <li>Insetamos las guesst adicctions(si hay problemas haremos lo siguiente)</li>
+  <li>lsb_release -a: vemos que esta instalado la versión de Linux</li>
+  <li>sudo apt Update -y: nor permite actualizar</li>
+  <li>sudo apt install bzip2: instalación necesaria para las guesst adiction</li>
+  <li>Hacemos una isntantanea de la maquina recién instalada por si ocurre algo, seleccionamos la instantánea y damos a restaurar</li>
 </ul>
 
 <h1>ESTANDAR DE JERARQUIA DE DIRECTORIOS O FHS</h1>
