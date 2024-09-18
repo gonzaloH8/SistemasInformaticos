@@ -1,9 +1,16 @@
-<h1>COMANDOS ESPECIALES</h1>
+<h1>SHORTS COMANDOS</h1>
 <p>
-    sudo + comando. -- permite ejecutar un comando con permisos de administrador de manera puntual
-    su -- permite hacer un cambio de sesion de usuario, sin la necesidad de cerrar la sesion del usuario actual
+
+    CTRL + MAYUS + T -- abre una nueva terminal
+    CTRL + MAYUS + C -- copia el contenido seleccionado
+    CTRL + MAYUS + V -- pega el contenido seleccionado
+</p>
+
+<h1>INFORMACION ADICCIONAL</h1>
+<p>
+    
     gonzalo@computer:~$ -- seras un usuario estandar
-    root@computer:/home/gonzalo# -- aplicando sudo te logearas como usuario administrador
+    root@computer:/home/gonzalo# -- indicador root de que estas como administrador
     Terminales TTY mediante las combinaciones de teclado 'CTRL+ALT+F1' hasta 'CTRL+ALT+F7'
     EMULADORES PTS: GNOME Terminal, Konsole, Xterm, Yakuake, Guake, etc.
 </p>
@@ -15,6 +22,8 @@
 </ul>
 <p>
 
+    sudo + comando. -- permite ejecutar un comando con permisos de administrador de manera puntual
+    sudo su o bash -- permite hacer un cambio de sesion de usuario, sin la necesidad de cerrar la sesion del usuario actual
     man + comando -- guia completa del comando
     uname -- informacion del SO usado
     who -- muestra los usuarios logeados en el sistema
@@ -26,3 +35,5 @@
     exit -- cierra sesion de terminal actual del usuario logueado en ella. Tambien para pasar de root a usuario
     
 </p>
+
+<h1></h1>
