@@ -66,5 +66,69 @@
     rm -rf /ruta/directorio -- borrara todos los archivos y directorios que se encuentren dentro de el(sin confirmacion)
     cp archivo1.txt archivo2.txt-- copia conteido del primer archivo al segundo.
     mv /ruta /ruta-- permite mover archivos desde la consola y cambiar el nombre en la ubicacion de destino
+</p>
+
+<h1>INFORMACION DEL SISTEMA</h1>
+<ul>
+    <li><a href="https://wttr.in/:help">Documentacion Ampliado</a>  Meteorologia</li>
+</ul>
+<p>
+
+    uname -- nuestra el nombre del Kernel
+    uname -o .. muestra el nombre del SO
+    uname -a -- nuestra el nombre del Kernel, SO, arquitectura del sistema, host, procesador
+    uname -m -- sabras si la CPU tiene soporte para virtualizacion
     
+    who -- lista los usuarios conectados en el sistema en tiempo real
+    who -a -- informa de la fecha y hora del ultimo arranque del sistema por parte de algun usuario
+    who -H -- lista de usuarios logeados, sesiones de terminal a las que estan conectados
+    whoami -- muestra por pantalla el nombre del usuario que acaba de ejecutar el comando
+    
+    ifconfig -- muestra las interfaces activas
+    ifconfig -a -- muestra las interfaces de red disponibles en tu sistema, esten en uso o no y sus paramentro basicos
+    ifconfig eth0 -- permite acotar el resultado para mostrar la informacion de una interfaz determinada
+
+    dmicode -s system-manufacturer -- puedes ver el fabricante del PC, ya sea Asus,HP,Dell,Lenovo,etc
+    dmicode -s processor-manufacturer -- muestra el nombre del fabricante de la CPU, INTEL o AMD
+    dmicode -s -- listado completo de todos los posibles inputs que puede introducir como opciones
+
+    cat /proc/version -- informacion detallada de la version de Kernel utilizada, compilador GCC, nombre de quien compilo         el Kernel y fecha de compilacion
+    cat /proc/cpuinfo -- informacion detallada de la CPU
+
+    lshw -- lista de todos los componentes de hardware detectados, fabricante, version firmware,etc
+    lshw -short -- arbol con todos los dispositivos detectados y su ruta de hardware
+    lshw -c video -- componentes hardaware de clase video. tarjeta, tarjeta graficas detectadas, etc
+    lshw -c network -- componentes de clase netwprk. tarjetas de red ethernet y adaptador wireless
+
+    date -- fecha actual del SO, segun el estandar CEST
+    date -u -- imprime la fecha actual segun el estandar UTC
+
+    cal -- muestra el calendario de un mes o año especificados
+    cal -y 2019 -- muestra el calendario del año especificado
+
+    curl wttr.in -- consulta la prevision meteorologica de los proximos 3 dias
+    curl wttr.in/paris -- consulta la prevision de una zona en concreto
+    
+</p>
+
+<h1>ESCANEAR EL CONTENIDO DE UN ARCHIVO DE TEXTO</h1>
+<p>
+
+    
+</p>
+<h1>FICHERO 1</h1>
+<p>
+
+    SE NECESITAN PERMISOS DE ADMINISTRADOR
+    sudo -l -- cambia de $ a #
+    fdisk -l -- permite ver las particiones
+    dumpe2fs /dev/particion -- ves la informacion de la particion
+    dunpe2fs -h /dev/sad2 -- lees la informacion de la particion maestra o principal 0
+    dumpe2fs -h /dev/sad2
+    dumpe2fs -o superblock=inodo
+    sudo bas -- cambiamos de usuario a administrador
+    ls- i ves el inodo del fichero
+    debugfs -- contenido de inodo. tiene sus propios comandos
+    open /dev/sda2
+    cat <inodo>
 </p>
