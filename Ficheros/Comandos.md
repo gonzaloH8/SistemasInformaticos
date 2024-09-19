@@ -114,7 +114,22 @@
 <h1>ESCANEAR EL CONTENIDO DE UN ARCHIVO DE TEXTO</h1>
 <p>
 
-    
+        touch nombreArchivo -- permite crear uno o varios archivos vacios en formato txt
+        cat > nombreArchivo contenido -- crea un archivo con el conteido inidcado. CTRL + D finaliza
+        cat nombreArchvio -- imprimira en la terminal el contenido del archivo
+        cat -n nombreArchivo -- imprime el contenido y hace un conteo de lineas
+        cat -b -- imprime el contenido y numero solo aquellas que contengan texto, descarta las lineas en blanco
+
+        more -- imprime el contenido paginado. Adecuado para archivos largos
+
+        less -- muestra el contenido en modo editor de texto
+        g + Enter -- avanza por defecto una linea adelante
+        :1 -- marcas la g e introduces el numero deseado avanzamdo esa contidad de lineas
+        q -- permite salir del editor de texto
+
+        nano
+        
+        
 </p>
 <h1>FICHERO 1</h1>
 <p>
