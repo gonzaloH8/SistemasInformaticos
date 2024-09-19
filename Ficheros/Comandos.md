@@ -26,6 +26,7 @@
 </ul>
 <p>
 
+    sudo -l -- cambia de $ a #
     sudo + comando. -- permite ejecutar un comando con permisos de administrador de manera puntual
     sudo su o bash -- permite hacer un cambio de sesion de usuario, sin la necesidad de cerrar la sesion del usuario actual
     man + comando -- guia completa del comando
@@ -36,8 +37,7 @@
     ping -- permite saber si un cliente o servidor esta operativo mediante la direccion IP o url
     date -- informa sobre la fecha y hora del sistema
     curl wttr.in/paris -- te permite saber la prevision meteorologica.(ciudad, codigo areopuerto o nombre dominio)
-    exit -- cierra sesion de terminal actual del usuario logueado en ella. Tambien para pasar de root a usuario
-    
+    exit -- cierra sesion de terminal actual del usuario logueado en ella. Tambien para pasar de root a usuario 
 </p>
 
 <h1>MANEJAR ARCHIVOS Y CARPETAS</h1>
@@ -109,7 +109,6 @@
 
     curl wttr.in -- consulta la prevision meteorologica de los proximos 3 dias
     curl wttr.in/paris -- consulta la prevision de una zona en concreto
-    
 </p>
 
 <h1>ESCANEAR EL CONTENIDO DE UN ARCHIVO DE TEXTO</h1>
@@ -235,22 +234,30 @@
     sudo /ent/init.d/ufw start -- inicia el servicio
     sudo /ent/init.d/ufw stop -- para el servicio
     sudo /ent/init.d/ufw restart -- reinicia el servicio
-    
 </p>
 
 <h1>FICHERO 1</h1>
 <p>
 
     SE NECESITAN PERMISOS DE ADMINISTRADOR
-    sudo -l -- cambia de $ a #
+    mkefs -- formatea todo
     fdisk -l -- permite ver las particiones
+    
     dumpe2fs /dev/particion -- ves la informacion de la particion
     dunpe2fs -h /dev/sad2 -- lees la informacion de la particion maestra o principal 0
     dumpe2fs -h /dev/sad2
     dumpe2fs -o superblock=inodo
-    sudo bas -- cambiamos de usuario a administrador
-    ls- i ves el inodo del fichero
+    dumpe2fs -o superblock=32768 -o blocksize=4096 /dev/sda1 | less -- sale reducido
+    
+    
+    ls- i nombreFichero ves el inodo del fichero especificado. Si no especificas sale el inodo los ficheros de la ruta
+    
     debugfs -- contenido de inodo. tiene sus propios comandos
-    open /dev/sda2
-    cat <inodo>
+    open /dev/sda2 -- abre la particion y permite empezar a ejecutar los comandos de debugfs
+    cat <inodo> -- permite visualizar el contenido
+    imap <inodo> -- permite consultar la info del inodo
+    if=/dev/sda1 bs=4096 skip=48089362 count=1 -- contenido de los clusters de datos del inodo ded forma directa(RAW)
+            bs(blocksize): tamaño del bloque
+            skip: tamaño del cluster
+            count: numero de contenido a ver
 </p>
