@@ -4,6 +4,7 @@
     CTRL + MAYUS + T -- abre una nueva terminal
     CTRL + MAYUS + C -- copia el contenido seleccionado
     CTRL + MAYUS + V -- pega el contenido seleccionado
+    CTRL + ALT + F1 -- permite acceder a la terminal
 </p>
 
 <h1>INFORMACION ADICCIONAL</h1>
@@ -127,10 +128,116 @@
         :1 -- marcas la g e introduces el numero deseado avanzamdo esa contidad de lineas
         q -- permite salir del editor de texto
 
-        nano
-        
-        
+        NANO -- abres el editor de texto
+        CTRL + R -- permite abrir un archivo de texto y mostrar su contenido
+        CTRL + V -- permite avanzar a la pagina siguiente
+        CTRL + Y -- permite retrocer a la pagina anterior
+        CTRL + W -- abre un buscador de palabras dentro del texto
+        CTRL + X -- permite salir del editor de texto
+
+        VIM -- editor de texto mas complejo
+        sudo apt intall vim -- instalacion de vim
+        vim -- abre el editor de texto
+        :help -- archivo de ayuda sobre los comandos de vim
 </p>
+
+<h1>COMANDOS PARA VER O LISTAR LOS PROCESOS ACTIVOS</h1>
+<h2>LISTADO</h2>
+<ul>
+    <li>PID(identificador)</li>
+    <li>Usuario Propietario</li>
+    <li>Nombre</li>
+</ul>
+    
+<p>
+
+    PID(es un identificador)
+    sudo top -- muestra en tiempo real los procesos en ejecucion
+    q - permite salir del listado de procesos
+    sudo ps -- te muestra una foto con todos lo procesos ejecutandose en tu sistema e informacion sobre ellos
+    sudo ps -e -- te muestra procesos y subprocesos
+    sudo ps -ef te muestra procesos y subprocesos con mayor informacion
+    sudo pstree -- ves toda la informacion de los procesos y subprocesos en forma de arbol
+    hilos -- ({hilo}), 2* ([hilo repetido])
+    sudo pidof nombreDelProceso -- permite conocer el PID del proceso indicado 
+    sudo kill PID-delproceso  o kill -9 PID-delproceso -- pemrite matar le proceso indicado
+    sudo killall nombreDelProceso -- puedes matar el proceso conociendo el nombre
+</p>
+
+<h1>COMPARACION DE ARCHIVOS DE TEXTO</h1>
+<p>
+
+    diff parametros archivo1 archivo2 -- compara dos archivos linea por linea. Muestra las diferencias 1ºArchivo < 2ºArchivo >
+    diff -b .. hacemos la comparacion sin tener en cuenta los espacios en blanco
+
+    cmp archivo1 archivo2 -- compara dos archivos byte a byte
+    cmp -b archivo1 archivo2 -- nos muestra los byte diferentes, numero de linea y contenido que varia
+</p>
+
+<h1>COMPRIMIR Y DESCOMPRIMIR ARCHIVOS</h1>
+<ul>
+    <li><a href="https://computernewage.com/2023/04/15/gnu-linux-formatos-compresion-archivos/">FORMATOS DE COMPRESION</a></li>
+</ul>
+<p>
+
+    gzip -- comprimira en formato gz(LINUX)
+    gzip -9 archivo -- comprime el archivo
+    gzip -1 archivo.gz -- permite saber los parametros del archivo(compresion o el nombre del archivo una vez descomprimido)
+    gxip -d archivo.gz -- permite descomprimir un Gzip
+
+    bzip2 -- comprimira en formato bz2(LINUX)
+    bzip2 -z archivo -- comprimira el archivo
+    bzip2 -t archivo-bz2 -- hace un test de integridad
+    bzip2 -d archivo-bz2 -- descomprime el archivo
+
+    tar -- permite el empaquetado y desempaquetado
+    tar -cvf paquete.tar archivo1 archivo2 -- empaquetas los archivos(no recomendada)
+    tar -cvf paqueter.tar directorio -- empquetas todo de una
+    tar -tvf paquete-tar -- te lista todo lo que contiene de forma recursiva
+    tar -xvf paquete.tar -- desempaqueta
+    tar -czvf paquete.tar.gz archivo1 archivo2 -- comprime los archivo en formato gz
+    tar -czvf paquete.tar.gz directorio -- comprime un directorio
+    tar -xzvf paquete.tar.gz -- descomprime el archivo
+    tar -cjvf paquete.tar.bz2 archivo1 archivo2 --comprime los archivos en formato bz2
+    tar -xjvf paquete.tar.bz2 -- descomprime el paquete
+
+    zip -- formato zip
+    zip archivador.zip archivo1 archivo2 -- comprime y empaquete los archivos
+    unzip -1 archivador.zip -- previsualiza la lista de todos los archivos o directorios del paquete archivador.zip 
+    unzip archivador.xip -- descomprime el paquete
+    unzip archivador.zip archivo1 -- permite descomprimir un archivo en concreto
+</p>
+
+<h1>SERVICIOS</h1>
+<ul>
+    <li><a href="https://computernewage.com/2014/08/10/como-configurar-el-firewall-ufw-en-ubuntu/">UFW</a> ampliado</li>
+</ul>
+<p>
+
+    UFW: servicio que se encarga de gestionar el cortafuegos del kernel en Ubuntu
+    sudo systemctl status -- nos permite ver todos los servicios cargados en tu sistema
+    sudo systemctl status ufw -- nos permite conocer el estado de ufw, si esta activo en memoria o no.
+    sudo systemctl star ssh -- nos permite iniciar el servicio
+    sudo systemctl stop ufw -- nos permite detener el servicio
+    sudo systemctl restart ufw -- nos permite reiniciar el servicio
+    sudo systemctl is-enabled ufw -- comprueba si el servicio esta configurado para iniciarse en cada arranque o no
+    sudo systemctl enable ufw -- permite habilitar un servicio
+    sudo systemctl disable ufw -- permite deshabilitar un servicio
+    
+    sudo service --status-all -- permite ver un listado plano de todos los servicios
+    sudo service --status-all | grep + -- permite ver los servicios que esten iniciados
+    sudo service ufw status -- nos permite ver el estado de un servicio en concreto
+    sudo service ufw start -- permite iniciar el servicio
+    sudo service ufw stop -- permite detener el servicio
+    sudo service ufw restart -- permite reiniciar el servicio
+
+    sudo /ent/init.d/ufw status -- fichero de configuracion dentro del directorio init.d. Comprueba el estado del servicio
+    sudo /ent/init.d/ufw start -- inicia el servicio
+    sudo /ent/init.d/ufw stop -- para el servicio
+    sudo /ent/init.d/ufw restart -- reinicia el servicio
+    
+</p>
+
 <h1>FICHERO 1</h1>
 <p>
 
