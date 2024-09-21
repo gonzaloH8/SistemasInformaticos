@@ -237,6 +237,9 @@
 </p>
 
 <h1>FICHERO 1</h1>
+<ul>
+    <li><a href="https://keepcoding.io/blog/que-es-y-como-usar-el-comando-dd-en-linux/">DD</a> mas informacion</li>
+</ul>
 <p>
 
     SE NECESITAN PERMISOS DE ADMINISTRADOR
@@ -260,4 +263,23 @@
             bs(blocksize): tamaño del bloque
             skip: tamaño del cluster
             count: numero de contenido a ver
+
+    dd -- permite realizar copias de seguridad, clonar discos y particiones, tranferencia de datos
+        info dd -- permite consultar toda la informacion del comando
+
+    losetup -- 
+    losetup -f -- para saber cual esta libre
+
+    parted/fdisk /dev/loop0 -- accedemos al creador de particionamientos
+    n -- añadimos una nueva particion
+    p -- añadimos particion y la seleccionamos como primaria
+    w -- guardamos los cambios
+    q -- salimos del fdisk
+
+    mke2fs -t ext4 /dev/loop0p1 -- permite formatear la particion recien creada
+
+    Por defecto el lugar donde se montan es en los directorio /mnt o /media
+    mount -- permite montarlo dentro del sistema de ficheros existente en la maquina fisica
+    mount -t ext4 /dev/loop0 /mnt/
+    cd /mnt -- vemos que se ha creado correctamente nuestro dispositivo virtual
 </p>
