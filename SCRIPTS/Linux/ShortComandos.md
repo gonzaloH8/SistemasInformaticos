@@ -1,5 +1,11 @@
+# SHELL(bash)
+    cat /etc/shells -- nos permite ver los shells a instalar
+    cat /etc/bahts -- en caso de que no tengamos ninguno instalado
+    echo $SHELL -- permite ver el que tenemos instalado
+    
 # SHORT COMANDOS
     CTRL + D -- nos permite salirnos de un punto vacio
+    chmod +x archivo.sh -- nos permite ejecutar el archivo en terminal y ver el resultado
 
 # COMENTARIOS
     # este es un comentario de una linea
