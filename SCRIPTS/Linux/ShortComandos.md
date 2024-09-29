@@ -26,6 +26,7 @@
 # OPERADORES LOGICOS
     && -- AND necesita que se cumplan ambas condiciones especificadas
     || -o -- OR necesita que se cumpla una de las condiciones especificadas
+    | -- permite ejecutar varios comandos por separado al mismo tiempo
     
 # CONDICIONAL IF ELIF ELSE
      age=10 -- variable
@@ -125,5 +126,14 @@
     ls 1>fichero.txt 2>&1 -- permite guardar el resultado de error del terminal mediante parametro al fichero
     ls -123 >& file.txt -- permite guardar el resultado de error del terminal a un fichero
 
-    
-    
+# EXPORTAR VARIABLES
+    firts.sh
+    MESSAGE="hola mundo"
+    export MESSAGE
+    ./second.sh
+
+    second.sh
+    echo "Contenido del script 1: MESSAGE"
+
+# COMPARACIONES CON STRINGS
+
