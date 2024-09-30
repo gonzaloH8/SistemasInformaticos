@@ -15,6 +15,7 @@
     >
     >>
     <<
+    \ permite escapar una interpretacion distinta a la que queremos
     
 # OPERADORES DE COMPARACION
     -eq -- igualdad ==
@@ -27,6 +28,21 @@
     && -- AND necesita que se cumplan ambas condiciones especificadas
     || -o -- OR necesita que se cumpla una de las condiciones especificadas
     | -- permite ejecutar varios comandos por separado al mismo tiempo
+
+# VARIABLES
+    declare -r variableConstante = 123 -- solo lectura
+    variableModificable = 123
+    vairbleString = "Hola"
+
+# ARRAYS
+    nombresArrays = (( "Jone", "Mark", "Irina" )) -- sintaxis para definir un array
+    echo "Los nombres son: ${nombresArrays[*]}"
+    echo "Los nombres son: ${nombresArrays[@]}"
+    echo "Item 0: ${nombresArrays[0]}"
+    echo "Los indices: ${!nombresArrays[@]}"
+    echo "el total de items: ${#nombresArrays[@]}"
+    echo "el total de items: ${#nombresArrays[*]}"
+    
     
 # CONDICIONAL IF ELIF ELSE
      age=10 -- variable
@@ -136,4 +152,12 @@
     echo "Contenido del script 1: MESSAGE"
 
 # COMPARACIONES CON STRINGS
+    echo ${name,,} -- convierte el nombre en miniscula
+    echo ${name^^} --convierte el nombre en mayuscula
+    echo ${name,,[AEIOU]} -- convierte en minuscula las vocales
+    echo ${name^^[aeiou]} -- convierte en mayuscula las vocales
 
+# NUMBERS
+    echo $(( 10 + 20 )) -- sintaxis para operar aritmetica
+    echo $(( x - y )) --sintaxis para operar aritmetica con variables
+    
