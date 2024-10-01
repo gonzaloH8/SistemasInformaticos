@@ -35,14 +35,32 @@
     vairbleString = "Hola"
 
 # ARRAYS
-    nombresArrays = (( "Jone", "Mark", "Irina" )) -- sintaxis para definir un array
+    nombresArrays = (( "Jone", "Mark", "Irina", "Jone", "Hulk", "Aroa" )) -- sintaxis para definir un array
     echo "Los nombres son: ${nombresArrays[*]}"
     echo "Los nombres son: ${nombresArrays[@]}"
     echo "Item 0: ${nombresArrays[0]}"
     echo "Los indices: ${!nombresArrays[@]}"
     echo "el total de items: ${#nombresArrays[@]}"
     echo "el total de items: ${#nombresArrays[*]}"
-    
+    echo "el ultimo elemento es: ${nombresArrays[${nombresArrays[@]}-1]}"
+    for nombresArray in ${nombresArrays[@]}
+        do
+            echo "My name is: $nombresArray" -- muestra todos los nombres
+        done
+    unset names[1] -- elimina el elemento de la posicion 1
+    echo "Los nombres son: ${nombresArrays[*]}" 
+    nombresArrays[7]="boob" -- añade un elemento nuevo al array
+    nombresArrays[${nombresArrays[@]}]="bob" -- interpreta la longitud maxima del array y añade un nuevo elemento
+    echo "items: ${nombresArrays[*]}"
+    nombresArrays+=("Bob") -- forma simple de añadir elementos
+    nombresArrays[2]="Ari" -- actualiza los valores en funcion de la posicion
+
+# FUNCIONES
+    function hola(){
+        local message="Hola" -- me permite hacer que el valor de esta variable solo existe dentro de la funcion
+        echo "Hola yo soy $1, tengo $2 años"
+    }
+    hola "Gonza" 50
     
 # CONDICIONAL IF ELIF ELSE
      age=10 -- variable
@@ -160,4 +178,49 @@
 # NUMBERS
     echo $(( 10 + 20 )) -- sintaxis para operar aritmetica
     echo $(( x - y )) --sintaxis para operar aritmetica con variables
+
+# DIRECTORIES AND FILES
+    echo "Ingresa el nombre de tu carpeta"
+    read carpeta
+   
+    if [ -d $carpeta ] -- comprueba la existencia de un directorio
+    then
+        echo "el directoio $carpeta existe"
+    else
+        echo "el directorio no existe"
+    fi
+        
+    echo "Ingresa el nombre de tu archivo"
+    read archivo
+    if [ -f $archvivo] -- comprueba la existencia de un archivo
+    then
+        echo "el fichero $archivo existe"
+        read contenido
+        echo $contenido >> $ $archivo -- permite ingresar contenido nuevo al archivo
+    else
+        echo "El fichero no existe"
+    fi
+
+    echo "Ingresa el nombre de tu archivo"
+    read archivo
+    if [ -f $archvivo] -- comprueba la existencia de un archivo
+    then
+        while IFS= read -r line
+        do
+            echo $line
+        done < $archivo
+    else
+        echo "El fichero no existe"
+    fi
     
+ctrl + c cancela la ejecucion de un comando
+
+# CURL
+    permite descargar contenido a partir de un URL
+    echo "Ingresa tu url"
+    read url
+    curl -T $url permite ver informacion del elemento a descargar
+
+# DEBUGGING
+    bash -x nombreScript.sh -- permite recorrer el archivo paso a paso
+    set -x -- permite aplicar donde queremos que empiece a debuggear y donde queremos terminar lo escribimos otra vez
