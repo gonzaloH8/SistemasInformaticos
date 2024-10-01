@@ -76,6 +76,10 @@
      if [[ $age -gt 10 && $age -lt 30 ]]
      if [[ $age -gt 10 -o $age -lt 30 ]]
 
+     test
+         ! -f el fichero no existe
+         -z 
+
 # CONDICIONAL CASE
     Se utiliza normalmente para textos
     echo "escoge entre el valor 1 o 2 "
