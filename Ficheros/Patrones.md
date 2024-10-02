@@ -20,9 +20,7 @@ Patron lo conforman una serie de caracteres con un significado especial:
     \caracter -- permite tomar de forma literal ese caracter, evita errores de ejecucion (ESCAPA EL CARACTER)
     \d -- en esa posicion aparece un digito, sinonimo de [0-9]
     \w -- en esa posicion aparece una palabra, sinonimo de [a-zA-Z]+
-    /s -- en esa posicion aparece un espacio en blanco
-    \t -- tabula un mensaje
-    \n -- salto de linea
+    \s -- en esa posicion aparece un espacio en blanco
 
 # PRACTICAS
         -patron definido asi: ^[0-9]{8}-[a-zA-Z]$ --- que empieze por un numero de 8 numeros con un guion y con una letra
