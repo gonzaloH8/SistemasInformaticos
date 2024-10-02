@@ -18,20 +18,21 @@
     EMULADORES PTS: GNOME Terminal, Konsole, Xterm, Yakuake, Guake, etc.
     chmod +x archivo.sh -- nos permite ejecutar el archivo en terminal y ver el resultado
 
-# COMANDOS GENERICOS
+# ENLACES AMPLIACION CG
 <ul>
   <li><a href="http://wttr.in/:help.">CURL WTTR.IN</a> mas informacion</li>
   <li><a href="https://computernewage.com/2014/12/25/como-personalizar-el-aspecto-del-prompt-de-la-terminal-de-linux/">Personalizacion del Terminal</a></li>
 </ul>
 
+# COMANDOS GENERICOS
     sudo -l -- cambia de $ a #
     sudo + comando. -- permite ejecutar un comando con permisos de administrador de manera puntual
     sudo su o bash -- permite hacer un cambio de sesion de usuario, sin la necesidad de cerrar la sesion del usuario actual
     man + comando -- guia completa del comando
+    clear -- limpia la pantalla sin borrar el contenido, hace scroll hacia abajo
     uname -- informacion del SO usado
     who -- muestra los usuarios logeados en el sistema
     history -- imprime por pantalla un listado de los ultimos comandos usados
-    clear -- limpia la pantalla sin borrar el contenido, hace scroll hacia abajo
     ping -- permite saber si un cliente o servidor esta operativo mediante la direccion IP o url
     date -- informa sobre la fecha y hora del sistema
     curl wttr.in/paris -- te permite saber la prevision meteorologica.(ciudad, codigo areopuerto o nombre dominio)
@@ -51,6 +52,8 @@
     >>
     <<
     \ permite escapar una interpretacion distinta a la que queremos
+    \t -- tabula un mensaje
+    \n -- salto de linea
     
 # OPERADORES DE COMPARACION
     -eq -- igualdad ==
@@ -112,14 +115,14 @@
     number =1
     while [ $number -lt 10 ] -- mientras sea cierto se ejecuta el do
     do
-    echo $number
-    number = $((number + 1))
+        echo $number
+        number = $((number + 1))
     done
 
     until [ $number -ge 10 ] -- mientras no sea falso se ejecuta el do
     do
-    echo $number
-    number = $((number + 1))
+        echo $number
+        number = $((number + 1))
     done
 
     for i in {0..100} -- bucle normal
@@ -127,28 +130,28 @@
         echo $i
     done
 
-    for i in {0..100..10} --bucle indicando el incremento deseado
+    for i in {0..100..10} -- bucle indicando el incremento deseado
 
     for (( i=0; i < 10; i++ ))
     do
-    echo $i
+        echo $i
     done
 
 # BREAK Y CONTINUE
     for (( i=0; i < 10; i++ ))
     do
-    if [ $1 -gt 6 ] -- nos pemite para el bucle en cuanto se cumple la condicion
-        break
-    fi
-    echo $i
+        if [ $1 -gt 6 ] -- nos pemite para el bucle en cuanto se cumple la condicion
+            break
+        fi
+        echo $i
     done
 
     for (( i=0; i < 10; i++ ))
     do
-    if [ $1 -gt 6 ] -- nos pemite saltarnos el 6 y continuar con el bucle
-        continue
-    fi
-    echo $i
+        if [ $1 -gt 6 ] -- nos pemite saltarnos el 6 y continuar con el bucle
+            continue
+        fi
+        echo $i
     done
 
 # ARRAYS
@@ -222,40 +225,6 @@
 # NUMBERS
     echo $(( 10 + 20 )) -- sintaxis para operar aritmetica
     echo $(( x - y )) --sintaxis para operar aritmetica con variables
-
-# DIRECTORIES AND FILES
-    echo "Ingresa el nombre de tu carpeta"
-    read carpeta
-   
-    if [ -d $carpeta ] -- comprueba la existencia de un directorio
-    then
-        echo "el directoio $carpeta existe"
-    else
-        echo "el directorio no existe"
-    fi
-        
-    echo "Ingresa el nombre de tu archivo"
-    read archivo
-    if [ -f $archvivo] -- comprueba la existencia de un archivo
-    then
-        echo "el fichero $archivo existe"
-        read contenido
-        echo $contenido >> $ $archivo -- permite ingresar contenido nuevo al archivo
-    else
-        echo "El fichero no existe"
-    fi
-
-    echo "Ingresa el nombre de tu archivo"
-    read archivo
-    if [ -f $archvivo] -- comprueba la existencia de un archivo
-    then
-        while IFS= read -r line
-        do
-            echo $line
-        done < $archivo
-    else
-        echo "El fichero no existe"
-    fi
 
 # CURL
     permite descargar contenido a partir de un URL
