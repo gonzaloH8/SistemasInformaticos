@@ -1,7 +1,6 @@
-
- ----------------------------------------------------------------------------------
- # ESTRUCTURA LOGICA DEL SISTEMAS DE FICHEROS
- -----------------------------------------------------------------------------------
+----------------------------------------------------------------------------------
+   # ESTRUCTURA LOGICA DEL SISTEMAS DE FICHEROS
+-----------------------------------------------------------------------------------
 
 Si el usuario tuviera que manejar directamente el sistema de ficheros usando inodos, reservando esapcio en la tabla de inodos, buscando y reservando los bloques o clusters necesarios para almacenar la informacion de un fichero o directorio, seguramente nadie lo usuaria. 
 Todos los sitemas operativos crean una capa intermedia entre el sistema fisico real de ficheros y el usuario, que se llama la estructura logica del sistema de ficheros. 
