@@ -25,3 +25,37 @@
     rm -rf /ruta/directorio -- borrara todos los archivos y directorios que se encuentren dentro de el(sin confirmacion)
     cp archivo1.txt archivo2.txt-- copia conteido del primer archivo al segundo.
     mv /ruta /ruta-- permite mover archivos desde la consola y cambiar el nombre en la ubicacion de destino
+
+# ESCANEAR EL CONTENIDO DE UN ARCHIVO DE TEXTO
+        touch nombreArchivo -- permite crear uno o varios archivos vacios en formato txt
+        cat > nombreArchivo contenido -- crea un archivo con el conteido inidcado. CTRL + D finaliza
+        cat nombreArchvio -- imprimira en la terminal el contenido del archivo
+        cat -n nombreArchivo -- imprime el contenido y hace un conteo de lineas
+        cat -b -- imprime el contenido y numero solo aquellas que contengan texto, descarta las lineas en blanco
+
+        more -- imprime el contenido paginado. Adecuado para archivos largos
+
+        less -- muestra el contenido en modo editor de texto
+        g + Enter -- avanza por defecto una linea adelante
+        :1 -- marcas la g e introduces el numero deseado avanzamdo esa contidad de lineas
+        q -- permite salir del editor de texto
+
+        VIM -- editor de texto mas complejo
+        sudo apt intall vim -- instalacion de vim
+        vim -- abre el editor de texto
+        :help -- archivo de ayuda sobre los comandos de vim
+
+# COMPARACION DE ARCHIVOS DE TEXTO
+    diff parametros archivo1 archivo2 -- compara dos archivos linea por linea. Muestra las diferencias 1ºArchivo < 2ºArchivo >
+    diff -b .. hacemos la comparacion sin tener en cuenta los espacios en blanco
+
+    cmp archivo1 archivo2 -- compara dos archivos byte a byte
+    cmp -b archivo1 archivo2 -- nos muestra los byte diferentes, numero de linea y contenido que varia
+
+# NANO
+    NANO -- abres el editor de texto
+        CTRL + R -- permite abrir un archivo de texto y mostrar su contenido
+        CTRL + V -- permite avanzar a la pagina siguiente
+        CTRL + Y -- permite retrocer a la pagina anterior
+        CTRL + W -- abre un buscador de palabras dentro del texto
+        CTRL + X -- permite salir del editor de texto
