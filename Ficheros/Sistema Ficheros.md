@@ -1,4 +1,4 @@
-#  SISTEMA FICHEROS DE LINUX(EXT4)
+#  SISTEMA FICHEROS DE LINUX(EXT4) 16-09-2024
   El sistema de ficheros de Linux(la forma en que tiene Linux de almacenar la informatica) se llama extN(N es la version del sistema de ficheros, actualmente es la 4; ext4) esta formada por estas estructuras: (cuando das "formato" o formateas una unidad, creas un sistema de ficheros en esa unidad, en el caso de Linux creas ext4,  se crean estas estructuras):
 
   Unidad de almacenamiento
