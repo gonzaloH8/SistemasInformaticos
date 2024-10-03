@@ -1,12 +1,13 @@
-# BUSQUEDA DE CONTENIDO 30-09-2024
-      grep [-opciones] /ruta/fichero
-        -e -- patron o expresion-regular
-
-# PATRONES
+# ENLACES 30-09-2024
 Patron lo conforman una serie de caracteres con un significado especial:  
-<a href="https://emailregex.com/">Patron de Email</a>
-<a href="https://10minutemail.com/">Email temporales</a>
+<ul>
+      <li><a href="https://emailregex.com/">Patron de Email</a></li>
+      <li><a href="https://10minutemail.com/">Email temporales</a></li>
+</ul>
 
+# COMANDOS
+    grep [-opciones] /ruta/fichero
+    grep -e -- patron o expresion-regular
     ^ -- principio de linea o cadena
     $ -- fin de linea o cadena
     . -- en esa posicion de la expresion puede aparecer cualquier caracter
