@@ -10,17 +10,21 @@
     cd /ruta de directorio -- permite cambiar de directorio de trabajo. Si ejecutas cd vuelves al direcotio raiz
     cd .. -- va uno hacia atras en la ruta
     cd ../.. -- va dos hacia atras en la ruta
+    
     ls -- lista los archivos y directorios de la carpeta de trabajo en la que te encuentres
     ls -a  -- lista todos los archivos visibles y ocultos
     ls -l -- lista los archivos y te muestra informacion de ellos
     ls -i -- muestra los inodos de cada archivo y directorio
+    
     find ./Documentos -- permite buscar archivos y te muestra el contenido de estos
     find ./Documentos -name archivo.txt
     find ./Documentos -name *.pdf -- busca todos los archivos con este nombre(extension)
     locate archivo.txt -- permite localizar archivos. Algo parecido a find
+    
     mkdir /ruta/nombreDirectorio -- permite crear directorios
     rmdir /ruta/directorio -- permite eliminar el directorio especificado
     rm /ruta/archivo permite eliminar archivos sueltos y directorios que no se encuentren vacios
+    rm -d Directorio -- permite borrar directorio
     rm -r /ruta/directorio -- borrara todos los archivos y directorios que se encuentren dentro de el(necesita confirmacion)
     rm -rf /ruta/directorio -- borrara todos los archivos y directorios que se encuentren dentro de el(sin confirmacion)
     cp archivo1.txt archivo2.txt-- copia conteido del primer archivo al segundo.
@@ -28,7 +32,13 @@
 
 # ESCANEAR EL CONTENIDO DE UN ARCHIVO DE TEXTO
         touch nombreArchivo -- permite crear uno o varios archivos vacios en formato txt
-        cat > nombreArchivo contenido -- crea un archivo con el conteido inidcado. CTRL + D finaliza
+        > fichero1.txt > fichero2.txt -- permite crear fichero vacios
+        
+        echo -e 'contenido' >> fichero.txt -- permite agregar un texto y crear el fichero que lo contenga al mismo tiempo
+        echo 'contenido' > fichero.txt .. sobreescribe el contenido del fichero
+        
+        cat >> nombreArchivo contenido -- crea un archivo con el conteido inidcado. CTRL + D finaliza
+        cat > Archivo.txt contenido -- sobreescribe el contenido
         cat nombreArchvio -- imprimira en la terminal el contenido del archivo
         cat -n nombreArchivo -- imprime el contenido y hace un conteo de lineas
         cat -b -- imprime el contenido y numero solo aquellas que contengan texto, descarta las lineas en blanco
