@@ -48,8 +48,8 @@
     : 'este es un comentario de dos o mas lineas'
 
 # OPERADORES DE TEXTO
-    >
-    >>
+    > -- permite sobreescribir contenido de un fichero
+    >> -- permite agregar contenido a un fichero
     <<
     \ permite escapar una interpretacion distinta a la que queremos
     \t -- tabula un mensaje
