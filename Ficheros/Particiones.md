@@ -1,3 +1,7 @@
+# TEORIA 19-09-2024
+
+
+
 # ENLACES
 <ul>
     <li><a href="https://keepcoding.io/blog/que-es-y-como-usar-el-comando-dd-en-linux/">DD</a> mas informacion</li>
