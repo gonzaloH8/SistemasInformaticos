@@ -1,5 +1,5 @@
 ----------------------------------------------------------------------------------
-   # ESTRUCTURA LOGICA DEL SISTEMAS DE FICHEROS
+   # ESTRUCTURA LOGICA DEL SISTEMAS DE FICHEROS 26-09-2024
 -----------------------------------------------------------------------------------
 
 Si el usuario tuviera que manejar directamente el sistema de ficheros usando inodos, reservando esapcio en la tabla de inodos, buscando y reservando los bloques o clusters necesarios para almacenar la informacion de un fichero o directorio, seguramente nadie lo usuaria. 
@@ -7,12 +7,23 @@ Todos los sitemas operativos crean una capa intermedia entre el sistema fisico r
 Son simplemente objetos, organizados de en una estructura jerarquica en forma de arbol (cada nodo del arbol se mapea con un inodo real del sistema de ficheros fisico real)
 El objeto raiz del arbol en linux es el directorio raiz o "/" y del mismo ya cuelgan el resto; hay mas de un tipo de objeto, pero los principales:
 
-  - Un directorio simplemente es un objeto destinado a contener otros objetos
+  - Un directorio es un objeto destinado a contener otros objetos
   - Un archivo es un objeto a contener informacion
   - Un enlace o LINK es un puntero a un archivo o directorio
   - Un socket es un "buffer" para almacenar informacion a mandar/recibir atraves de la red
   - Una pipe es un tipo especial de fichero o archivo
 
+El kernel monta una capa intermedia entre el sistema de ficheros real de ficheros(inodos...) y el usuario, llamada sistema logico del sistema de ficheros, 
+que consiste en una serie de objetos organizados de forma jerarquica en arbol 
+nodo raiz <=== directorio raiz /
+nodo-hijo   nodo-hijo     nodo-hijo
+                            |
+                        ------------------
+                        |    |    |     |
+                        nodo
+                        hijo
+                  
+# COMANDOS
         bin/(binaries): binarios de ordenes de usuario esenciales. Lo puede ejecutar por usuarios y admin
         boot/: directorio de arranque del sistema(ficheros involucrados en el arranque, kernel, initial ram disk, gestor de arranque GRUB)
         dev/: Archivos de dispositivos
@@ -35,28 +46,8 @@ El objeto raiz del arbol en linux es el directorio raiz o "/" y del mismo ya cue
            proc(process directory) da informacion de todos los procesos que se estan ejecutando en el sist y recursos que usan
            sys (system directory) da informacion de variables de configuracion del kernel y sus modulos
            run(running apps) informacion sobre aps ejecutandose(servicios)
-        
-
-# SISTEMA LOGICO DEL SISTEMA FICHEROS
-el kernel monta una capa intermedia entre el sistema de ficheros real de ficheros(inodos...) y el usuario, llamada sistema logico del sistema de ficheros, que consiste en una serie de objetos organizados de forma jerarquica en arbol
-nodo raiz <=== directorio raiz /
-nodo-hijo   nodo-hijo     nodo-hijo
-                            |
-                        ------------------
-                        |    |    |     |
-                        nodo
-                        hijo
-el tipo de nodos o de objetos en este sistema logico(sistema fisico real, son inodos):
-- directorios: objetos contenedores
-- ficheros: objetos que almacenan informacion
-- links: objetos que apuntan a otros(directorios o ficheros, soft-links, hard-links)
-- sockets: objetos que almacenan informacion y mandan atraves de la red
-- pipes: objetos que sirven como buffers temporales de informacion
-
-la estructura de directorios en el arbol de linux suele ser, del directorio raiz / suelen colgar:
-comandos para movernos por el arbol manejar directorios/ficheros/...
-cd ruta ---> "change directory" comando que sirve para ponerte en un determinado punto del arbol indicado por "ruta"
-ls ----> "list details" lista de detalles del nodo
+        tree -opciones ruta ---> imprime por pantalla la ruta en forma de arbol
+        sudo apt install -y tree -- instalacion del paquete tree
 
 # PRACTICA
 - 1 situaros en directorio "Musica" del perfil de tu usuario y ver contenido
@@ -66,8 +57,3 @@ ls ----> "list details" lista de detalles del nodo
 - 4 borrar directorios trap y regatton
 - 5 renombrar directorio pop a Happy-pop 
 - 6 meter algun fichero en directorio Happy-Pop y copiar su contenido en /tmp/Happy-Pop
-
-<a href="https://releases.ubuntu.com/jammy/">Ubuntu 22</a>
-
-tree -opciones ruta ---> imprime por pantalla la ruta en forma de arbol
-sudo apt install -y tree -- instalacion del paquete tree
