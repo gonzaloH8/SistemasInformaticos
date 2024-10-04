@@ -8,6 +8,8 @@ Patron lo conforman una serie de caracteres con un significado especial:
 # COMANDOS
     grep [-opciones] /ruta/fichero
     grep -e -- patron o expresion-regular
+    grep -v -- muestra aquello que no cumple el patron
+    grep -i -- busca sin inportar si son mayus o minus
     ^ -- principio de linea o cadena
     $ -- fin de linea o cadena
     . -- en esa posicion de la expresion puede aparecer cualquier caracter
