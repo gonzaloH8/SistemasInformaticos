@@ -10,12 +10,66 @@ Patron lo conforman una serie de caracteres con un significado especial:
     grep -e -- patron o expresion-regular
     grep -v -- muestra aquello que no cumple el patron
     grep -i -- busca sin inportar si son mayus o minus
+
+--------------------
+# PATRONES
+--------------------
+# ANCLAS
     ^ -- principio de linea o cadena
     $ -- fin de linea o cadena
     . -- en esa posicion de la expresion puede aparecer cualquier caracter
+    \A -- inicio de cadena
+    \Z fin de la cadena
+    \b limite de palabras
+    \B sin limite de palabras
+    \< inicio de palabra
+    \> fin de palabra
+    
+# CUANTIFICADORES
     * -- cero o mas repeticiones de la anterior expresion a partir de esa posicion
     + -- una o mas repeticiones de la expresion anterior en esa posicion
     ? -- cero o una repeticion de la expresion anterior.Opcional
+    
+# GRUPOS Y RANGOS
+
+# CLASES DE PERSONAJES
+      \do personaje de control
+      \s espacio en blanco
+      \S no es espacio en blanco
+      \d digito
+      \D no es digito
+      \en palabra
+      \W no es palabra
+      \incognita digito hexadecimal
+      \O digito octal
+      
+# SECUENCIAS DE ESCAPE
+
+#MODIFICADORES DE PATRONES
+
+# SISTEMA DE ARCHIVOS POSIX
+[:superior:] letras mayusculas
+[:mas abajo:] letras minusculas
+[:alfa:] todas las letras
+[:numero:] cifras y letras
+[:digito:] Digitos
+[:xdigito:] digitos hexadecimales
+[:punto:] puntuacion
+[:blanco:] espacio y tabulacion
+[:espacio:] caracteres en blanco
+[:control:] personajes de control
+[:grafico:] caracteres impresos
+[:imprimir:] caracteres impresos y espacio
+[:palabra:] cifras,letras y guiones bajos
+
+# METACARACTERES COMUNES
+
+# REEMPLAZO DE CUERDAS
+
+# AFIRMACIONES
+      ?= Afirmacion de anticipacion
+# CARACTERES ESPECIALES
+
     {n,m} -- la expresion anterior se repite mas de n-veces pero menos de n-veces
     {n,} -- la expresion anterior se repite exactamente n-veces
     [^._-$#] -- en esa posicion NO PUEDE aparecer cualquier caracter enumerado en la lista
