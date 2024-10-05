@@ -24,13 +24,17 @@ Los procesos marginales, no requieren urgencia en ejecutarse:
   SCHED_IDLE: procesos que solo acceden a cpu cuando el kernel tiene menos carga de trabajo, esta practicamente parado, sin hacer nada.
 
 # COMANDOS PARA VER O LISTAR LOS PROCESOS ACTIVOS
+    nombre_aplicacion -- ejecuta la aplicacion, pero se cierra al quitar la terminal
+    nombre_aplicacion & -- ejecuta la aplicacion en segundo plano
+    nohup nombre_aplicacion & -- version mas corta
+  
     app firefox: /usr/bin ---> firefox 7.7KB --> BCP-firefox
     init 0 -- borra el proceso principal sin preguntar
     sudo kill -9 -p 1 -- borra el proceso principal preguntando
     pstree -- muestra en una lista los procesos
   
     sudo kill -l -- para ver el conjuto de señales que puede mandar
-    sudo kill -9 -p `pidof firefox`-- cierra la apliacion
+    sudo kill -9 -p `pidof firefox`-- cierra la aplicacion
 
     pidof nombre_app -- te muestra los PID de los threads del BCP de esa aplicacion
 
