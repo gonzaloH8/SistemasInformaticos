@@ -7,6 +7,7 @@
     CTRL + K CTRL + U -- descomenta lo seleccionado
     CTRL + D -- nos permite salirnos de un punto vacio
     CTRL + C -- cancela la ejecucion de un comando
+    CTRL + L -- limpia el terminal == clear
     
 # INFORMACION ADICCIONAL
     Ruta Abosoluta: aplicas la ruta en orden /home/usuario/descargas/archivo1.txt /home/usuario/Documentos/archivo1.txt
