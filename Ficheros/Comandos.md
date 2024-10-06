@@ -62,6 +62,8 @@
     -le -- menor o igual <=
     -gt -- mayor que >
     -lt -- menor que <
+    "$var" = "cadena"
+    "$var" != "cadena"
 
 # OPERADORES LOGICOS
     && -- AND necesita que se cumplan ambas condiciones especificadas
@@ -92,7 +94,7 @@
 
      OPCIONES: TEST
          ! -f el fichero no existe
-         -z fichero vacio
+         -z fichero/cadena vacio
          -f/-e si el fichero existe
          -d si el directorio existe
 
