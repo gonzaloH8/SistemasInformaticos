@@ -22,7 +22,8 @@ El SCHED_OTHER: es un RR para apliciones de usuario
 Los procesos marginales, no requieren urgencia en ejecutarse:
   SCHED_BATCH: procesos que necesitan operaciones Input/Output(lectura/escritura dispositivas)
   SCHED_IDLE: procesos que solo acceden a cpu cuando el kernel tiene menos carga de trabajo, esta practicamente parado, sin hacer nada.
-
+ hilos -- ({hilo}), 2* ([hilo repetido])
+ 
 # COMANDOS PARA VER O LISTAR LOS PROCESOS ACTIVOS
     CTRL + Z permite pausar 
     nombre_aplicacion -- ejecuta la aplicacion, pero se cierra al quitar la terminal
@@ -33,14 +34,10 @@ Los procesos marginales, no requieren urgencia en ejecutarse:
     fg %1 -- vuelve la apliacion a 1º plano
   
     app firefox: /usr/bin ---> firefox 7.7KB --> BCP-firefox
-    init 0 -- borra el proceso principal sin preguntar
-    sudo kill -9 -p 1 -- borra el proceso principal preguntando
-    pstree -- muestra en una lista los procesos
   
-    sudo kill -l -- para ver el conjuto de señales que puede mandar
-    sudo kill -9 -p `pidof firefox`-- cierra la aplicacion
-
     pidof nombre_app -- te muestra los PID de los threads del BCP de esa aplicacion
+    sudo pidof nombreDelProceso -- permite conocer el PID del proceso indicado 
+    sudo pstree -- ves toda la informacion de los procesos y subprocesos en forma de arbol
 
     Opciones de selecion de procesos:
     ps --help all | less -- te muestra toda la ayuda de procesos
@@ -51,6 +48,7 @@ Los procesos marginales, no requieren urgencia en ejecutarse:
     ps -e -- te muestra procesos y subprocesos
     
     Opciones formato de informacion de salida del proceso:
+    sudo ps -- te muestra una foto con todos lo procesos ejecutandose en tu sistema e informacion sobre ellos
     ps -f -- full-format, te da esta info: PID, PPID, usuario, grupo, %cpu, tiempo de ejecucion, estado, ejecutable
     ps -ef te muestra procesos y subprocesos con mayor informacion
     ps -o opcion1,opcion2,opcion3,... -- sirve para personalizar la informacion del BCP a mostrar de cada proceso(man ps)
@@ -68,26 +66,19 @@ Los procesos marginales, no requieren urgencia en ejecutarse:
     renice -n valor_bondad -p pid_proceso <--- cambias el valor de la prioridad (alterando su bondad) en PROCESOS EN EJECUCION
       
     sudo top -- muestra en tiempo real los procesos en ejecucion
-    q - permite salir del listado de procesos
-    sudo ps -- te muestra una foto con todos lo procesos ejecutandose en tu sistema e informacion sobre ellos
-    
-    sudo pstree -- ves toda la informacion de los procesos y subprocesos en forma de arbol
-    hilos -- ({hilo}), 2* ([hilo repetido])
-    sudo pidof nombreDelProceso -- permite conocer el PID del proceso indicado 
-    
-    sudo kill PID-delproceso  o kill -9 PID-delproceso -- permite matar le proceso indicado
+    sudo apt install htop -- version mejorada de top
+    q - permite salir del listado de procesos 
+   
+    sudo kill PID-delproceso o kill -9 PID-delproceso -- permite matar le proceso indicado
     sudo killall nombreDelProceso -- puedes matar el proceso conociendo el nombre
     kill -l -- ves todos las señales de kill
+    sudo kill -9 -p `pidof firefox`-- cierra la aplicacion
+    sudo kill -9 -p 1 -- borra el proceso principal preguntando
+    init 0 -- borra el proceso principal sin preguntar
+    
     chrt -- permite ver caracteristicas de los algoritmos de planificacion del scheduler; tambien permite cambiar procesos de un algoritmo a otro
     chrt -p num_prioridad -- muestra la prioridad de la aplicacion
-
-    top
-    sudo apt install htop -- version mejorada de top
-
-   
-    sudp apt install tmux --consola enriquecida
-    CTRL B "
-    CTRL 
+    
 # PRACTICAS
 ver algoritmos y sus prioridades: chrt -m
 cambiar un proceso a SCHED_FIFO y que tenga prioridad 10, para BCP con pid del proceso 175: chrt -f --pid 10 75
@@ -119,72 +110,3 @@ ej:
     - finalizamos navegador con CTRL + Z
 
 trap comando_ejecutar nombre_señal -----> permite ejecutar un comando/s cuando se produce una determinada señal
-
-PRACTICA
-ej: nos creamos este script en /tmp <---- infinito.sh(añdir permisos de ejecucion y lanzarlo)
-#!/bin/bash
-clear
-cont=0
-while true
-do
-trap 'echo "...señal recibida"' SIGUSR1
-
-if [ $cont -le 10 ]
-then
-  echo -n "."
-else
-  clear
-  cont=0
-fi
-cont=`expr $cont + 1`
-sleep 1s
-done
-
--- consultar en otra consola el valor de su bondad, prioridad y estado (opciones de ps: nice,pri,stat)
--- mandar señal con kill de tipo SIGUSR1 al pid del script ¿que hace el script?
--- suspender el script con CTRL + Z y mandarlo a segundo plano para que continue su ejecucion (comprobarlo con jobs)
--- aumentar su prioridad en 2 puntos con renice, volverlo a comprobar con comando ps
--- matar el script
-
-
-#! /bin/bash
-clear
-
-app="infinito.sh"
-echo "MENU"
-echo "1) consultar en otra consola el valor de su bondad, prioridad y estado (opciones de ps: nice,pri,stat)"
-echo "2) mandar señal con kill de tipo SIGUSR1 al pid del script ¿que hace el script? "
-echo "3) suspender el script con CTRL + Z y mandarlo a segundo plano para que continue su ejecucion (comprobarlo con jobs)"
-echo "4) aumentar su prioridad en 2 puntos con renice, volverlo a comprobar con comando ps "
-echo "5) matar el script "
-read opcion
-case $opcion in
-    1)
-       ps -C $app -o nice,pri,stat
-    ;;
-
-    2) 
-        ps -C $app -o pid,cmd
-        read -p "escribe el pid: " pid
-        kill -s SIGUSR1 $pid
-    ;;
-
-    3)
-
-    ;;
-
-    4)
-        renice -n +2 $app
-        ps -C $app -o pid,pri,cmd,stat
-    ;;
-
-    5)
-        ps -C $app -o pid,cmd
-        read -p "Excribe la pid: " pid
-        kill -s SIGTERM $pid
-    ;;
-
-    *)
-        echo "Salimos del Script"
-    ;;
-    esac
