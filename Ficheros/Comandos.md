@@ -1,3 +1,5 @@
+ <li><a href="https://tmuxcheatsheet.com/">COMANDOS</a></li>
+
 # SHORTS COMANDOS
     CTRL + MAYUS + T -- abre una nueva terminal
     CTRL + MAYUS + C -- copia el contenido seleccionado
