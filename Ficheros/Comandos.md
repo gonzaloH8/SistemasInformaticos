@@ -1,4 +1,4 @@
- <li><a href="https://tmuxcheatsheet.com/">COMANDOS</a></li>
+ <li><a href="https://tmuxcheatsheet.com/">COMANDOS</a> estilo terminal(sudo apt install tmux --consola enriquecida)</li>
 
 # SHORTS COMANDOS
     CTRL + MAYUS + T -- abre una nueva terminal
