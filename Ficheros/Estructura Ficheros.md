@@ -27,6 +27,7 @@ nodo-hijo   nodo-hijo     nodo-hijo
         bin/(binaries): binarios de ordenes de usuario esenciales. Lo puede ejecutar por usuarios y admin
         boot/: directorio de arranque del sistema(ficheros involucrados en el arranque, kernel, initial ram disk, gestor de arranque GRUB)
         dev/: Archivos de dispositivos
+           /dev/null: elimina todo aquello que se envie a este archivo/directorio
         etc/(): directorio con ficheros de configuracion del sistema del host
         home/: directorios casa de cada usuario
         lib/: bibliotecas compartidas y modulos del nucleo(kernel). librerias del software instalado
