@@ -4,14 +4,16 @@
 </ul>
 
     UFW: servicio que se encarga de gestionar el cortafuegos del kernel en Ubuntu
+    CRON: servicio de editor de texto
+    ssh: servicio
     sudo systemctl status -- nos permite ver todos los servicios cargados en tu sistema
-    sudo systemctl status ufw -- nos permite conocer el estado de ufw, si esta activo en memoria o no.
-    sudo systemctl star ssh -- nos permite iniciar el servicio
-    sudo systemctl stop ufw -- nos permite detener el servicio
-    sudo systemctl restart ufw -- nos permite reiniciar el servicio
-    sudo systemctl is-enabled ufw -- comprueba si el servicio esta configurado para iniciarse en cada arranque o no
-    sudo systemctl enable ufw -- permite habilitar un servicio
-    sudo systemctl disable ufw -- permite deshabilitar un servicio
+    sudo systemctl status nombre_servicio -- nos permite conocer el estado de ufw, si esta activo en memoria o no.
+    sudo systemctl star nombre_servicio -- nos permite iniciar el servicio. Tiene que estar habilitado, si no no lo reconocera
+    sudo systemctl stop nombre_servicio -- nos permite detener el servicio. Deshabilitas
+    sudo systemctl restart nombre_servicio -- nos permite reiniciar el servicio
+    sudo systemctl is-enabled nombre_servicio -- comprueba si el servicio esta configurado para iniciarse en cada arranque o no
+    sudo systemctl enable nombre_servicio -- permite habilitar un servicio
+    sudo systemctl disable nombre_servicio -- permite deshabilitar un servicio
     
     sudo service --status-all -- permite ver un listado plano de todos los servicios
     sudo service --status-all | grep + -- permite ver los servicios que esten iniciados
@@ -83,5 +85,58 @@ RestartSec=30s ----> tiempo entre servicios
 SysLogFacility=cron------> como se mandan mensajes al LOG del servicio
 
 [Install]
-WantedBy=multi-user.target
+WantedBy=multi-user.target -----> indica que unidades necesitan estar cargadas para el servicio
 
+# PRACTICA
+#!/bin/bash
+clear
+# 1º paso pedir por teclado el nombre de un servicio
+# 2º mostrar este menu
+    # 1º Mostrar fichero de configuracion del servicio
+    # 2º Mostrar estado del servicio
+    # 3º Parar servicio
+    # 4º Arrancar servicio
+    # 5º Deshabilitar servicio
+    # 6º Habilitar servicio
+    # 7º Salir del script 
+
+read -p "Dime el nombre del servicio a trabajar: " serv
+opcion=0
+# while [ $opcion -ne 7 ]
+# do
+    echo "1º Mostrar fichero de configuracion del servicio"
+    echo "2º Mostrar estado del servicio"
+    echo "3º Parar servicio"
+    echo "4º Arrancar servicio"
+    echo "5º Deshabilitar servicio"
+    echo "6º Habilitar servicio"
+    echo "7º Salir del script"
+
+read opcion
+case $opcion in
+    1)
+        systemctl cat $serv.service
+    ;;
+
+    2)
+        systemctl status $serv.service
+    ;;
+
+    3)
+        systemctl stop $serv.service
+    ;;
+
+    4)
+        systemctl start $serv.service
+    ;;
+    5)
+        sudo systemctl disable $serv.service
+    ;;
+
+    6)
+        sudo systemctl enable $serv.service
+    ;;
+
+    *)
+        echo "Salimos del Script"
+esac
