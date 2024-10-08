@@ -1,7 +1,5 @@
 # TEORIA 19-09-2024
 
-
-
 # ENLACES
 <ul>
     <li><a href="https://keepcoding.io/blog/que-es-y-como-usar-el-comando-dd-en-linux/">DD</a> mas informacion</li>
@@ -11,14 +9,13 @@
     SE NECESITAN PERMISOS DE ADMINISTRADOR
     mkefs -- formatea todo
     fdisk -l -- permite ver las particiones
+     sudo -l -- cambia de $ a #
+    sudo bas -- cambiamos de usuario a administrador
     
     dumpe2fs /dev/particion -- ves la informacion de la particion
     dunpe2fs -h /dev/sad2 -- lees la informacion de la particion maestra o principal 0
-    dumpe2fs -h /dev/sad2
     dumpe2fs -o superblock=inodo
     dumpe2fs -o superblock=32768 -o blocksize=4096 /dev/sda1 | less -- sale reducido   
-    
-    ls- i nombreFichero ves el inodo del fichero especificado. Si no especificas sale el inodo los ficheros de la ruta
     
     debugfs -- contenido de inodo. tiene sus propios comandos
     open /dev/sda2 -- abre la particion y permite empezar a ejecutar los comandos de debugfs
