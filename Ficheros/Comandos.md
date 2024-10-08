@@ -20,6 +20,7 @@
     Terminales TTY mediante las combinaciones de teclado 'CTRL+ALT+F1' hasta 'CTRL+ALT+F7'
     EMULADORES PTS: GNOME Terminal, Konsole, Xterm, Yakuake, Guake, etc.
     chmod +x archivo.sh -- nos permite ejecutar el archivo en terminal y ver el resultado
+    { echo "Hello World"; | ls; } > resultado.txt
 
 # ENLACES AMPLIACION CG
 <ul>
