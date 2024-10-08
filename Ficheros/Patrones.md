@@ -6,10 +6,19 @@ Patron lo conforman una serie de caracteres con un significado especial:
 </ul>
 
 # COMANDOS
-    grep [-opciones] /ruta/fichero
-    grep -e -- patron o expresion-regular
-    grep -v -- muestra aquello que no cumple el patron
-    grep -i -- busca sin inportar si son mayus o minus
+      grep [-opciones] /ruta/fichero
+      -v  -- muestra aquello que no cumple el patron
+      -E, --extended-regexp     PATRONES son expresiones regulares extendidas (ERE)
+      -F, --fixed-strings       PATRONES son cadenas
+      -G, --basic-regexp        PATRONES son expresiones regulares básicas (BRE)
+      -P, --perl-regexp         PATRONES son expresiones regulares en Perl
+      -e, --regexp=PATRONES     utiliza PATRONES para encontrar coincidencias
+      -f, --file=FICHERO        obtiene PATRONES de FICHERO
+      -i, --ignore-case         considera iguales mayúsculas y minúsculas
+            --no-ignore-case      considera diferentes mayúsculas y minúsculas
+      -w, --word-regexp         coincide solamente con palabras completas
+      -x, --line-regexp         coincide solamente con líneas completas
+      -z, --null-data           una línea de datos termina en un byte 0, no en un carácter de nueva línea
 
 --------------------
 # PATRONES
