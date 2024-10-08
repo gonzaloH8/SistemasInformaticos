@@ -79,7 +79,7 @@ nodo-hijo   nodo-hijo     nodo-hijo
                         nodo
                         hijo
                   
-# COMANDOS
+# ESTRUCTURA DEL SO DE LINUX
         bin/(binaries): binarios de ordenes de usuario esenciales. Lo puede ejecutar por usuarios y admin
         boot/: directorio de arranque del sistema(ficheros involucrados en el arranque, kernel, initial ram disk, gestor de arranque GRUB)
         dev/: Archivos de dispositivos
@@ -103,8 +103,6 @@ nodo-hijo   nodo-hijo     nodo-hijo
            proc(process directory) da informacion de todos los procesos que se estan ejecutando en el sist y recursos que usan
            sys (system directory) da informacion de variables de configuracion del kernel y sus modulos
            run(running apps) informacion sobre aps ejecutandose(servicios)
-        tree -opciones ruta ---> imprime por pantalla la ruta en forma de arbol
-        sudo apt install -y tree -- instalacion del paquete tree
 
 # ENLACES
 <ul>
@@ -124,6 +122,8 @@ nodo-hijo   nodo-hijo     nodo-hijo
     ls -a  -- lista todos los archivos visibles y ocultos
     ls -l -- lista los archivos y te muestra informacion de ellos
     ls -i -- muestra los inodos de cada archivo y directorio
+    tree -opciones ruta ---> imprime por pantalla la ruta en forma de arbol
+    sudo apt install -y tree -- instalacion del paquete tree
 
 # BUSCA DIRECTORIOS
     find ./Documentos -- permite buscar archivos y te muestra el contenido de estos
@@ -182,17 +182,3 @@ nodo-hijo   nodo-hijo     nodo-hijo
         CTRL + Y -- permite retrocer a la pagina anterior
         CTRL + W -- abre un buscador de palabras dentro del texto
         CTRL + X -- permite salir del editor de texto
-
-# COMANDOS
-    SE NECESITAN PERMISOS DE ADMINISTRADOR
-    sudo -l -- cambia de $ a #
-    fdisk -l -- permite ver las particiones
-    dumpe2fs /dev/particion -- ves la informacion de la particion
-    dunpe2fs -h /dev/sad2 -- lees la informacion de la particion maestra o principal 0
-    dumpe2fs -h /dev/sad2
-    dumpe2fs -o superblock=inodo
-    sudo bas -- cambiamos de usuario a administrador
-    
-    debugfs -- contenido de inodo. tiene sus propios comandos
-    open /dev/sda2
-    cat <inodo>
