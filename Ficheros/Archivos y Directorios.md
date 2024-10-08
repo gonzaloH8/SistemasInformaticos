@@ -55,6 +55,8 @@
         vim -- abre el editor de texto
         :help -- archivo de ayuda sobre los comandos de vim
 
+        ejecucion=$(ls) -- guardar comandos en variables
+
 # COMPARACION DE ARCHIVOS DE TEXTO
     diff parametros archivo1 archivo2 -- compara dos archivos linea por linea. Muestra las diferencias 1ºArchivo < 2ºArchivo >
     diff -b .. hacemos la comparacion sin tener en cuenta los espacios en blanco
