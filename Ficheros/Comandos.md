@@ -117,30 +117,71 @@
         ;;
         esac
 
-# BUCLES
+# BUCLES FOR
+    Bucle que repite el comando el numero de veces indicado
+    for i in 1 2 3 4 5..
+    do
+      echo "Bienvenido $i veces"
+    done
+
+    Bucle que repite el comando el numero de veces indicado, formato corto
+    for i in{1..5}
+    do
+     echo "Bienvenido $i veces"
+    done
+
+    Bucle que repite el comando el numero de veces indicado con un patron de incremento par
+    for i in {0..10..2}
+    do
+     echo "Bienvenido $i veces"
+    done
+
+    Bucle de formato java
+    for (( c=1; c<5; c++ ))
+    do
+     echo "Bienvenido $c veces"
+    done
+
+    Bucle infinito
+    for (( ; ; ))
+    do
+     echo "Bucle infinito"
+    done
+
+    Bucle con Break
+    for i in 1 2 3 4 5
+    do
+     echo "Bienvenido $i veces"
+    if [ $i < 3 ]
+    then
+     break
+    fi
+     echo "Bienvenido $i veces"
+    done
+
+    Recorre todo los archivos del directorio /etc hasta encontrar el archivo
+    for file in /etc/*
+    do 
+        if [ "${file}" == "/etc/resolv.conf" ]
+        then
+            countNameservers=$(grep -c nameserver /etc/resolv.conf)
+            echo "Total dns ${countNameservers} nameservers defined in ${file}"
+            break
+        fi
+    done
+
+# BUCLES WHILE
     number =1
-    while [ $number -lt 10 ] -- mientras sea cierto se ejecuta el do
+    while [ $number -ne 10 ] -- mientras sea cierto se ejecuta el do
     do
         echo $number
         number = $((number + 1))
     done
-
+ 
     until [ $number -ge 10 ] -- mientras no sea falso se ejecuta el do
     do
         echo $number
         number = $((number + 1))
-    done
-
-    for i in {0..100} -- bucle normal
-    do
-        echo $i
-    done
-
-    for i in {0..100..10} -- bucle indicando el incremento deseado
-
-    for (( i=0; i < 10; i++ ))
-    do
-        echo $i
     done
 
 # BREAK Y CONTINUE
