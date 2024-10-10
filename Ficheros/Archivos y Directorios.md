@@ -80,25 +80,28 @@ nodo-hijo   nodo-hijo     nodo-hijo
                         hijo
                   
 # ESTRUCTURA DEL SO DE LINUX
-        bin/(binaries): binarios de ordenes de usuario esenciales. Lo puede ejecutar por usuarios y admin
-        boot/: directorio de arranque del sistema(ficheros involucrados en el arranque, kernel, initial ram disk, gestor de arranque GRUB)
-        dev/: Archivos de dispositivos
-           /dev/null: elimina todo aquello que se envie a este archivo/directorio
-        etc/(): directorio con ficheros de configuracion del sistema del host
-        home/: directorios casa de cada usuario
-        lib/: bibliotecas compartidas y modulos del nucleo(kernel). librerias del software instalado
-        media/: se automonta(reconocimiento directo de unidades)
-        mnt/: directorios de anclaje del contenido de dispositivos externos(comando mount)
-        opt/: paquetes de apliaciones de software complementarias
-        sbin/(super-root binaries): binarios del sistema. Solo puede ser ejecutado por admin
-        svr/: datos para servicios proporcionados por el sistema
-        tmp/: ficheros temporales
-        usr/(user-resources): utilidades y apliaciones de usuario. Ejecutables, librerias, codigo fuente del software
-        var/: archivos variables. Directorio de contenido de servicios (http, ftp, mail,...) como para los LOGS del sistema
-        root/: directorios casa del usuario administrador
-        proc/: el kernel cuando arranca, y los crea en memoria RAM (cuando se apaga el equipo, desaparecen)
-        src/: codigo fuente de software instalado por usuarios
-        run/: directorios que no estan creados sobre el disp.fisico de almacenamiento, sino que las creas
+        bin/(binaries) -- binarios de ordenes de usuario esenciales. Lo puede ejecutar por usuarios y admin
+        boot/ -- directorio de arranque del sistema(ficheros involucrados en el arranque, kernel, initial ram disk, gestor de arranque GRUB)
+        dev/ -- Archivos de dispositivos
+           /dev/null -- elimina todo aquello que se envie a este archivo/directorio
+        etc/() -- directorio con ficheros de configuracion del sistema del host
+        home/ -- directorios casa de cada usuario
+        lib/ -- bibliotecas compartidas y modulos del nucleo(kernel). librerias del software instalado
+        media/ -- se automonta(reconocimiento directo de unidades)
+        mnt/ -- directorios de anclaje del contenido de dispositivos externos(comando mount)
+        opt/ -- paquetes de apliaciones de software complementarias
+        sbin/(super-root binaries) -- binarios del sistema. Solo puede ser ejecutado por admin
+        svr/ -- datos para servicios proporcionados por el sistema
+        tmp/ -- ficheros temporales
+        usr/(user-resources) -- utilidades y apliaciones de usuario. Ejecutables, librerias, codigo fuente del software
+        var/ -- archivos variables. Directorio de contenido de servicios (http, ftp, mail,...) como para los LOGS del sistema
+        root/ -- directorios casa del usuario administrador
+        proc/ -- el kernel cuando arranca, y los crea en memoria RAM (cuando se apaga el equipo, desaparecen)
+          ls /proc -- muestra las carpetas que lo conforman y los numeros son procesos en ejecucion
+          cat proc/meminfo -- info del equipo
+          cat proc/cpuinfo -- muestra info del procesador de tu equipo
+        src/ -- codigo fuente de software instalado por usuarios
+        run/ -- directorios que no estan creados sobre el disp.fisico de almacenamiento, sino que las creas
         sys/
            proc(process directory) da informacion de todos los procesos que se estan ejecutando en el sist y recursos que usan
            sys (system directory) da informacion de variables de configuracion del kernel y sus modulos
