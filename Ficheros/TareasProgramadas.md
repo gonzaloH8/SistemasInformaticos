@@ -45,16 +45,16 @@ las tareas del sistema /etc/crontab, solo puede modificar /añadir/quitar tareas
 52 6	1 * *	root	test -x /usr/sbin/anacron || ( cd / && run-parts --report /etc/cron.monthly )
 
 # COMANDOS
-  Formarto: MINUTOS  -  HORAS  -  DIA_MES  -  MES  -  DIA_SEMANA
-  * : Este valor representa todos los valores para ese campo(se ejecutara de forma aleatoria entre los valores de ese campo)
-  , : Este valor indica que los representados son incluidos. 1,5
-  - : Este valor indica que los reprentados son rangos: 1-5
-  / : Rangos de incremento: valorIncial/Incremento 1/5
-  run-parts -- Aplica al directorio /etc/cron.hourly la funcionalidad de ejecutar todo aquel archivo ejecutable que se encuentre en su interior
-  test -x ruta(pregunta si existe el fichero que le sigue y este tiene permisos de ejecucion, si es true se ejecuta)
-  El contenido del fichero de tareas programadas /etc/crontab
-  crontab -e     Ejecuta nano donde podras hacer las tareas programadas
-  crontab -l     Te muestra el contenido del fichero de programacion de tareas
-  crontab -ir    Pregunta antes de borrar, si no existe -i la borra si preguntar
-  crontab -r     Borra el fichero de programacion de tareas  
-  crontab -t     Permite ver los errores(debug)
+    Formarto: MINUTOS  -  HORAS  -  DIA_MES  -  MES  -  DIA_SEMANA
+    * : Este valor representa todos los valores para ese campo(se ejecutara de forma aleatoria entre los valores de ese campo)
+    , : Este valor indica que los representados son incluidos. 1,5
+    - : Este valor indica que los reprentados son rangos: 1-5
+    / : Rangos de incremento: valorIncial/Incremento 1/5
+    run-parts -- Aplica al directorio /etc/cron.hourly la funcionalidad de ejecutar todo aquel archivo ejecutable que se encuentre en su interior
+    test -x ruta(pregunta si existe el fichero que le sigue y este tiene permisos de ejecucion, si es true se ejecuta)
+    El contenido del fichero de tareas programadas /etc/crontab
+    crontab -e     Ejecuta nano donde podras hacer las tareas programadas
+    crontab -l     Te muestra el contenido del fichero de programacion de tareas
+    crontab -ir    Pregunta antes de borrar, si no existe -i la borra si preguntar
+    crontab -r     Borra el fichero de programacion de tareas  
+    crontab -t     Permite ver los errores(debug)
