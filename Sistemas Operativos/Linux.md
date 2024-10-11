@@ -165,6 +165,10 @@ En caso de tener alguno isntalado seria buena idea tenerlo publico dentro del /s
 Contiene archivos virtuales que proveen informacion al kernel relativa a eventos del sistema operativo
 Estos archivos se distribuyen de forma jerarquica a diferencia del /proc
 
+       proc(process directory) da informacion de todos los procesos que se estan ejecutando en el sist y recursos que usan
+       sys (system directory) da informacion de variables de configuracion del kernel y sus modulos
+       run(running apps) informacion sobre aps ejecutandose(servicios)
+
 ## TMP(Directorio de ficheros temporales)
 Sirve para almacenar archivos temporales de todo tipo. Se vacia cada vez que reiniciamos el sistema
 El subdirectorio /var/tmp almacena archivos temporales, pero su contenido no se borra tras el reinicio del sistema
@@ -183,3 +187,9 @@ El subdirectorio /var/tmp almacena archivos temporales, pero su contenido no se 
 # VAR(Archivos de variables, logs, emails de los usuarios del sistema, etc)
 Contiene varios archivos con informacion del sistema, como archivos de logs, emails de los usuarios del sistema, bases de datos, informacion almacenada en la cache, informacion relativa a los paquetes de apliaciones almacenados en /opt, etc
 Actua a modo de registro de sistema
+
+# RUN 
+        run/ -- directorios que no estan creados sobre el disp.fisico de almacenamiento, sino que las creas
+
+# SRC
+        src/ -- codigo fuente de software instalado por usuarios
