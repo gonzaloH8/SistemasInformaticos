@@ -117,36 +117,36 @@ nodo-hijo   nodo-hijo     nodo-hijo
     cp archivo1.txt archivo2.txt-- copia conteido del primer archivo al segundo.
 
 # ESCANEAR EL CONTENIDO DE UN ARCHIVO DE TEXTO
-        touch nombreArchivo -- permite crear uno o varios archivos vacios en formato txt
-        > fichero1.txt > fichero2.txt -- permite crear fichero vacios
-        
-        echo -e 'contenido' >> fichero.txt -- permite agregar un texto y crear el fichero que lo contenga al mismo tiempo
-        echo 'contenido' > fichero.txt .. sobreescribe el contenido del fichero
-        
-        cat >> nombreArchivo contenido -- crea un archivo con el conteido inidcado. CTRL + D finaliza
-        cat > Archivo.txt contenido -- sobreescribe el contenido
-        cat nombreArchvio -- imprimira en la terminal el contenido del archivo
-        cat -n nombreArchivo -- imprime el contenido y hace un conteo de lineas
-        cat -b -- imprime el contenido y numero solo aquellas que contengan texto, descarta las lineas en blanco
+    touch nombreArchivo -- permite crear uno o varios archivos vacios en formato txt
+    > fichero1.txt > fichero2.txt -- permite crear fichero vacios
+    
+    echo -e 'contenido' >> fichero.txt -- permite agregar un texto y crear el fichero que lo contenga al mismo tiempo
+    echo 'contenido' > fichero.txt .. sobreescribe el contenido del fichero
+    
+    cat >> nombreArchivo contenido -- crea un archivo con el conteido inidcado. CTRL + D finaliza
+    cat > Archivo.txt contenido -- sobreescribe el contenido
+    cat nombreArchvio -- imprimira en la terminal el contenido del archivo
+    cat -n nombreArchivo -- imprime el contenido y hace un conteo de lineas
+    cat -b -- imprime el contenido y numero solo aquellas que contengan texto, descarta las lineas en blanco
 
-        more -- imprime el contenido paginado. Adecuado para archivos largos
+    more -- imprime el contenido paginado. Adecuado para archivos largos
 
-        less -- muestra el contenido en modo editor de texto
-        g + Enter -- avanza por defecto una linea adelante
-        :1 -- marcas la g e introduces el numero deseado avanzamdo esa contidad de lineas
-        q -- permite salir del editor de texto
+    less -- muestra el contenido en modo editor de texto
+    g + Enter -- avanza por defecto una linea adelante
+    :1 -- marcas la g e introduces el numero deseado avanzamdo esa contidad de lineas
+    q -- permite salir del editor de texto
 
-        VIM -- editor de texto mas complejo
-        sudo apt intall vim -- instalacion de vim
-        vim -- abre el editor de texto
-        :help -- archivo de ayuda sobre los comandos de vim
+    VIM -- editor de texto mas complejo
+    sudo apt intall vim -- instalacion de vim
+    vim -- abre el editor de texto
+    :help -- archivo de ayuda sobre los comandos de vim
 
-        ejecucion=$(ls) -- guardar comandos en variables
+    ejecucion=$(ls) -- guardar comandos en variables
 
 # COMPARACION DE ARCHIVOS DE TEXTO
     diff parametros archivo1 archivo2 -- compara dos archivos linea por linea. Muestra las diferencias 1ºArchivo < 2ºArchivo >
     diff -b .. hacemos la comparacion sin tener en cuenta los espacios en blanco
-
+  
     cmp archivo1 archivo2 -- compara dos archivos byte a byte
     cmp -b archivo1 archivo2 -- nos muestra los byte diferentes, numero de linea y contenido que varia
 
