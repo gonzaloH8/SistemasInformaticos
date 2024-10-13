@@ -22,9 +22,6 @@
     dmicode -s processor-manufacturer -- muestra el nombre del fabricante de la CPU, INTEL o AMD
     dmicode -s -- listado completo de todos los posibles inputs que puede introducir como opciones
 
-    cat /proc/version -- informacion detallada de la version de Kernel utilizada, compilador GCC, nombre de quien compilo         el Kernel y fecha de compilacion
-    cat /proc/cpuinfo -- informacion detallada de la CPU
-
     lshw -- lista de todos los componentes de hardware detectados, fabricante, version firmware,etc
     lshw -short -- arbol con todos los dispositivos detectados y su ruta de hardware
     lshw -c video -- componentes hardaware de clase video. tarjeta, tarjeta graficas detectadas, etc
