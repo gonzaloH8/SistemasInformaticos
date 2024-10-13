@@ -53,8 +53,26 @@ las tareas del sistema /etc/crontab, solo puede modificar /añadir/quitar tareas
     run-parts -- Aplica al directorio /etc/cron.hourly la funcionalidad de ejecutar todo aquel archivo ejecutable que se encuentre en su interior
     test -x ruta(pregunta si existe el fichero que le sigue y este tiene permisos de ejecucion, si es true se ejecuta)
     El contenido del fichero de tareas programadas /etc/crontab
-    crontab -e     Ejecuta nano donde podras hacer las tareas programadas
-    crontab -l     Te muestra el contenido del fichero de programacion de tareas
-    crontab -ir    Pregunta antes de borrar, si no existe -i la borra si preguntar
-    crontab -r     Borra el fichero de programacion de tareas  
-    crontab -t     Permite ver los errores(debug)
+    crontab -e          -- Ejecuta nano donde podras hacer las tareas programadas
+    crontab -l          -- Te muestra el contenido del fichero de programacion de tareas
+    crontab -ir         -- Pregunta antes de borrar, si no existe -i la borra si preguntar
+    crontab -r          -- Borra el fichero de programacion de tareas  
+    crontab -t          -- Permite ver los errores(debug)
+    crontab -u usuario  -- permite manejar los crontrab de otros usuarios
+    crontab -h          -- permite generar una serie de cadenas de teto ya configuradas
+
+# VARIABLES RESERVADAS
+    @reboot: ejecuta una vez y nada mas iniciarse el equipo
+    @yearly -- ejecuta una sola vez al año: 0 0 1 1 *
+    @monthly -- ejecuta una vez al mes y el primer dia 0 0 1 * *
+    @weekly -- todas las semanas, el primer minutos de la primera hora de la semana 0 0 * * 0
+    @daily -- todos los dias a la 12 de la noche 0 0 * * *
+    @midnigth -- tiene el mismo efecto que el anterior
+    @hourly -- todas las horas durante su primer minuto 0 * * * *
+
+# HERRAMIENTAS PARA CRON
+  - Crontab Guru: editor rapido y sencillo. Facilita alertas en tiempo real acerca de errores o incovenientes. Ofrece consejos y trucos para dudas.
+  - Cron Job Generator: podemos crear y programar comandos para que se ejecuten a una hora determinada.
+  - EasyCron: nos permite programar tareas para llamar a URL especificas en diferentes intervalos de tiempo y momentos concretos. Nos facilita un panel de usuario y programar labores de acuerdo a fecha y hora.
+  - Cron Maker: aplicacion completa
+  - Logs en Cron: nos da la posibilidad de almacenar en un archivo. /vat/log/syslog
