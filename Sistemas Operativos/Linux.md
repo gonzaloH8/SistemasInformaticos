@@ -150,6 +150,7 @@ Contiene informacion de los procesos y apliaciones que se estan ejecutando en un
       maps: Contiene las zonas de accesos a la memoria y los permisos del proceso.
       root: Apunta al sistema de archivos del root.
       status: Información combinada de stat y statm de forma mas comprensible.
+      cat /proc/version -- informacion detallada de la version de Kernel utilizada, compilador GCC, nombre de quien compilo, el Kernel y fecha de compilacion
 
 ## ROOT
 Vendria a ser como el directorio /home del usuario root o superusuario del sistema.
