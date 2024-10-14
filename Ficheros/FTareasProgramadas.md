@@ -87,6 +87,8 @@ las tareas del sistema /etc/crontab, solo puede modificar /añadir/quitar tareas
     all -- deniega permisos a todos los usuarios que no sean administradores
     sudo service cron restart -- reiniciamos cron para confirmar que se guardaron los cambios
 
+SI UN USUARIO no aparece en ninguno de los ficheros, depende de la distrubucion linux(en ubuntu, por defecto ES PERMISIVA y si le deja programar tareas) SI UN USUARIO APARECE EN ABMOS, por politica de cron.allow directmente se le permite
+
 # HERRAMIENTAS PARA CRON
   - Crontab Guru: editor rapido y sencillo. Facilita alertas en tiempo real acerca de errores o incovenientes. Ofrece consejos y trucos para dudas.
   - Cron Job Generator: podemos crear y programar comandos para que se ejecuten a una hora determinada.
@@ -95,6 +97,13 @@ las tareas del sistema /etc/crontab, solo puede modificar /añadir/quitar tareas
   - Logs en Cron: nos da la posibilidad de almacenar en un archivo. /vat/log/syslog
 
 # HERRAMIENTAS PARA ANACRON
+Es un servicio que surgio como respaldo del servicio CRON, se penso para ejecutar las tareas que el servicio CRON no ha podido lanzar(por caidas del sistema, fallos en el servicio CRON.SERVICE,...)
+el servicio anacron: anacron.service
+para ver el estado systemctl status anacron.service
+anacron.service <=== se activa cada hora, el resto del tiempo esta desactivado. Solo existe un fichero, usable para todos los usuarios /etc/anacrontab
+/var/spool/anacron/identificador <=== aparecera la fecha de ejecucion por ultima vez la tarea: YYYYMMDD
+Para saber si toca ejecutar, consulta fichero: /var/spool/anacron/ <----cron.daily contiene la fecha actual hace la diferencia dentre fechaActual-fechaContenida = 0
+
     sudo nano /etc/anacrontab
     diaria: 1 o @daily
     semanal: 7 o @weekly
@@ -106,3 +115,30 @@ las tareas del sistema /etc/crontab, solo puede modificar /añadir/quitar tareas
     comando: tarea a ejecutar
     
      Ejemplo: 7 10 backup.weekly /bin/bash /home/joan/scripts/backup.sh
+
+PRACTICA
+Introduce el nombre de tu usuario en el fichero /etc/cron.deny
+    sudo /etc/cron.deny <== en una linea metes el nombre de tu usuario
+Comprueba el contenido del fichero: cat /etc/cron.deny
+Intenta programar una tarea cron con ese usuario:
+  cron -e <== te abrira el editor. intenta meter una tarea, cuando la intentas almacenar no te permitira GUARDAR LOS CAMBIOS
+  */2 * * * * touch /tmp/prueba_TAREA_CRON_ `date +\%Y'-'\%m'-'\%d__\%H':'\%H'`
+Introduce ahora el nombre de tu usuario en fichero /etc/cron.allow
+  sudo /etc/cron.allow <= en una linea metes nombre de tu usuario
+Comprueba el contenido del fichero: cat /etc/cron.deny
+                                    cat /etc/cron.allow
+Intenta programar la tarea cron con ese usuario¿deja?
+si te deja en el directorio /tmp va a crear cada 2 minutos una serie de ficheros llamados:
+    prueba_TAREA_CRON
+
+PRACTICA
+#!/bin/bash
+clear
+# tengo que programar asi el script en crontab -e: 
+# */5 15-17 * * 1,2,4 /home/gonzalo/Escritorio/Practicas/cron_tarea.sh
+# se ejecuta cada 5min, de 15 a 17h los LUNES,MARTES,JUEVES(cualquier mes y todos los dias del mes, del 1 al 31)
+# lo que hace es copiar el directorio "Documentos" del usuario gonzalo en /tmp
+*/5 15-17 * * 1,2,4 cp -r /home/profesor/Documentos/* /tmp
+
+
+
