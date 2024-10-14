@@ -5,14 +5,15 @@
 
 # INSTALACION
 - [Virtual Box( DESCARGAR MAQUINA VIRTUAL(VIRTUALBOX))](https://www.oracle.com/es/virtualization/virtualbox/)
-- [DESCARGA DE UBUNTU(Descargar de la pagina el SO de Ubuntu)](https://ubuntu.com/download/desktop)
+- [DESCARGA DE UBUNTU(Ultima Version)](https://ubuntu.com/download/desktop)
+- [DESCARGA DE UBUNTU(version 22)](https://releases.ubuntu.com/jammy/)
 - Hacer una nueva maquina
 - Nombre: Ubuntu y su version
 - Aplicar SO adecuado
 - Aumentar la RAM,ROM,Procesadores,Memoria de Video, Carpetas Compartidas
 - Iniciar la instalacion y seleccionar try and install Ubuntu
 - -------------------------------------------------------------------------
-- Instalacion de las Guest Adicctions
+- [Instalacion de las Guest Adicctions](https://cambiatealinux.com/instalar-virtualbox-guest-additions-en-ubuntu#google_vignette)
 - Insetamos las guesst adicctions(si hay problemas haremos lo siguiente)
 - lsb_release -a: vemos que esta instalado la versión de Linux
 - sudo apt Update -y: nor permite actualizar
