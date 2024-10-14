@@ -1,3 +1,8 @@
+# ENLACES
+  - [GENERADOR DE TIEMPO ](https://crontab-generator.org/)
+  - [GENERADOR DE TIEMPO ](https://crontab.guru/)
+  - [GENERADOR DE TIEMPO ](https://www.freeformatter.com/cron-expression-generator-quartz.html)
+  - [DOCUMENTACION](https://geekland.eu/planificar-tareas-con-cron-y-anacron-en-linux/)
 # TAREAS PROGRAMADAS AUTOMATICAS
 (Programacion de tareas)
 el servicio encargado de programacion de tareas CICLICAS (tareas que se repiten a lo largo del tiempo) se llama
@@ -70,9 +75,34 @@ las tareas del sistema /etc/crontab, solo puede modificar /añadir/quitar tareas
     @midnigth -- tiene el mismo efecto que el anterior
     @hourly -- todas las horas durante su primer minuto 0 * * * *
 
+# DENEGACION DE PERMISOS SOBRE LAS TAREAS PROGRAMADAS
+    sudo nano /etc/cron.deny
+    nombre_usuario -- le deniega permisos sobre cron
+    all -- deniega permisos a todos los usuarios que no sean administradores
+    sudo service cron restart -- reiniciamos cron para confirmar que se guardaron los cambios
+
+# PERMISOS SOBRE LAS TAREAS PROGRAMADAS
+    sudo nano /etc/cron.allow
+    nombre_usuario -- le deniega permisos sobre cron
+    all -- deniega permisos a todos los usuarios que no sean administradores
+    sudo service cron restart -- reiniciamos cron para confirmar que se guardaron los cambios
+
 # HERRAMIENTAS PARA CRON
   - Crontab Guru: editor rapido y sencillo. Facilita alertas en tiempo real acerca de errores o incovenientes. Ofrece consejos y trucos para dudas.
   - Cron Job Generator: podemos crear y programar comandos para que se ejecuten a una hora determinada.
   - EasyCron: nos permite programar tareas para llamar a URL especificas en diferentes intervalos de tiempo y momentos concretos. Nos facilita un panel de usuario y programar labores de acuerdo a fecha y hora.
   - Cron Maker: aplicacion completa
   - Logs en Cron: nos da la posibilidad de almacenar en un archivo. /vat/log/syslog
+
+# HERRAMIENTAS PARA ANACRON
+    sudo nano /etc/anacrontab
+    diaria: 1 o @daily
+    semanal: 7 o @weekly
+    mensual: 30 o @monthly
+    periodica: 2
+
+    retardo_ejecucion: numero entero = minutos
+    identificador: nombre_cualquiera(identificable en los logs)
+    comando: tarea a ejecutar
+    
+     Ejemplo: 7 10 backup.weekly /bin/bash /home/joan/scripts/backup.sh
