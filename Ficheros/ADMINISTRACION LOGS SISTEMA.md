@@ -1,189 +1,128 @@
--- ------------------------------------------
---   ADMINISTRACION LOGS SISTEMA: rsyslog  --
--- ------------------------------------------
-un LOG es un fichero(por defecto, no tiene por que, pueden almacenarse en una BD) donde el sistema operativo
-va a ir registrando aspectos de su funcionamiento en tiempo real; se registran acciones como:
-
-    - inicio sesion de usuarios, cierre sesion, intento de conexion, cambio de contraseña,....
-    - aspectos del funcionamiento de servicios (si se modifica un servicio, si se para, si se deshabilita,
-      si el servicio al funcionar quiere registrar su accion...)
-    - aspectos del hardware (drivers dispositivos q no funcionan, deteccion de dispositivos montados,...)
+=======================================
+# Administracion de LOGS en Linux: RSYLOG
+=======================================
+Son imprescindibles para la admin en el funcionamiento del s.op porque vas reflejando el funcionamiento de los servicios, kernel, etc
+El servicio encargado de la gestion de los LOGS:
+rsyslog.service <==== para ver el estado del servicio
+el servicio tiene un fichero de configuracion: /etc/rsyslog.configuracion
+fichero de texto plano:
+    $directiva valor
+    $directiva valor
     ...
+
+Funcionamiento del servicio rsyslog:
+el fichero REGLAS de registro es muy importante en el servicio RSYSLOG porque define como se van a registrar o guardar los mensajes producidos por
+servicios del sistema, kernel, usuarios,....
+Las lineas del fichero de reglas se incluyen dentro del fichero de configuracion del servicio: /etc/rsyslog.conf
+input-modules(origenes de eventos o mensajes) ===> rsyslog.service======> output-modules(destino de almacenamiento de mensajes)
+                                                          |                              este destino (NO TIENE QUE SER SIEMPRE UN FICHERO)
+                                                    fichero de reglas
+Ej: cron.service(input-module)===> rsyslog.service(escuchando) =====> los manda ak fichero /var/log/cron
+genera mensajes cada vez                        fichero de reglas cron.* -/var/cron
+que se ejecutan tareas programadas 
+o los usuarios crean sus tareas,etc  
+
+En ubuntu las reglas se importan desde: /etc/rsyslog.d/ <===== ficheros *.conf con reglas
+ficheros con reglas: ls -l /etc/rsyslog.d/ <==== 20-ufw.conf (reglas de registro para servicio firewall)
+                                                 50-default.conf (reglas resto de servicios)
+formato de las reglas
+filtro(puede ser:)                      <=== accion(destino mensajes, puede ser)
+origen_mensajes.grado_importancia_mensaje           /ruta/fichero(:nombre_plantilla)
+condicion                                           @servidor_externo(:nombre_plantilla)<=opcional
+                                                    @servidor_externo(:nombre_plantilla)<=opcional
+                                                    nombre_usuario(:nombre_plantilla)
+                                                    ^ /ruta/script
+                                                    | /ruta/tuberia:ram
+
+Ej: mirar contenido fichero /etc/rsyslog.d/50-default.conf
+
+filtro(origen)               acciones(destinos)
+kern.*				        -/var/log/kern.log <=== NO LA CUMPLE(filtra mensajes originados por kernel)
+mail.*			        	-/var/log/mail.log<==== NO LA CUMPLE(filtra mensajes originados por serv.mail)
+mail.err        			/var/log/mail.err
+*.*;auth,authpriv.none		-/var/log/syslog<==== SI LA CUMPLE(filtra mensajes originados por cualquier servicio)
+                                                                todos los mensajes originados por el servicio cron.service 
+                                                                se ALMACENAN en fichero /var/log/syslog
+cron.*                      /var/log/cron   <====== SI LA CUMPLE(filtra mensajes originados por cron.service)
+                                                                todos los mensajes originados por cron.service 
+                                                                se ALMACENAN en fichero /var/log/cron                                 
+auth,authpriv.*			    /var/log/auth.log<==== no la cumple(filtro de mensajes originados serv.autentificacion)
+*.emerg				        :omusrmsg:*(usuario)   <===== SOLO SE CUMPLE (si el mensaje producido por el servicio tiene la importancia de "emerg" 
+                                                    y lo registra en el modulo de salida "outmsg", manda mensaje al terminal)
+Importancia del mensaje
+debug,
+info,
+notice,
+warning, warn(same as warning),
+err, error(same as err),
+crit,
+alert,
+panic                                                    
+
+Imaginamos que cron.service genera mensaje ====> rsyslog.service, consulta fichero: /etc/rsyslog.conf
+                                                                                    $includeConfig /etc/rsyslog.d/*.conf            
+                                                                                    En ese directorio entan dicheros de reglas, lee 50-default.conf
+
+# COMANDOS
     
-los logs en linux se gestionan mediante un servicio:   rsyslog.service 
-                             (remote system logger daemon)
-                                                          
-para ver el servicio:
-            systemctl status rsyslog.service 
-                                
-COMO FUNCIONA EL SERVICIO
--------------------------
 
-    input-modules                                output-modules
-    (modulos de entrada                             (modulos de registro de 
-    de registros)          --------------> rsyslog.service -------------> mensajes) ficheros LOG, BD-mysql,
-                       fichero de configuracion            servidor externo, ...
-                       de reglas de registro:
-                       
-                           /etc/rsyslog.conf <==fichero conf.global
-                                       lee reglas del
-                                       directorio
-                                       /etc/rsyslog.d/<--- nºnº nombre_fich.conf
-                                                   nºnº nombre_fich.conf
-                                                   ....
+PRACTICA
+vamos a generar una accion para que el servicio corn.service origine un mensaje que recoje syslog
+    1) comprobar que en un fichero /etc/rsyslog.d/50-default.conf existe esta regla
+            cron.*          /var/log/cron <=== crear este fichero si no existe
+        si se modifica el fichero de reglas, hay que reiniciar servicio <=== OJO!!!
+        sudo systemctl restart rsyslog.service                
+    2) vemos las ultimas lineas del fichero log donde rsyslog manda mensajes del servicio: en una consola
+            sudo tail -f /var/log/cron
+    3) con tu usuario, editas fichero de tareas automaticas:
+        crontab -e <====== el servicio cron.service manda mensaje a rsyslog.service para que registre accion        
+                            el mensaje tendria que aparecer en la otra consola donde estas viendo el log
+        añadimos tarea:
+            */2 * * * * touch /tmp/prueba_log_$(date '+%Y-%m-%d--%H:%M')<=== al grabar, el servicio genera mensaje y debe aparecer en consola donde esta viendo el LOGS
+        Cuando sales del la edicion del fichero <==== mensaje tambien enviado a rsyslog
+        Cuando se ejecuta la tarea<====== mensaje tambien enviado a rsyslog
+Como mandar mensajes personalizados a rsyslog: (muy util en scripts)
+logger -p origen.importancia_mensaje -t tag_mensaje "TEXTO MENSAJE"
+           |<--- origen tiene que venir de.en fichero de reglas cron, auth, authpriv, kern, null...daemon
+ej
+logger -p cron.info .t "[MI MENSAJE]" "... este es un mensaje propio creado con logger, deberia aparecer en log"
 
-                                            a) como input-modules siempre por defecto van a ser otros servicios los q mandan mensajes a rsyslog para q
-los registre en los LOG; rsyslog a estos servicios los clasifica por grupos:
+(ping 8.8.8.8 google)
 
-    - servicios globales:            grupo daemon
-    - servicios de autentifcacion:   grupo auth
-    - servicios de prog.tareas:     grupo cron
-    - servicios de impresion:     grupo lpt
-    ....
-los mensajes originados por estos grupos se almacenan en un OUTPUT-MODULE determinado en funcion del fichero
-de configuracion de reglas de rsyslog:  /etc/rsyslog.conf
+PRACTICA --- 17-10-2024
+    1º PASO) generar un script propio que mande mensaje(como si fuera un servicio) cada minuto para que rsyslog los intercepte(llamarlo miscript.sh):
+        #!/bin/bash
+        clear
+        while true
+        do
+            fecha=$(date '+%Y-%m-%d__%H:%M') # poner la comilla invertida es mas eficaz que el $(.....)<=== subshell
+            echo"..mandando mensaje al log a las $date..."
+            logger -p daemon.info -t "[miscript.sh]" "mensaje mandado por script: miscript.sh a las $fecha..."
+            sleep 1m
+        done
+    (cambiar permisos: chmod a+x miscript.sh)
+    2º PASO) en el fichero de reglas de rsyslog: /etc/rsyslog.d/50-default.conf
+                añadimos esta regla:
+                    daemon.info     /tmp/miscript.log
+            grabamos cambios y reiniciar el servicio¡¡¡¡:
+                    sudo systemctl daemon-reload
+                    sudo systemctl restart rsyslog.service
+            comprobamos el estado: sudo systemctl status rsyslog.service 
+    3º PASO) ejecutamos el script: ./miscript.sh
+    4º PASO) comprobamos si rsyslog a recibido los mensajes del script y los ha almacenado en fichero /tmp/miscript.sh
+            tail -f /tmp/miscript.log
 
-
-b) como output-modules son el destino donde rsyslog va a almacenar los mensajes q mandan estos servicios, por
-defecto siempre en ficheros LOG (se suelen almacenar en /var/log/
-
-rsyslog almacena los mensajes en los output-modules en funcion de TEMPLATES (plantillas); por defecto tiene 
-definida una plantilla general, pero puedes personalizarlas y usarlas
+miscript.sh ====> rsyslog.service recibe mensaje¿Donde lo almacena? ====> destino mensaje /tmp/milog
+            cada        /etc/rsyslog.d/50-default.conf
+            minuto          1º regla, la cumple ¿no?
+            genera          2º regla, la cumple SI: daemon.info /var/log/milog
+            mensaje      
+        "[miscript.sh]" mensaje mandado por script: miscript.sh a las 2024-10-17__19:45  
     
-como output-modules puedo usar aparte de ficheros LOG lo siguiente: (man rsyslog.conf)
+Para filtrar y que solo aparezcan los mensajes de mi script en el fichero(no los mensajes de todos los servicios)
+    :msg, contains, "micript.sh" /var/log/milog -- forma antigua para lo tecnicos
+    if $msg contains "miscript.sh" then /var/log/milog -- forma nueva programadores
 
-            @x.y.z.w[;nombre_plantilla_personalizada] <--- mandas los mensajes al servidor con ip: x.y.w.z
-                                    por TCP
-            @@x.y.z.w[;nombre_plantilla_personalizada] <---mandas los mensajes al servidor con ip: x.y.w.z
-                                    por UDP (mas rapida q tcp, pero menos segura)
-
-            ^/ruta/nombre_script <------- mandas los mensajes a ese script para q los procese...
-                            (los recibe como parametros)
-                            
-            | /ruta/comando ... <------- mandas los mensajes mediante esa tuberia a ese comando...
-                    
-            stop <--------------------- no se registran en ningun lado, se descartan
-
-            :om-nombre_modulo, parametros_config_modulo <---- manda mensajes a ese modulo con esos parámetros
-
----------------------------------------------------------------------
-fichero configuracion rsyslog:  /etc/rsyslog.conf  (man rsyslog.conf)
----------------------------------------------------------------------
-fichero de texto plano, se divide en 3 secciones:
-
-    -1º seccion se definen los im-modules y om-modules con los q va a 
-     trabajar el servicio rsyslog
-
-    -2º seccion (directivas globales) o parametros de funcionamiento
-    del servicio:
-            $instruccion  valor
-            $instruccion  valor
-            ....
-
-    -3º seccion reglas de registro de mensajes por parte del servicio
-      o vienen definidas por la directiva:
-
-        $IncludeConfig  /ruta/directorio/ficheros.config
-                        ----------------
-                           |---> reglas de registro
-    ej:
-        
-        $IncludeConfig /etc/rsyslog.d/*.conf
-                   -------------- ------ 
-                directorio    ficheros donde estan reglas
-
-
-formato de las reglas de registro
----------------------------------
-en cada linea del fichero supone una regla de registro, el servicio las procesa
-todas:
-
- filtro(selector)            destino om-module[;plantilla_mensaje]
- ------                    -----------------
-  \---> el formato              \---> lugar donde se registran
-puede ser:                    los mensajes q cumplen el filtro con un determinado
-                        formato definido por "plantilla_mensaje"
-1º caso:
---------  
- origen_im[, origen2_im,...].importancia_mensaje [;...] 
-
-origen_im: quien ha originado el mensaje, rsyslog las agrupa en
-       aplicaciones o servicios de autentificacion: auth, authpriv
-       aplicaciones de correo:  mail
-       servicios kernel,procesos..:  kern
-       tareas automaticas:         cron
-       ...
-importancia_mensaje: 
-    emerg > alert > crit > err > warn > notice > info > debug
-
-
-ej:
-    *.* ; auth,authpriv.none        -/var/log/syslog
-    ------------------------        -----------------    
-     |           |                se registran en este fichero LOG
-     todos           salvo (.none)            el [-] delante del fichero significa q los mensajes
-     los            mensajes grupo servicios    no se registran de forma inmediata en el fichero sino
-     servicios       de autentificacion        q se almacenan temporalmente en buffer de memoria RAM
-     q generan                    y luego se volcaran mas adelante
-     cualquier
-     mensaje
-
-
-2º caso:
---------
-:propiedad, [!]operador, valor
-        -----------
-            |
-       contains = chequea si en la propiedad contiene el valor q pones
-       isequal = chequea si la propiedad es exactamente igual al valor
-       startswith = chequea si la propiedad comienza con el valor
-       regex = chequea si la propiedad cumple con el patron indicado
-
-
- ej: 
- 
-      :msg, contains, "authentication failure"    /var/log/sesiones_fallidas.log
-    ----------------------------------------    -------------------------------
-        \--si el mensaje generado por             \--> se registra en este fichero
-          algún servicio contiene
-          "authentication failuer"
-
-definición de plantillas de formato de salida de mensajes
----------------------------------------------------------
-Para crear una plantilla, la forma mas rápida es definirla en el fichero de /etc/Rsyslog.conf y después ya
-usarla con el nombre que la identifica en el fichero de reglas. Para definirla, 2 formas:
-
-1º forma tradicional o LEGACY:
-
-    $template TEMPLATE_NAME,"text %PROPERTY% more text"
-    
-donde:
-
-    - $template es la directiva de plantilla que indica que el texto que la sigue define una plantilla.
-    - TEMPLATE_NAME es el nombre de la plantilla. Utilice este nombre para hacer referencia a la plantilla.
-
-        Todo lo que se encuentre entre las dos comillas (“…”) es el texto de la plantilla real. Dentro de este texto,
-     se pueden utilizar caracteres especiales, como \n para nueva línea o \r para retorno de carro. Otros caracteres, como 
-    % o ", deben ser escapados si desea utilizar esos caracteres de forma literal.
-
-    El texto especificado entre dos signos de porcentaje (%) especifica una propiedad que le permite acceder a contenidos 
-    específicos de un mensaje de syslog.(son variables predefinidas: 
-    https://www.rsyslog.com/doc/configuration/properties.html#message-properties
-
-ej:
-    vamos a crearnos una plantilla personalizada para el registro de mensajes de demonios de autentificacion
-    editamos el fichero /etc/rsyslog.conf:
-    
-        $template miplantilla, "---mensaje demonio auth generado en: %TIMESTAMP%  desde %HOSTNAME% con contenido %msg% ---"
-
-    usamos la plantilla en el fichero de reglas, editamos fichero:  /etc/rsyslog.d/50-default.conf
-    
-        auth,authpriv.*      /var/log/auth.log;miplantilla
-
-
-2º forma actual con objeto template():          
-
-        template(name="__nombre_plantilla"
-             type="string"
-             string="....plantilla del mensaje..."
-             )
+    rsyslog templates -- plantillas visitar la pagina
+---------------- crear plantillas rsyslog almacene el mensaje que manda el script y añada la direccion IP donde se manda el mensaje y el nombre del equipo---
+Buscar rsyslog templates
