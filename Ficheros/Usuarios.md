@@ -1,5 +1,4 @@
-#CREACION DE USUARIOS Y GRUPOS
-
+# CREACION DE USUARIOS Y GRUPOS
     adduser + nombreUsuario -- Añadir usuarios
     sudo addgroup + nombreGrupo -- Crear un grupo
     sudo adduser + nombreUsuario + nombreGrupo -- Añadir un usuario al grupo
