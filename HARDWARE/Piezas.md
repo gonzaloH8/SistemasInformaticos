@@ -21,3 +21,4 @@
 <h1>CASCOS</h1>
 
 <h1>PANTALLAS</h1>
+(ping 8.8.8.8 google)
