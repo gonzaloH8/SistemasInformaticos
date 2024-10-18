@@ -21,12 +21,12 @@
 
 # PRACTICA --- 17-10-2024
     1º PASO) generar un script propio que mande mensaje(como si fuera un servicio) cada minuto para que rsyslog los intercepte(llamarlo miscript.sh):
-        #!/bin/bash
+    #!/bin/bash
         clear
         while true
         do
             fecha=$(date '+%Y-%m-%d__%H:%M') # poner la comilla invertida es mas eficaz que el $(.....)<=== subshell
-            echo"..mandando mensaje al log a las $date..."
+            echo "..mandando mensaje al log a las $date..."
             logger -p daemon.info -t "[miscript.sh]" "mensaje mandado por script: miscript.sh a las $fecha..."
             sleep 1m
         done
@@ -50,9 +50,11 @@
             "[miscript.sh]" mensaje mandado por script: miscript.sh a las 2024-10-17__19:45  
         
     Para filtrar y que solo aparezcan los mensajes de mi script en el fichero(no los mensajes de todos los servicios)
-        :msg, contains, "micript.sh" /var/log/milog -- forma antigua para lo tecnicos
-        if $msg contains "miscript.sh" then /var/log/milog -- forma nueva programadores
+        :msg, contains, "micript.sh" /var/log/milog -- forma antigua para lo tecnicos. Ir a la ruta dirigida donde se generara el archivo
+        if $msg contains "miscript.sh" then /var/log/milog -- forma nueva programadores. Ir a la ruta dirigida donde se generara el archivo
+        tail -f /var/log/milog
 
+# PRACTICA
     rsyslog templates -- plantillas visitar la pagina
     ---------------- crear plantillas rsyslog almacene el mensaje que manda el script y añada la direccion IP donde se manda el mensaje y el nombre del equipo---
     Buscar rsyslog templates
