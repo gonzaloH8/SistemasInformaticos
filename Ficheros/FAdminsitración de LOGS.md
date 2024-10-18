@@ -143,3 +143,120 @@ Vamos a crearnos una plantilla personalizada para el registro de mensajes de dem
         20-ufw.conf (reglas de registro para servicio firewall)
         50-default.conf (reglas resto de servicios)
     cron.service=>rsyslog.service=>/var/log/cron --
+
+
+# ROTACION DE LOGS
+Uno de los problemas mas importantes de los ficheros LOG es el crecimiento indiscriminado de su tamaño
+por la cantidad enorme de mensajes q se almacenan en ellos por el servicio rsyslog.service (tanto es asi
+q pueden hacer q el sistema operativo se caiga <--- DoS attack)
+
+para evitarlo, se hace la ROTACION de estos ficheros gracias al servicio LOGROTATE.SERVICE
+al ver el estado del servicio, aparece como inactivo (o dead):
+
+    systemctl status logrotate.service <------ depende de un timer
+                        de systemd q lo despierta
+                        cada cierto periodo de
+                        tiempo (1 vez al dia)
+  
+                    systemctl cat logrotate.timer
+                    
+                    [Timer]
+                    OnCalendar=daily <---- diaria
+                    AccuracySec=12h
+
+ si es insuficiente, dos formas de evitarlo:
+     - o modificas el timer y en variable OnCalendar estableces 
+       el periodo en q quieres levantar el servicio (man systemd.time)
+                    
+    - o programas una tarea cron donde fuerzas la ejecucion del 
+     servicio usando su ejecutable:
+     
+         systemctl cat logrotate.service <---- 
+            [Service]
+            ...
+            ExecStart=/usr/sbin/logrotate /etc/logrotate.conf
+                   -------------------  ------------------
+                    |            |
+                  ejecutable        fichero de reglas
+                              de rotacion
+    ej: programamos tarea cron para q se ejecute todos los dias, meses
+        del año, dias de la semana a las 15min de cada hora
+        POR EL ROOT!!! meterlo en /etc/crontab:
+        
+        15 * * * *     root  /usr/sbin/logrotate -f    /etc/logrotate.conf
+
+# FICHERO DE CONFIGURACION DE REGLAS DE ROTACION: /etc/logrotate.conf
+(todos los comandos q aparecen en las reglas:  man logrotate.conf)
+
+el fichero esta formado por:
+
+    comandos para todos los logs:
+    
+    comando-global-1        weekly
+    comando-global-2        su root adm
+    comando-global-3        rotate 4
+    ...
+    /ruta/fichero1.log
+    /ruta/fichero2.log
+    ... {
+        comando
+        comando
+        ...
+    }
+    
+    
+
+
+la rotación consiste en función de como esten definidas en esas reglas, ir haciendo:
+
+1º rotacion:
+
+    - fichero log              fichero log    fichero log.1
+     alcanza un    --------->   (vacio)       con mensajes 
+     tamaño maximo   se vacia          del fichero log
+     predefinido             |
+                  se pueden
+                  seguir registrando
+                  mensajes
+
+
+
+2º rotacion:
+
+    - fichero log              fichero log    fichero log.1    fichero log.2.zip
+     alcanza un    --------->   (vacio)       con mensajes     con mensajes del fichero log.1
+     tamaño maximo   se vacia          del fichero log  comprimidos
+     predefinido             |
+                  se pueden
+                  seguir registrando
+                  mensajes
+
+
+
+NºMaxRotacion:
+
+    - fichero log              fichero log    fichero log.1    fichero log.2.zip .......       fichero log.N.zip
+     alcanza un    --------->   (vacio)       con mensajes     con mensajes del fichero log.1   con mensajes del
+     tamaño maximo   se vacia          del fichero log  comprimidos                fichero log ante
+     predefinido             |                               rior, perdiendose
+                  se pueden                               los mensajes q se
+                  seguir registrando                            almacenaban aqui
+                  mensajes
+
+----------------------
+ejemplo:
+        /var/log/syslog
+        {
+            rotate 7 <----------- fichero /var/log/syslog se rota 7 veces
+            daily  <------------- (aunque no se alcance su MAX.size) se rota diariamente
+            missingok <---------- haz rotacion aunque algun fichero intermedio se pierda
+            notifempty <--------- no se hace rotacion si el fichero log esta vacio
+            delaycompress <----- no comprimir fichero de la primera rotacion
+            compress <---------- ficheros rotados q se compriman
+            postrotate
+                /usr/lib/rsyslog/rsyslog-rotate <---- una vez q el fichero log se rota, se ejecuta
+            endscript                    este comando o script (lo q hace es parar
+        }                        la ejecucion del servicio rsyslog.service de forma
+                                temporal para q no mande mensajes al log mientras
+                                se vacia, y una vez vaciado y rotado, se vuelve a
+                                levantar (se evita asi la perdida de mensajes)
