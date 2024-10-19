@@ -110,7 +110,19 @@ En cada linea del fichero supone una regla de registro, el servicio las procesa 
           algún servicio contiene
           "authentication failuer"
 
+# COMANDOS
+    rsyslog.service -- encargado de de la gestion de los LOGS
+    /etc/rsyslog.conf -- mirar contenido
+    /etc/rsyslog.conf -- fichero de configuracion de los LOGS
+    /etc/rsyslog.d/ -- directorio donde se importan las reglas
+        20-ufw.conf (reglas de registro para servicio firewall)
+        50-default.conf (reglas resto de servicios)
+    cron.service=>rsyslog.service=>/var/log/cron --
+
 # DEFINICION DE PLANTILLAS DE FORMATO DE SALIDA DE MENSAJES
+[PLANTILLAS](https://www.rsyslog.com/doc/configuration/templates.html)
+[propiedades de rsyslog](https://www.rsyslog.com/doc/configuration/properties.html#message-properties)
+[Formatos Fecha](https://www.rsyslog.com/doc/configuration/property_replacer.html#property-options)
 Para crear una plantilla, la forma mas rápida es definirla en el fichero de /etc/Rsyslog.conf y después ya usarla con el nombre que la identifica en el fichero de reglas. Para definirla, 2 formas:  
 - 1º forma tradicional o LEGACY:
     $template TEMPLATE_NAME,"text %PROPERTY% more text" 
@@ -134,15 +146,83 @@ Vamos a crearnos una plantilla personalizada para el registro de mensajes de dem
              type="string"
              string="....plantilla del mensaje..."
              )
+
+SINTAXIS
+template
+    name: especifica el nombre de la plantilla. Debe ser unico
+    type: especifica el tipo de plantilla    
+        list:
+        subarbol
+        cadena
+        complemento
+    constant -- se utiliza para imprimir texto literal, pensada para la salida de texto
+        valor -- el valor constante a utilizar
+        outname -- el nombre del campo de salida (para salidas estructuradas)
+        formato -- puede estar vacío o ser jsonf
+    property
+        nombre - el nombre de la propiedad a la que se accederá
+        outname - el nombre del campo de salida (para salidas estructuradas)
+        dateformat - el formato de fecha a utilizar
+        date.inUTC - la fecha se mostrará en UTC
+        caseconversion : permite convertir el texto a mayúsculas y minúsculas. Los valores admitidos son “lower” y “upper”
+        controlcharacters : especifica cómo manejar los caracteres de control. Los valores admitidos son “escape”(los escapa), “space”(reemplaza por un solo espacio), y “drop”(elimina de la cadena).
+        securepath : se utiliza para crear rutas de acceso adecuadas para su uso en plantillas de archivos dinámicos. Los valores admitidos son “drop” y “replace”.
+        Formato : especifica el formato en función de un campo. Los valores admitidos son:
+            “ csv ” para usar cuando se generan datos csv
+            “ json ”, que formatea el contenido json correctamente (pero sin un encabezado de campo)
+            “ jsonf ”, que se formatea como un campo json completo
+            “ jsonr ”, que evita el doble escape del valor pero lo hace seguro para un campo json
+            “ jsonfr ”, que es la combinación de “jsonf” y “jsonr”.
+        position.from - obtiene la subcadena a partir de esta posición (1 es la primera posición)
+        position.to - obtiene la subcadena hasta esta posición. 
+        position.relativeToEnd : la posición de origen y destino es relativa al final de la cadena en lugar del inicio habitual de la cadena.
+        fixedwidth - cambia el comportamiento de position.to para que rellene la cadena de origen con espacios hasta el valor de position.to si la cadena de origen es más corta. “on” o “off”
+        compressspace : comprime varios espacios (carácter US-ASCII SP) dentro de la cadena en uno solo. position.from y position.to NO se ven afectadas por esta opción
+        campo.número - obtener la coincidencia de este campo
+        field.delimiter - valor decimal del carácter delimitador para la extracción de campo
+        regex.expression - expresión a utilizar
+        regex.type - ya sea ERE o BRE
+        regex.nomatchmode - qué hacer si no tenemos ninguna coincidencia
+        regex.match - coincidencia para usar
+        regex.submatch - subcoincidencia a utilizar
+        droplastlf - elimina un LF final, si está presente
+        Obligatorio : indica que un campo es obligatorio. Si se configura como “activado”, este campo siempre estará presente en los datos que se pasan a las salidas estructuradas, incluso si está vacío. Si se configura             como “desactivado” (valor predeterminado), los campos vacíos no se pasarán a las salidas estructuradas. Esto es especialmente útil para las salidas que admiten esquemas dinámicos (como ommongodb).
+            spifno1stsp : opciones expertas para el procesamiento de plantillas RFC3164
+        datatype - SOLO para el formato “jsonf”; permite configurar un tipo de datos Los mensajes de registro se registran como tipos de datos de cadena de forma nativa. Por lo tanto, cada propiedad dentro de rsyslog se             basa en cadenas. Esta configuración, en modo jsonf, permite configurar un tipo de datos deseado. Los tipos de datos admitidos son:
+            número: el valor se trata como un número JSON y no está entre comillas. Si la propiedad está vacía, se genera el valor 0.
+            cadena - el valor es una cadena y está entre comillas
+            auto - el valor se trata como un número si es numérico y como una cadena en caso contrario.
+            bool: el valor se trata como booleano. Si está vacío o es 0, generará “falso”, de lo contrario, “verdadero”.
+
+
+        
+Ejemplos
+    template(name="outfmt" type="list" option.jsonf="on") {
+          property(outname="message" name="msg" format="jsonf")
+          constant(outname="@version" value="1" format="jsonf") -- generara "@version":"1"
+}
+
+property(name="timereported" dateformat="year")
+constant(value="-")
+property(name="timereported" dateformat="month")
+constant(value="-")
+property(name="timereported" dateformat="day")
+
+# COMANDOS PLANTILLAS 
+    template(parametros) -- sintaxis simple. nombre y tipo
+    TYPE=LISTAS
+    template(name="tpl1" type="list") { -- sintaxis compleja
+         constant(value="Syslog MSG is: '")
+         property(name="msg") -- describe el acceso a la propiedad
+         constant(value="', ")
+         property(name="timereported" dateFormat="rfc3339" caseConversion="lower")
+         constant(value="\n")
+         }
+
                  
-# COMANDOS
-    rsyslog.service -- encargado de de la gestion de los LOGS
-    /etc/rsyslog.conf -- mirar contenido
-    /etc/rsyslog.conf -- fichero de configuracion de los LOGS
-    /etc/rsyslog.d/ -- directorio donde se importan las reglas
-        20-ufw.conf (reglas de registro para servicio firewall)
-        50-default.conf (reglas resto de servicios)
-    cron.service=>rsyslog.service=>/var/log/cron --
+
+
+    
 
 
 # ROTACION DE LOGS
