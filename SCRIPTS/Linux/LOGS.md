@@ -56,5 +56,6 @@
 
 # PRACTICA
     rsyslog templates -- plantillas visitar la pagina
-    ---------------- crear plantillas rsyslog almacene el mensaje que manda el script y añada la direccion IP donde se manda el mensaje y el nombre del equipo---
+    crear plantillas rsyslog almacene el mensaje que manda el script 
+    y añada la direccion IP donde se manda el mensaje y el nombre del equipo
     Buscar rsyslog templates
