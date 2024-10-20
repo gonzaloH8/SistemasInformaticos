@@ -244,6 +244,16 @@ Vamos a crearnos una plantilla personalizada para el registro de mensajes de dem
     constant(value="\n")
     }
 
+## VARIABLES RESERVADAS
+[MENSAJES PROPIEDADES](https://www.rsyslog.com/doc/configuration/properties.html)
+
+    %TIMESTAMP%: Marca de tiempo.
+    %fromhost-ip%: La dirección IP desde donde se manda el mensaje. No funciona para host locales
+    %FROMHOST%: 
+    %hostname%: El nombre del equipo.
+    %msg%: El contenido del mensaje enviado por el script.
+    %$clientip%: Utiliza esta variable si estás recibiendo mensajes remotos y se puede obtener la IP.
+
 # ROTACION DE LOGS
 Uno de los problemas mas importantes de los ficheros LOG es el crecimiento indiscriminado de su tamaño
 por la cantidad enorme de mensajes q se almacenan en ellos por el servicio rsyslog.service (tanto es asi
