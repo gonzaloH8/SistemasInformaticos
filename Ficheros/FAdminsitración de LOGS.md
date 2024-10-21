@@ -362,3 +362,103 @@ ejemplo:
                                 temporal para q no mande mensajes al log mientras
                                 se vacia, y una vez vaciado y rotado, se vuelve a
                                 levantar (se evita asi la perdida de mensajes)
+
+
+La rotacion de LOGS trata de evitar el crecimiento indescriminado del crecimiento de los ficheros LOG; si no se controla su tamaño cada vez mas crecen mas y mas, colapsando la particion donde estan y haciendo que el SO se bloquee(Dos => ataque de Denial of Service)
+
+Hay un servicio encargado de esta rotacion (no todas las distribuciones linux lo incluyen): LOGROTATE.SERVICE
+    systemctl status logrotate.service ----> este servicio esta disparado por un timer(como anacron) no se ejecuta continuamente, sino q hay un temporizador (timer) q lo "despierta" o levanta
+                                                TriggeredBy: logrotate.timer --> este se levanta el servicio una vez al dia de los ficheros log, pero el root puede forzar la rotacion
+                                                systemctl cat logrotate.timer ===> OnCalendar: daily
+Como funciona logrotate(como hace las rotaciones)
+rsyslog -- ejecuta mensajes
+    | envia mensajes
+fichero.log -- guarda mensajes
+    |
+logrotate.service -- pendiente del tamaño de los ficheros.log y lo vacia, al llegar al limite de tamaño definido por este servicio, vuelca los mensajes a otro fichero comprimido(normalmente)
+    |
+    vacio
+    |
+fichero.log.1.gz -- fichero comprimido creado por el logrotate.service. Se crearan tantos ficheros como esten definidos en el logrotate.service como rotacion. Siempre se guardan los mensajes nuevos
+    | -- guarda los mensajes del 1 al 2 al completarse la rotacion
+fichero.log.2.gz -- siempre se elimina el que tenga mayor numero, por tener los mensajes mas antiguos
+
+Configuracion del servicio LOGROTATE.SERVICE
+el servicio tiene un fichero central de configuracion: /etc/logrotate.conf (man logrotate.conf)
+variable_conf_global[valor] -----> son variables que se aplican de forma indiscriminada a todos los fich.log en /etc/logrotate.conf 
+weekly ---> rotacion por tiempo(a la semana, se rota)
+su root adm --> Usuario propietario(root) grupo propietario(adm) de los ficheros rotados 
+rotate 4 --> numero de rotacion definida por defecto
+create ----> en cada rotacion, vacia el original->borra fichero-->crea el fichero de nuevo
+
+    /ruta/fichero_log
+    /ruta/fichero_log
+    ...
+    {
+        variables_conf_locales [valor] -- cuando quieres especificar reglas de rotacion para un determinado fichero, te creas un fichero en /etc/logrotate.d/ con las reglas especificas para ese fichero.log
+            ej: /etc/logrotate.d/ fichero rsyslog que define reglas de rotacion para los fichero log que suele manejar rsyslog.service
+                        
+    }
+
+Contenido de rsyslog
+
+    /var/log/syslog
+    /var/log/mail.info
+    /var/log/mail.warn
+    /var/log/mail.err
+    /var/log/mail.log
+    /var/log/daemon.log
+    /var/log/kern.log
+    /var/log/auth.log
+    /var/log/user.log
+    /var/log/lpr.log
+    /var/log/cron.log
+    /var/log/debug
+    /var/log/messages
+    {
+    	rotate 4
+        size 10M -- rota por tamaño maximo del archivo
+    	weekly -- rota por semana
+    	missingok -- si falta alguno fichero intermedio, lo rota igual
+    	notifempty -- si el log original esta vacio, evita la rotacion
+    	compress -- comprime los ficheros rotados gz(ficheros comprimidos de Linux)
+    	delaycompress -- el primer fichero rotado no lo comprime, empieza a comprimir a partir del 2
+    	sharedscripts -- solo ejecuta los comandos del posttrotate una vez
+    	postrotate ---- comandos o script a ejecutar despues de una rotacion. Puedes ejecutar lo que quieras
+    		/usr/lib/rsyslog/rsyslog-rotate
+    	endscript
+    }
+
+PRACTICA
+creamos un Script para que genere mensajes aleatorios en fichero /tmp/milog.log
+#!/bin/bash
+clear
+echo "llenando el fichero /tmp/milog.log"
+[ ! -e /tmp/milog.log ] && touch /tmp/milog.log
+while true
+do
+    clear
+    ls -lh /tmp/milog.log*
+    dd if=/dev/urandom bs=1024 count=10000 | tr -dc '[a-zA-Z0-9]' >> /tmp/milog.log
+    sleep 1s
+done
+
+- creamos reglas de rotacion para este fichero: /etc/logrotate.d ----> fichero milog
+
+/tmp/milog.log
+{
+    su root root
+    rotate 3
+    size 5M
+    compress
+    missingok
+    notifempty
+    postrotate
+       [ -e /tmp/milog.log.3.gz ] && cp /tmp/milog.log.3gz /tmp/BACKUP___MILOG.3.gz.$(date '%Y-%m-%d__%H:%M')
+    endscript
+}
+
+
+- en dos terminales:
+      1º terminal lanzais script
+      2º terminal sudo logrotate -f /etc/logrotate.d/milog -- rota solo el fichero indicado. Ejecutarlo 3
