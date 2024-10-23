@@ -141,7 +141,9 @@ nodo-hijo   nodo-hijo     nodo-hijo
     vim -- abre el editor de texto
     :help -- archivo de ayuda sobre los comandos de vim
 
-    ejecucion=$(ls) -- guardar comandos en variables
+    tail -f nombre_archivo --
+
+    cut
 
 # COMPARACION DE ARCHIVOS DE TEXTO
     diff parametros archivo1 archivo2 -- compara dos archivos linea por linea. Muestra las diferencias 1ºArchivo < 2ºArchivo >
@@ -157,3 +159,4 @@ nodo-hijo   nodo-hijo     nodo-hijo
         CTRL + Y -- permite retrocer a la pagina anterior
         CTRL + W -- abre un buscador de palabras dentro del texto
         CTRL + X -- permite salir del editor de texto
+    sed - e "s/textoO/textoM/g" fichero ---> es un editor de texto online
