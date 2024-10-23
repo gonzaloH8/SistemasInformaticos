@@ -40,10 +40,11 @@ Fichero de texto plano, se divide en 3 secciones:
         $IncludeConfig  /ruta/directorio/ficheros.config
                         ----------------
                            |---> reglas de registro
-Ejemplo:   
-  $IncludeConfig /etc/rsyslog.d/*.conf
-      |                | 
-  directorio    ficheros donde estan reglas
+
+consulta fichero: /etc/rsyslog.conf ===> $includeConfig /etc/rsyslog.d/*.conf -- Este parámetro permite incluir otros archivos en el archivo de configuración principal. lee 50-default.conf 
+
+# VARIABLES DE RSYSLOG
+    $includeConfig -- directorio
 
 # FORMATO DE LAS REGLAS DE REGISTRO
 En cada linea del fichero supone una regla de registro, el servicio las procesa todas:
@@ -70,11 +71,10 @@ En cada linea del fichero supone una regla de registro, el servicio las procesa 
     auth,authpriv.*			    /var/log/auth.log <==== no la cumple(filtro de mensajes originados serv.autentificacion)
     *.emerg				        :omusrmsg:*(usuario)   <===== SOLO SE CUMPLE (si el mensaje producido por el servicio tiene la importancia de "emerg" 
                                                         y lo registra en el modulo de salida "outmsg", manda mensaje al terminal)    
-    importancia_mensaje:  emerg > alert > crit > err > warn > notice > info > debug
-    Ej: mirar contenido fichero /etc/rsyslog.d/50-default.conf                                    
-    Imaginamos que cron.service genera mensaje ====> rsyslog.service, consulta fichero: /etc/rsyslog.conf
-                                                                                        $includeConfig /etc/rsyslog.d/*.conf            
-                                                                                        En ese directorio entan dicheros de reglas, lee 50-default.conf       
+                                                        importancia_mensaje:  emerg > alert > crit > err > warn > notice > info > debug
+                                                        
+    cron.service(ejecuta un programa) ===> rsyslog.service(lo recibe) ===> /var/log/fichero.log -- guarda lo recibido por el rsyslog.service(mensajes de ejecucion)                                    
+                                                                                                                                                               
     Ejemplo:
         *.* ;             auth,authpriv.none                        -/var/log/syslog
         -----            -------------------                        -----------------    
@@ -86,36 +86,23 @@ En cada linea del fichero supone una regla de registro, el servicio las procesa 
          cualquier
          mensaje
 
-    2º caso:
-    :propiedad, [!]operador, valor
-            -----------
-                |
-           contains = chequea si en la propiedad contiene el valor q pones
-           isequal = chequea si la propiedad es exactamente igual al valor
-           startswith = chequea si la propiedad comienza con el valor
-           regex = chequea si la propiedad cumple con el patron indicado
-    
-     Ejemplo: 
-      :msg, contains, "authentication failure"    /var/log/sesiones_fallidas.log
-    ----------------------------------------    -------------------------------
-        \--si el mensaje generado por             \--> se registra en este fichero
-          algún servicio contiene
-          "authentication failuer"
-
 # COMANDOS
     /etc/rsyslog.d/ -- directorio donde se importan las reglas
         20-ufw.conf (reglas de registro para servicio firewall)
-        50-default.conf (reglas resto de servicios) -- reglas de servicio y destino de servicio
+        50-default.conf (reglas resto de servicios) -- reglas de servicio y destino de servicio(donde se guardan las acciones del servicio)
+    servicio -- cron,
+    destino (/var/log/nombre_fichero) -- fichero donde se guardaran los mensajes de accion efectuados por el servicio
     rsyslog.service -- encargado de la gestion de los LOGS
     sudo systemctl restart rsyslog.service -- reinicio del servicio rsyslog
     systemctl status rsyslog.service -- vemos el estado del servicio
-    /etc/rsyslog.conf -- mirar contenido, fichero de configuracion de los LOGS    
-    cron.service=>rsyslog.service=>/var/log/cron --
+
+    logger
 
 # DEFINICION DE PLANTILLAS DE FORMATO DE SALIDA DE MENSAJES
 - [PLANTILLAS](https://www.rsyslog.com/doc/configuration/templates.html)
 - [PROPIEDADES DE RSYSLOGpropiedades de rsyslog](https://www.rsyslog.com/doc/configuration/properties.html#message-properties)
 - [FORMATOS FECHA](https://www.rsyslog.com/doc/configuration/property_replacer.html#property-options)
+- [VER](https://www.rsyslog.com/doc/configuration/properties.html#message-properties)
 Para crear una plantilla, la forma mas rápida es definirla en el fichero de /etc/Rsyslog.conf y después ya usarla con el nombre que la identifica en el fichero de reglas. Para definirla, 2 formas:  
 - 1º forma tradicional o LEGACY:
     $template TEMPLATE_NAME,"text %PROPERTY% more text" donde:
@@ -124,29 +111,33 @@ Para crear una plantilla, la forma mas rápida es definirla en el fichero de /et
 
 Todo lo que se encuentre entre las dos comillas (“…”) es el texto de la plantilla real. Dentro de este texto, se pueden utilizar caracteres especiales, como \n para nueva línea o \r para retorno de carro. Otros caracteres, como % o ", deben ser escapados si desea utilizar esos caracteres de forma literal.
 El texto especificado entre dos signos de porcentaje (%) especifica una propiedad que le permite acceder a contenidos específicos de un mensaje de syslog.(son variables predefinidas:
-https://www.rsyslog.com/doc/configuration/properties.html#message-properties
 
-Ejemplo:
-Vamos a crearnos una plantilla personalizada para el registro de mensajes de demonios de autentificacion editamos el fichero /etc/rsyslog.conf:
+**SINTAXIS 1º**
+    - Propiedades
+        - msg: almacena el mensaje generado por el servicio
+    - Operadores
+        - contains: chequea si en la propiedad contiene el valor q pones
+        - isequal: chequea si la propiedad es exactamente igual al valor
+        - startswith: chequea si la propiedad comienza con el valor
+        - regex: chequea si la propiedad cumple con el patron indicado
 
-    1º Forma
-        $template miplantilla, "---mensaje demonio auth generado en: %TIMESTAMP%  desde %HOSTNAME% con contenido %msg% ---"
-        usamos la plantilla en el fichero de reglas, editamos fichero:  /etc/rsyslog.d/50-default.conf
-        auth,authpriv.*      /var/log/auth.log;miplantilla
-    2º forma actual con objeto template():          
-        template(name="__nombre_plantilla"
-             type="string"
-             string="....plantilla del mensaje..."
-             )
-
-**SINTAXIS**
+    :propiedad, [!]operador,         valor                   Fichero de salida
+        |           |                  |                              |
+      :msg,     contains,   "authentication failure"    /var/log/sesiones_fallidas.log -- forma de tecnico de sistemas
+    -----------------------------------------------     -------------------------------
+        \--si el mensaje generado por                     \--> se registra en este fichero
+          algún servicio contiene
+          "authentication failuer"
+    if $msg contains "miscript.sh" then /var/log/milog  -- forma de programador  
+          
+**SINTAXIS 2º**
 - TEMPLATE
     - name: especifica el nombre de la plantilla. Debe ser unico
     - type: especifica el tipo de plantilla    
         - list:
         - subarbol: útil para salidas que saben cómo procesar la estructura jerárquica, como ommongodb. template(name=”tpl1” type=”subtree” subtree=”$!”)
-        - cadena: parámetro obligatorio string , que contiene la cadena de plantilla que se aplicará
-        - complemento: la plantilla se genera mediante un complemento (que se denomina "strgen" o "generador de cadenas"). El formato es fijo a medida que se codifica, es inflexible. 
+        - string: parámetro obligatorio string , que contiene la cadena de plantilla que se aplicará
+        - complements: la plantilla se genera mediante un complemento (que se denomina "strgen" o "generador de cadenas"). El formato es fijo a medida que se codifica, es inflexible. 
     - constant: se utiliza para imprimir texto literal, pensada para la salida de texto
         - valor: el valor constante a utilizar
         - outname: el nombre del campo de salida (para salidas estructuradas)
@@ -204,7 +195,7 @@ Vamos a crearnos una plantilla personalizada para el registro de mensajes de dem
     set $!usr!tpl2!dataflow = field($msg, 58, 2);
     template(name="tpl2" type="subtree" subtree="$!usr!tpl2")
 
-## CADENA
+## STRING
     template(name="tpl3" type="string"
          string="%TIMESTAMP:::date-rfc3339% %HOSTNAME% %syslogtag%%msg:::sp-if-no-1st-sp%%msg:::drop-last-lf%\n"
         )
@@ -246,39 +237,33 @@ Vamos a crearnos una plantilla personalizada para el registro de mensajes de dem
     %$clientip%: Utiliza esta variable si estás recibiendo mensajes remotos y se puede obtener la IP.
 
 # ROTACION DE LOGS
-Uno de los problemas mas importantes de los ficheros LOG es el crecimiento indiscriminado de su tamaño
-por la cantidad enorme de mensajes q se almacenan en ellos por el servicio rsyslog.service (tanto es asi
-q pueden hacer q el sistema operativo se caiga <--- DoS attack)
+Uno de los problemas mas importantes de los ficheros LOG es el crecimiento indiscriminado de su tamaño por la cantidad enorme de mensajes q se almacenan en ellos por el servicio rsyslog.service (tanto es asi
+q pueden hacer q el sistema operativo se caiga ==> (DoS attack => ataque de Denial of Service)
 
-para evitarlo, se hace la ROTACION de estos ficheros gracias al servicio LOGROTATE.SERVICE
-al ver el estado del servicio, aparece como inactivo (o dead):
+para evitarlo, se hace la ROTACION de estos ficheros gracias al servicio LOGROTATE.SERVICE al ver el estado del servicio, aparece como inactivo (o dead):
 
     systemctl status logrotate.service <------ depende de un timer
-                        de systemd q lo despierta
-                        cada cierto periodo de
-                        tiempo (1 vez al dia)
+                                               de systemd q lo despierta
+                                               cada cierto periodo de
+                                               tiempo (1 vez al dia)
   
-                    systemctl cat logrotate.timer
-                    
-                    [Timer]
-                    OnCalendar=daily <---- diaria
-                    AccuracySec=12h
+    systemctl cat logrotate.timer -- permite ver las directrices del logrotate.timer           
+    [Timer]
+    OnCalendar=daily <---- diaria
+    AccuracySec=12h
 
  si es insuficiente, dos formas de evitarlo:
-     - o modificas el timer y en variable OnCalendar estableces 
-       el periodo en q quieres levantar el servicio (man systemd.time)
-                    
-    - o programas una tarea cron donde fuerzas la ejecucion del 
-     servicio usando su ejecutable:
+     - 1º modificas el timer y en variable OnCalendar estableces el periodo en q quieres levantar el servicio (man systemd.time)              
+     - 2º programas una tarea cron donde fuerzas la ejecucion del servicio usando su ejecutable:
      
          systemctl cat logrotate.service <---- 
             [Service]
             ...
             ExecStart=/usr/sbin/logrotate /etc/logrotate.conf
                    -------------------  ------------------
-                    |            |
-                  ejecutable        fichero de reglas
-                              de rotacion
+                    |                            |
+                  ejecutable            fichero de reglas de rotacion
+                              
     ej: programamos tarea cron para q se ejecute todos los dias, meses
         del año, dias de la semana a las 15min de cada hora
         POR EL ROOT!!! meterlo en /etc/crontab:
@@ -306,39 +291,19 @@ el fichero esta formado por:
 
 la rotación consiste en función de como esten definidas en esas reglas, ir haciendo:
 
-1º rotacion:
+Fichero.log(alcanza el tamaño maximo)
+Se vacia
+Genera un fichero comprimido fichero.log.1.gz donde guarda el contenido de Fichero.log
 
-    - fichero log              fichero log    fichero log.1
-     alcanza un    --------->   (vacio)       con mensajes 
-     tamaño maximo   se vacia          del fichero log
-     predefinido             |
-                  se pueden
-                  seguir registrando
-                  mensajes
+Fichero.log(alcanza el tamaño maximo)
+El fichero.log.1.gz(tiene ya el tamaño maximo)
+Genera un fichero comprimido fichero.log.2.gz donde guarda el contenido de fichero.log.1.gz
 
-2º rotacion:
+...
 
-    - fichero log              fichero log    fichero log.1    fichero log.2.zip
-     alcanza un    --------->   (vacio)       con mensajes     con mensajes del fichero log.1
-     tamaño maximo   se vacia          del fichero log  comprimidos
-     predefinido             |
-                  se pueden
-                  seguir registrando
-                  mensajes
-
-NºMaxRotacion:
-
-    - fichero log              fichero log    fichero log.1    fichero log.2.zip .......       fichero log.N.zip
-     alcanza un    --------->   (vacio)       con mensajes     con mensajes del fichero log.1   con mensajes del
-     tamaño maximo   se vacia          del fichero log  comprimidos                fichero log ante
-     predefinido             |                               rior, perdiendose
-                  se pueden                               los mensajes q se
-                  seguir registrando                            almacenaban aqui
-                  mensajes
-
-----------------------
 ejemplo:
-        /var/log/syslog
+
+        /var/log/syslog -- fichero donde estas reglas van a ser ejecutadas
         {
             rotate 7 <----------- fichero /var/log/syslog se rota 7 veces
             daily  <------------- (aunque no se alcance su MAX.size) se rota diariamente
@@ -353,9 +318,6 @@ ejemplo:
                                 temporal para q no mande mensajes al log mientras
                                 se vacia, y una vez vaciado y rotado, se vuelve a
                                 levantar (se evita asi la perdida de mensajes)
-
-
-La rotacion de LOGS trata de evitar el crecimiento indescriminado del crecimiento de los ficheros LOG; si no se controla su tamaño cada vez mas crecen mas y mas, colapsando la particion donde estan y haciendo que el SO se bloquee(Dos => ataque de Denial of Service)
 
 Hay un servicio encargado de esta rotacion (no todas las distribuciones linux lo incluyen): LOGROTATE.SERVICE
     systemctl status logrotate.service ----> este servicio esta disparado por un timer(como anacron) no se ejecuta continuamente, sino q hay un temporizador (timer) q lo "despierta" o levanta
