@@ -77,6 +77,7 @@
     declare -r variableConstante = 123 -- solo lectura
     variableModificable = 123
     vairbleString = "Hola"
+    ejecucion=$(ls) -- guardar comandos en variables
 
 # CONDICIONAL IF ELIF ELSE
      age=10 -- variable
