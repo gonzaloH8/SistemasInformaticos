@@ -5,12 +5,12 @@
         si se modifica el fichero de reglas, hay que reiniciar servicio <=== OJO!!!
         sudo systemctl restart rsyslog.service                
     2) vemos las ultimas lineas del fichero log donde rsyslog manda mensajes del servicio: en una consola
-            sudo tail -f /var/log/cron
+            sudo tail -f /var/log/cron -- fichero donde esta los mensajes creados por el servicio cron, mostrando todas las acciones
     3) con tu usuario, editas fichero de tareas automaticas:
         crontab -e <====== el servicio cron.service manda mensaje a rsyslog.service para que registre accion        
                             el mensaje tendria que aparecer en la otra consola donde estas viendo el log
         añadimos tarea:
-            */2 * * * * touch /tmp/prueba_log_$(date '+%Y-%m-%d--%H:%M')<=== al grabar, el servicio genera mensaje y debe aparecer en consola donde esta viendo el LOGS
+            */2 * * * * touch /tmp/prueba_log_$(date '+%Y-%m-%d--%H:%M')<=== Creamos un fichero en /tmp con la fecha de creacion
         Cuando sales del la edicion del fichero <==== mensaje tambien enviado a rsyslog
         Cuando se ejecuta la tarea<====== mensaje tambien enviado a rsyslog
     Como mandar mensajes personalizados a rsyslog: (muy util en scripts)
