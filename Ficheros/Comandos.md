@@ -283,3 +283,7 @@
 # DEBUGGING
     bash -x nombreScript.sh -- permite recorrer el archivo paso a paso
     set -x -- permite aplicar donde queremos que empiece a debuggear y donde queremos terminar lo escribimos otra vez
+
+# VARIOS
+    brute force attack jhon the ripper -- forzado de hash
+    echo "Hola1234" | sha512sum -- generador de hash 
