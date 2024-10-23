@@ -272,11 +272,9 @@ para evitarlo, se hace la ROTACION de estos ficheros gracias al servicio LOGROTA
 
 # FICHERO DE CONFIGURACION DE REGLAS DE ROTACION: /etc/logrotate.conf
 (todos los comandos q aparecen en las reglas:  man logrotate.conf)
-
 el fichero esta formado por:
 
     comandos para todos los logs:
-    
     comando-global-1        weekly
     comando-global-2        su root adm
     comando-global-3        rotate 4
@@ -289,8 +287,8 @@ el fichero esta formado por:
         ...
     }
 
-la rotación consiste en función de como esten definidas en esas reglas, ir haciendo:
-
+La rotación consiste en función de como esten definidas en esas reglas, ir haciendo:
+rsyslog -- ejecuta mensajes y lo envia a Fichero.log
 Fichero.log(alcanza el tamaño maximo)
 Se vacia
 Genera un fichero comprimido fichero.log.1.gz donde guarda el contenido de Fichero.log
@@ -299,42 +297,12 @@ Fichero.log(alcanza el tamaño maximo)
 El fichero.log.1.gz(tiene ya el tamaño maximo)
 Genera un fichero comprimido fichero.log.2.gz donde guarda el contenido de fichero.log.1.gz
 
-...
-
-ejemplo:
-
-        /var/log/syslog -- fichero donde estas reglas van a ser ejecutadas
-        {
-            rotate 7 <----------- fichero /var/log/syslog se rota 7 veces
-            daily  <------------- (aunque no se alcance su MAX.size) se rota diariamente
-            missingok <---------- haz rotacion aunque algun fichero intermedio se pierda
-            notifempty <--------- no se hace rotacion si el fichero log esta vacio
-            delaycompress <----- no comprimir fichero de la primera rotacion
-            compress <---------- ficheros rotados q se compriman
-            postrotate
-                /usr/lib/rsyslog/rsyslog-rotate <---- una vez q el fichero log se rota, se ejecuta
-            endscript                    este comando o script (lo q hace es parar
-        }                        la ejecucion del servicio rsyslog.service de forma
-                                temporal para q no mande mensajes al log mientras
-                                se vacia, y una vez vaciado y rotado, se vuelve a
-                                levantar (se evita asi la perdida de mensajes)
+... se elimina el que tenga mayor numero, por tener los mensajes mas antiguos
 
 Hay un servicio encargado de esta rotacion (no todas las distribuciones linux lo incluyen): LOGROTATE.SERVICE
-    systemctl status logrotate.service ----> este servicio esta disparado por un timer(como anacron) no se ejecuta continuamente, sino q hay un temporizador (timer) q lo "despierta" o levanta
-                                                TriggeredBy: logrotate.timer --> este se levanta el servicio una vez al dia de los ficheros log, pero el root puede forzar la rotacion
-                                                systemctl cat logrotate.timer ===> OnCalendar: daily
-Como funciona logrotate(como hace las rotaciones)
-rsyslog -- ejecuta mensajes
-    | envia mensajes
-fichero.log -- guarda mensajes
-    |
-logrotate.service -- pendiente del tamaño de los ficheros.log y lo vacia, al llegar al limite de tamaño definido por este servicio, vuelca los mensajes a otro fichero comprimido(normalmente)
-    |
-    vacio
-    |
-fichero.log.1.gz -- fichero comprimido creado por el logrotate.service. Se crearan tantos ficheros como esten definidos en el logrotate.service como rotacion. Siempre se guardan los mensajes nuevos
-    | -- guarda los mensajes del 1 al 2 al completarse la rotacion
-fichero.log.2.gz -- siempre se elimina el que tenga mayor numero, por tener los mensajes mas antiguos
+systemctl status logrotate.service ----> este servicio esta disparado por un timer(como anacron) no se ejecuta continuamente, sino q hay un temporizador (timer) q lo "despierta" o levanta
+                                        TriggeredBy: logrotate.timer --> este se levanta el servicio una vez al dia de los ficheros log, pero el root puede forzar la rotacion
+                                        systemctl cat logrotate.timer ===> OnCalendar: daily
 
 Configuracion del servicio LOGROTATE.SERVICE
 el servicio tiene un fichero central de configuracion: /etc/logrotate.conf (man logrotate.conf)
@@ -344,16 +312,7 @@ su root adm --> Usuario propietario(root) grupo propietario(adm) de los ficheros
 rotate 4 --> numero de rotacion definida por defecto
 create ----> en cada rotacion, vacia el original->borra fichero-->crea el fichero de nuevo
 
-    /ruta/fichero_log
-    /ruta/fichero_log
-    ...
-    {
-        variables_conf_locales [valor] -- cuando quieres especificar reglas de rotacion para un determinado fichero, te creas un fichero en /etc/logrotate.d/ con las reglas especificas para ese fichero.log
-            ej: /etc/logrotate.d/ fichero rsyslog que define reglas de rotacion para los fichero log que suele manejar rsyslog.service
-                        
-    }
-
-Contenido de rsyslog
+Contenido de rsyslog.conf
 
     /var/log/syslog
     /var/log/mail.info
@@ -369,7 +328,7 @@ Contenido de rsyslog
     /var/log/debug
     /var/log/messages
     {
-    	rotate 4
+    	rotate 4 -- numero de rotacion de ficheros
         size 10M -- rota por tamaño maximo del archivo
     	weekly -- rota por semana
     	missingok -- si falta alguno fichero intermedio, lo rota igual
