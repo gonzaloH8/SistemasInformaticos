@@ -1,4 +1,5 @@
- <li><a href="https://tmuxcheatsheet.com/">COMANDOS</a> estilo terminal(sudo apt install tmux --consola enriquecida)</li>
+- [COMANDOS estilo terminal(sudo apt install tmux --consola enriquecida)](https://tmuxcheatsheet.com/)
+- [COLORES](https://dev.to/ifenna__/adding-colors-to-bash-scripts-48g4)
 
 # SHORTS COMANDOS
     CTRL + MAYUS + T -- abre una nueva terminal
@@ -23,10 +24,8 @@
     { echo "Hello World"; | ls; } > resultado.txt
 
 # ENLACES AMPLIACION CG
-<ul>
-  <li><a href="http://wttr.in/:help.">CURL WTTR.IN</a> mas informacion</li>
-  <li><a href="https://computernewage.com/2014/12/25/como-personalizar-el-aspecto-del-prompt-de-la-terminal-de-linux/">Personalizacion del Terminal</a></li>
-</ul>
+- [CURL WTTR.IN mas informacion](http://wttr.in/:help.)
+- [Personalizacion del Terminal](https://computernewage.com/2014/12/25/como-personalizar-el-aspecto-del-prompt-de-la-terminal-de-linux/)
 
 # COMANDOS GENERICOS
     sudo -l -- cambia de $ a #
