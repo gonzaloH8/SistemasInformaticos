@@ -25,27 +25,58 @@ Ejemplo:
   nombre_usuario: has_passwd | ! | * : .... campos que indican la durabilidad de la contraseña, etc
 
 # COMANDOS
-    adduser + nombreUsuario -- Añadir usuarios
+    GLOBALES
+    id -- te indica el nombre de usuario con el que has iniciado session y estas trabajando
+    w -- te da informacion de todos los usuarios q estan usando el sistema y lo que estan haciendo
+
+    USUARIOS
+    useradd + nombre_usuario -- añade usuario
+    userdel + nombre_usuario -- elimina usuario
     sudo addgroup + nombreGrupo -- Crear un grupo
     sudo adduser + nombreUsuario + nombreGrupo -- Añadir un usuario al grupo
     groups + nombreUsuario -- Comprobacion de en que grupos esta el usuario
-    su + nombreUsuario -- Cambiar de usuario
-    
-    sudo usermod -G grupo1,grupo2 usuario  -- Establecer grupos secundarios
-    sudo usermod -a -G sinsinf usuario --  Añadiendo al grupo sisinf, sin borrar los anteriores
-    sudo usermod g nuevogrupo -G anteriorgrupo usuario -- Cambio de grupo principal de un usuario, manteniendo el anterior como secundario
-    sudo usermod -d /home/nuevousuario -- Cambio de directorio personal
-    -m --  Copia del contenido del antiguo directorio personal se añade
-    
-    sudo chown nuevopropietario fichero_o_directorio -- Cambio de propietario
-    sudo chown nuevopropietario: nuevogrupo fichero_o_directorio -- Cambio de propietario y grupo
-    sudo chown: nuevogrupo fichero_o_directorio -- Cambio de grupo
-    
-    sudo deluser usuario --  Para borrar un usuario
+    su + nombreUsuario -- Cambiar de sesion de usuario. Para abandonar esta sesion y recuperar la anterior: exit
     sudo deluser usuario --remove-home -- Para borrar un usuario y su carpeta personal
     sudo deluser usuario grupo --  Para borrar un usuario del grupo
     sudo delgroup grupo -- Para borrar un grupo
     sudo deluser usuario --group grupo  -- Para borrar un grupo y su carpeta personal
 
-    man shadow
-    /etc/passwd
+    GRUPOS
+    sudo usermod + nombre_usuario -- modifica una cuenta de usuario existente
+    sudo usermod -G grupo1,grupo2 usuario  -- Establecer grupos secundarios
+    sudo usermod -a -G sinsinf usuario --  Añadiendo al grupo sisinf, sin borrar los anteriores
+    sudo usermod g nuevogrupo -G anteriorgrupo usuario -- Cambio de grupo principal de un usuario, manteniendo el anterior como secundario
+    sudo usermod -d /home/nuevousuario -- Cambio de directorio personal
+    -m --  Copia del contenido del antiguo directorio personal se añade
+
+    CAMBIO DE PERMISOS A USUARIOS
+    sudo chown nuevopropietario fichero_o_directorio -- Cambio de propietario
+    sudo chown nuevopropietario: nuevogrupo fichero_o_directorio -- Cambio de propietario y grupo
+    sudo chown: nuevogrupo fichero_o_directorio -- Cambio de grupo   
+
+    PASSWORD
+    man shadow -- ves la documentacion de las password
+    /etc/passwd -- archivo donde se enencuentran las passwd
+    passwd usuario -- cambia de forma interactiva la password de un usuario
+    echo "nombreUsuario:passwd" | chapsswd -- cambia la password de ese usuario sin preguntar ===> MUY UTIL PARA SCRIPTS
+
+ # COLORES
+ rojo=''
+
+
+PRACTICA
+ALTA USUARIOS
+pedir por teclado el nombre del usuario a crear: ====> comprobar q no esta vacia, si esta vacio mostrar mensaje de error y salir
+pedir la nueva contaseña del usuario ===> no puede estar en blanco
+Repetir la nueva contraseña del usuario ====> no puede estar en blanco y debe coincidir con valor de arriba
+SI COINCIDEN poner esta contraseña a la cuenta ===> usando el comando chpasswd
+Pedir los comentarios a poner a la cuenta
+pedir la shell ===> si esta vacio, se pone por defecto /bin/bash
+con esos datos, crear la cuenta comprobarlo en el fichero /etc/passwd (buscando la linea con grep)
+
+2º) Borrar usuario
+pedir usuario a borrar===> comprobar qe no esta vacio y que el usuario existe
+Pedir si realmente estas seguro de querer borrarlo: ....Si o NO
+Si es afirmativo, borrar la cuenta
+
+    
