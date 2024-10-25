@@ -28,7 +28,7 @@ Ejemplo:
     GLOBALES
    
     /etc/ssh/sshd_config (PasswordAuthentication yes) -- archivo de directivas varias
-
+    sudo pam-auth-update
     
     USUARIOS
     id -- te indica el nombre de usuario con el que has iniciado session y estas trabajando
