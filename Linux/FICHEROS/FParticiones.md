@@ -29,6 +29,8 @@
     dd -- permite realizar copias de seguridad, clonar discos y particiones, tranferencia de datos
         info dd -- permite consultar toda la informacion del comando
 
+    df -h -- coprueba el espacio en disco
+
     losetup -- 
     losetup -f -- para saber cual esta libre
 
