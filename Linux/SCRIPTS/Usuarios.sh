@@ -8,49 +8,51 @@
 # Pedir los comentarios a poner a la cuenta
 # pedir la shell ===> si esta vacio, se pone por defecto /bin/bash
 # con esos datos, crear la cuenta comprobarlo en el fichero /etc/passwd (buscando la linea con grep)
+# 2º) Borrar usuario pedir usuario a borrar===> comprobar qe no esta vacio 
+# y que el usuario existe Pedir si realmente estas seguro de querer borrarlo: ....Si o NO Si es afirmativo, borrar la cuenta
 clear
 
-read -p "Dime el nombre de usuario a crear: " usuario
-if [ -z $usuario ]
-then
-    echo "no has escrito el nombre de usuario"
-    sudo userdel $usuario
-    sleep 1s   
-    exit 0
-else 
-    sudo useradd $usuario
-fi
+read -p "Dime el nombre de usuario a crear: " user
 
-read -p "Dime el password de usuario a crear: " pass
-if [ -z $pass ]
+if [ -z "$user" ]
 then
-    echo -n -e "\t\t\t No puede estar vacio"
-    sudo userdel $usuario
-    sleep 1s
+    echo "No has escrito nada"
     exit 0
 fi
 
-read -p "Repite la password: " passs
-if [ -z $passs ]
-then
-    echo "No puede estar vacio"
-    sudo userdel $usuario
-    sleep 1s
-    exit 0
-elif [ $pass -eq $passs ]
-then
-    echo "La password $pass coincide"
-    sudo chpasswd $pass
-    sleep 1s
+# minúsculas, mayúsculas, números y caracteres especiales
+# 11449X_azul
+
+read -p "Dime la password para el $user a usar: " pass
+if [ -z "$pass" ]
+then    
+    echo "La password no puede estar en blanco"
     exit 0
 fi
 
+read -p "Repite la password, para su verificacion: " passw
+if [ -z "$passw" ]
+then
+    echo "La password no puede estar en blanco"
+    exit 0
+elif [ $pass != "$passw" ]
+then
+    echo "La password no coincide"
+    exit 0
+fi
+
+read -p "Escribe los comentarios: " comments
+read -p "Introduce la SHELL del nuevo usuario: " shell
 [ -z "$shell" ] && shell=/bin/bash
+
+sudo useradd -c "$comments" -s "$shell" $user && echo "Usuario creado correctamente" # añadimos el user con lo comentarios y el directorio principal
+echo "$user:$pass" | sudo chpasswd # aplicamos la password al usuario
+grep -e "^$user:x:" /etc/passwd # busca el usuario creado
 
 ===========================================
 #!/bin/bash
 clear
-
+# SCRIPT DEL PROFESOR
 #variables para definir colores en script
 COLOR_BACKROJO_LETAMARILLO='\e[1;33;31m'
 COLOR_ROJO='\e[31m'
@@ -105,6 +107,11 @@ echo "$nombre:$password" | chpasswd
 #.....mostramos linea en fihcero /etc/passwd....
 echo -e "\n\t\t linea en fichero $COLOR_AMARILLO /etc/passwd $COLOR_RESET"
 grep -e "^$nombre:x:" /etc/passwd
+
+
+
+
+
 
 
 #!/bin/bash
