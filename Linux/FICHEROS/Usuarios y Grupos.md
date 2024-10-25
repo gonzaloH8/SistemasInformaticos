@@ -26,11 +26,16 @@ Ejemplo:
 
 # COMANDOS
     GLOBALES
+   
+    /etc/ssh/sshd_config (PasswordAuthentication yes) -- archivo de directivas varias
+
+    
+    USUARIOS
     id -- te indica el nombre de usuario con el que has iniciado session y estas trabajando
     w -- te da informacion de todos los usuarios q estan usando el sistema y lo que estan haciendo
-
-    USUARIOS
     useradd + nombre_usuario -- añade usuario
+      -c -- añade comentarios
+      -s -- añade shell
     userdel + nombre_usuario -- elimina usuario
     sudo addgroup + nombreGrupo -- Crear un grupo
     sudo adduser + nombreUsuario + nombreGrupo -- Añadir un usuario al grupo
@@ -40,6 +45,8 @@ Ejemplo:
     sudo deluser usuario grupo --  Para borrar un usuario del grupo
     sudo delgroup grupo -- Para borrar un grupo
     sudo deluser usuario --group grupo  -- Para borrar un grupo y su carpeta personal
+    sudo passwd -u nombre_de_usuario -- permite desbloquear la cuenta
+    sudo passwd -S nombre_de_usuario -- comprueba si la cuenta esta bloqueada
 
     GRUPOS
     sudo usermod + nombre_usuario -- modifica una cuenta de usuario existente
@@ -55,14 +62,11 @@ Ejemplo:
     sudo chown: nuevogrupo fichero_o_directorio -- Cambio de grupo   
 
     PASSWORD
+    pam_passwdqc.so -- host de comprobacion de autentificacion de password predeterminada
     man shadow -- ves la documentacion de las password
     /etc/passwd -- archivo donde se enencuentran las passwd
     passwd usuario -- cambia de forma interactiva la password de un usuario
     echo "nombreUsuario:passwd" | chapsswd -- cambia la password de ese usuario sin preguntar ===> MUY UTIL PARA SCRIPTS
-
- # COLORES
- rojo=''
-
 
 PRACTICA
 ALTA USUARIOS
@@ -78,5 +82,7 @@ con esos datos, crear la cuenta comprobarlo en el fichero /etc/passwd (buscando 
 pedir usuario a borrar===> comprobar qe no esta vacio y que el usuario existe
 Pedir si realmente estas seguro de querer borrarlo: ....Si o NO
 Si es afirmativo, borrar la cuenta
+
+pam_chauthtok() failed, error: Error de manipulación del testigo de autenticación
 
     
