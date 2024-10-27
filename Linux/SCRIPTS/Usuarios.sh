@@ -49,7 +49,7 @@ sudo useradd -c "$comments" -s "$shell" $user && echo "Usuario creado correctame
 echo "$user:$pass" | sudo chpasswd # aplicamos la password al usuario
 grep -e "^$user:x:" /etc/passwd # busca el usuario creado
 
-===========================================
+===================================================================================================================================
 #!/bin/bash
 clear
 # SCRIPT DEL PROFESOR
@@ -95,8 +95,6 @@ then
 
 fi
 
-
-
 echo -n -e "\t\tIntroduce los $COLOR_CYAN COMENTARIOS $COLOR_RESET del nuevo usuario..."; read comments
 echo -n -e "\t\tIntroduce la $COLOR_CYAN SHELL $COLOR_RESET del nuevo usuario..."; read shell
 [ -z "$shell" ] && shell=/bin/bash
@@ -108,12 +106,7 @@ echo "$nombre:$password" | chpasswd
 echo -e "\n\t\t linea en fichero $COLOR_AMARILLO /etc/passwd $COLOR_RESET"
 grep -e "^$nombre:x:" /etc/passwd
 
-
-
-
-
-
-
+==========================================================================================================================
 #!/bin/bash
 read -p "Introduzca el nombre del usuario (login) " usuario
 existe=0
@@ -132,4 +125,57 @@ else
   echo "El usuario no existe"
 fi
 
+===================BUCLE WHILE============================================================================================================
+#!/bin/bash
+clear
+read -p "Dime una opcion" opcion
+case $opcion in
+1)
+    while [ true ]
+    do
+    read -p "Dime el nombre de usuario a crear: " user
+    read -p "Dime la password a usar: " pass
+    read -p "Repite la password para su verificacion: " passw
+    if [[ -z "$user" || -z "$pass" || -z "$passw" ]]
+    then
+        echo "El usuario o el password o la rep.password estan vacias"
+    elif [ "$pass" != "$passw" ]
+    then
+    echo "Las password no son iguales"
+    else
+        read -p "Escribe los comentarios: " comments
+    read -p "Introduce la SHELL del nuevo usuario: " shell
+    [ -z "$shell" ] && shell=/bin/bash
 
+    sudo useradd -c "$comments" -s "$shell" $user && echo "Usuario creado correctamente"
+    echo "$user:$pass" | sudo chpasswd
+    grep -e "^$user:x:" /etc/passwd
+    exit 0
+    fi
+    done
+;;
+
+2)
+ read -p "Dime el usuario a buscar: " usuario
+    if [ -z $usuario ]
+    then
+        echo "No has escrito nada"
+    fi
+
+    if id "$usuario"; 
+    then
+        echo "El usuario $usuario existe"
+    fi
+
+    echo "¿Procedemos a borrarlo?S/N: "; read res
+    if [ "$res" = "S" ]
+    then
+        sudo userdel $usuario
+        echo "El $usuario ha sido borrado"
+        exit 0
+    elif [ "$res" = "N" ]
+    then
+        echo "No ha sido borrado el $usuario"
+    fi
+    ;;
+esac
