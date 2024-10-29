@@ -85,4 +85,35 @@ Si es afirmativo, borrar la cuenta
 
 pam_chauthtok() failed, error: Error de manipulación del testigo de autenticación
 
-    
+=======================================================================================
+# GRUPOS
+La forma de linux de guardar info sobre los grupos de usuarios (conjunto de cuentas con mismo rol: permisos acceso a recursos) es fichero
+/etc/group <====== cada linea representa un grupo de usuarios, y tiene este formato:
+nombre_grupo : x : GID : <=== lista de usuarios separados por comas---> actualmente suele meterse en fichero gshadow
+GID(Group-identifier):, numero exclusivo q identifica al grupo para grupos de sistema este numero es inferior a 1000
+Cuando crear una cuenta Linux lo que hace es asociarla a un grupo con el mismo nombre de la cuenta del usuario (solo para ese usuario ìedes cambiarlo con comando)
+usermod -g GID | nombre_grupo_principal nombre_usuario
+Los grupos vinen por defecto sin password, pero pude asignarles una password de acceso, acceso: esta password se almacena en fichero:
+/etc/gshadow <====== cada linea representa la info de password de acceso a un grupo y lista de usuarios grupo: nombre_grupo: hash_password | ! | * : usuario1, usuario2, ...
+* si aparece un * el grupo esta deshabilitado(no se puede acceder a el)
+* si aparece una ! password del grupo ha expirado, el root o el administrador del grupo tiene q reactivarla, cambiandolo.
+
+  COMANDOS
+groupadd -opciones nombre_grupo <==== comando para crear un grupo (GID)
+groupdel -opciones nombre_grupo <==== comando para borrar un grupo
+groupmod -opciones nombre_grupo <==== modificas caracteristicas del grupo. Permite cambiar el GID
+groups nombre_usuario <===== 
+echo "nombreGrupo:password" | chgpasswd <==== cambias la password sin preguntar, directamente
+gpasswd nombre_grupo <==== forma interactiva de cambio de password
+gpasswd - A user1,user2,... -M user1,user2.... nombreGrupo ==> lista de admins grupo y lista de miembros de grupo. Sirve para modificar roles en un grupo
+gpasswd -d user1,user2,... nombreGrupo ===> para borrar ususarios de un grupo
+gpasswd -a user1,user2,... nombreGrupo ===> para añadir usuarios a un grupo
+newgrp nombre_grupo <==== cuando un usuario pertenece a mas de un grupo, para cambiar de grupo. Si tiene contraseña te la pedira antes de poder cambiar
+
+PRACTICA
+crear un grupo llamado "alumnos1DAW-A" con GID: 6666
+poner password de acceso al grupo con chgpasswd: Hola1234
+añadir al grupo el usuario de tu cuenta
+comprobar en fichero /etc/group y etc/gshadow
+con tu cuenta comprueba en q grupo estas ahora: id
+cambiate al grupo "alumnos1DAW-A" y vuelve a comprobar en q grupo estas con: id
