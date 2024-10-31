@@ -1,10 +1,12 @@
 PRACTICA
-crear un grupo llamado "alumnos1DAW-A" con GID: 6666
-poner password de acceso al grupo con chgpasswd: Hola1234
-añadir al grupo el usuario de tu cuenta
-comprobar en fichero /etc/group y etc/gshadow
-con tu cuenta comprueba en q grupo estas ahora: id
-cambiate al grupo "alumnos1DAW-A" y vuelve a comprobar en q grupo estas con: id
+#!/bin/bash
+# crear un grupo llamado "alumnos1DAW-A" con GID: 6666
+# poner password de acceso al grupo con chgpasswd: Hola1234
+# añadir al grupo el usuario de tu cuenta
+# comprobar en fichero /etc/group y etc/gshadow
+# con tu cuenta comprueba en q grupo estas ahora: id
+# cambiate al grupo "alumnos1DAW-A" y vuelve a comprobar en q grupo estas con: id
+clear
 
 sudo groupadd alumnos1DAW-A
 sudo groupmod alumnos1DAW-A -g 6666
