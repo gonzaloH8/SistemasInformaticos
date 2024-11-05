@@ -143,7 +143,11 @@ nodo-hijo   nodo-hijo     nodo-hijo
 
     tail -f nombre_archivo --
 
-    cut
+    cut -d ':' corta el string por el delimitador definido entre comillas
+    cut -d ':' -f 1,3 -- indica la posicion del array creado que se quiere mostrar
+    while IFS= read -r line. do. echo "$line" -- lectura de ficheros
+    while read a do done
+    IFS(INPUT FIELD SEPARATOR) -- indica por defecto el salto de linea
 
 # COMPARACION DE ARCHIVOS DE TEXTO
     diff parametros archivo1 archivo2 -- compara dos archivos linea por linea. Muestra las diferencias 1ºArchivo < 2ºArchivo >
