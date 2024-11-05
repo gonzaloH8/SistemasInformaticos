@@ -77,15 +77,41 @@ con TAR para poder hacer backups incrementales, exige tener referencia un ficher
         tar -c -v -z -f /ruta/fich_backup_incremental_num.tar.gz -g /ruta/fichero_snap /ruta_a_hacer_backup
 
 PRACTICA
-crear en /tmp un directorio llamado pruebas: dentro de este directorio crear 4 ficheros de texto llamados
-    fich1.txt fich2.txt fich3.txt fich4.txt
-creamos backup total con fichero snapshot
-    tar -c -v -z -f /tmp/backup_total_pruebas.tar.gz -g /tmp/pruebas_snap /tmp/pruebas/
-comprobar con ls q esta creado el fichero tar.gz y el fichero de snapshot
-mirar el contenido del fichero tar.gz comprobar que tiene los 4 ficheros de texto
-mirar el contenido del fichero snapshot
-en el directorio pruebas crear un nuevo fichero llamado LEEME.txt y subdirectorio llamando "otros" Dentro de "otros" meter un fichero lamado: fich_otros.txt
-creais backup incremental del directorio /tmp/pruebas
-    tar -c -v -z -f /tmp/backup_incremental_pruebas.tar.gz -g /tmp/pruebas_snap /tmp/pruebas/
-comprobar con ls que esta creado ficher .tar.gz
-mirar su contenido !!! SOLO HA DEBIDO COPIAR el fichero: LEEME.txt y /tmp/pruebas/otros/fich_otros.txt
+#!/bin/bash
+# crear en /tmp un directorio llamado pruebas: dentro de este directorio crear 4 ficheros de texto llamados
+#     fich1.txt fich2.txt fich3.txt fich4.txt
+# creamos backup total con fichero snapshot
+#     tar -c -v -z -f /tmp/backup_total_pruebas.tar.gz -g /tmp/pruebas_snap /tmp/pruebas/
+# comprobar con ls q esta creado el fichero tar.gz y el fichero de snapshot
+# mirar el contenido del fichero tar.gz comprobar que tiene los 4 ficheros de texto
+# mirar el contenido del fichero snapshot
+# en el directorio pruebas crear un nuevo fichero llamado LEEME.txt y subdirectorio llamando "otros" Dentro de "otros" meter un fichero lamado: fich_otros.txt
+# creais backup incremental del directorio /tmp/pruebas
+#     tar -c -v -z -f /tmp/backup_incremental_pruebas.tar.gz -g /tmp/pruebas_snap /tmp/pruebas/
+# comprobar con ls que esta creado ficher .tar.gz
+# mirar su contenido !!! SOLO HA DEBIDO COPIAR el fichero: LEEME.txt y /tmp/pruebas/otros/fich_otros.txt
+# restaurar contenido del backup total e icnremental en directorio /tmp/copia_pruebas
+# crear directorio /tmp/copia_pruebas
+# restauramos backup total
+#     cd /tmp/copia_pruebas
+#     tar -x -v -z -f /tmp/backup_total_pruebas.tar.gz -g /dev/null
+# comprobar con ls q se ha restaurado los ficheros:   fich1.txt fich2.txt fich3.txt fich4.txt
+# restauramos backup incremental
+#     cd /tmp/copia_pruebas
+#     tar -x -v -z -f /tmp/backup_incremental_pruebas.tar.gz -g /dev/null
+#     comprobar con ls q se ha restaurado ya fichero LEEME.txt y directorio "otros" con fichero fich_otros.txt
+clear
+
+
+PRACTICA SCRIPT
+    CREACION BACKUP
+1. crear backup total aislado ===> pedir el directorio a copiar(comprobar que existe, si no existe, error).
+                                   pedir el directorio destino del backup(comprobar q existe, si no existe, error)
+                                   hacer backup con TAR llamado: backup_TOTAL_nombre_directorio_fecha_hora.tar.gz
+2. crear backup total+Incremental ====> pedir directorio a copiar(comprobar que existe, si no existe, error)
+                                        pedir el directorio destino de los backup totales e incrementales(comprobar q existe, si no existe, error)
+                                        hacer 1º backup total con tar llamado: backup_TOTAL_nombre_directorio_feche_hora.tat.gz
+                                           el dichero snap meterlo en directorio destino backups: nombre_directorio_snap
+                            el propio script debe ser capaz de programar una tarea para q se ejecute al dia siguiente y haga el backup incremental de ese directorio usando ese dichero snap
+4. ===SALIR===
+5. opcion_
