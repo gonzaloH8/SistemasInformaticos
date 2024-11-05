@@ -63,14 +63,14 @@ clear
 #sin usar patrones, tenemos q leer linea a linea el fichero /etc/passwd y partir cada linea por el separador ":" 
 #coger la posicion o campo 3 donde esta el UID y preguntar si es mayor o igual de 1000, si es asi hacer backup con tar
 
-   while read linea # almacena cada linea en la variable y la imprime
-    do
-        idUser=$(echo $linea | cut -d ":" -f 3)
-        nombreUser=$(echo $linea | cut -d ":" .f 1)
-        if [ $idUser -ge 1000 ]
-        then
-            tar -c -v -z -f /tmp/backup_${nombreUser}_$(date '+%Y-%m-%d-%H:%M').tar.gz /home/$nombreUser/Documentos
-        fi
-    done < /etc/passwd 
+       while read linea # almacena cada linea en la variable y la imprime
+        do
+            idUser=$(echo $linea | cut -d ":" -f 3)
+            nombreUser=$(echo $linea | cut -d ":" .f 1)
+            if [ $idUser -ge 1000 ]
+            then
+                tar -c -v -z -f /tmp/backup_${nombreUser}_$(date '+%Y-%m-%d-%H:%M').tar.gz /home/$nombreUser/Documentos
+            fi
+        done < /etc/passwd 
 
 
