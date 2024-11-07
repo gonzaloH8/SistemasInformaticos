@@ -47,3 +47,51 @@ Almacenamientos de NAS profesionales/domesticos
             2º) haces un backup del mismo directorio a copiar usando ese fichero snap creado en el backup total del paso anterior. 
                 De tal forma que antes de copiar un fichero o directorio consulta el fichero snap y mira a ver si lo tiene q copiar o no
                 tar -c -v -z -f /ruta/fich_backup_incremental_num.tar.gz -g /ruta/fichero_snap /ruta_a_hacer_backup
+
+BACKUP DE CPIO
+cpio es un empaquetador mucho mas potente que tar. funciona pasandole la lista de ficheros que quieres empaquetar mediante un pipe(tuberia | ) el resultado del empaquetamiento por defecto te lo muestra por pantalla, si lo quieres almacenar en un fichero tienes que redireccionar la salida hacia el fichero que quieras
+Con cpio no hay una opcion explicita para crear backups incrementales
+Funcionamiento de cpio para crear una copia o backup
+    lista_ficheros | cpio -o -- crear el fichero del backup > /ruta/fichero_backup.cpio
+    pude ser ls
+    el mas se suele usar es find /ruta_busqueda [-opciones de busqueda] [accion_sobre_elementos_encontrados]
+                                                            |
+                                                mirar pagina de manual
+                                                -type f|d|l|p|s <==== find busca elementos dentro de ruta_busqueda del tipo esp
+                                                -user nombre <==== busca elementos que pertenezca a ese usuario
+                                                -group grupo <=== busca elementos que pertenezcan a ese grupo
+                                                -perm permisos <=== busca elementos que cumplan con ese patron
+                                                -regex "patron" <==== busca elementos que cumplan con ese patron
+                                                -amin [+|-]numero <==== minutos de acceso al fichero
+                                                -atime [+|-]numero <==== dias de acceso al fichero
+                                                -anewer /ruta/fichero_ref <==== busca elementos q se haya ACCEDIDO antes o igual q el fichero de referencia
+                                                -cmin [+|-]numero <===== minutos de creacion/modificacion
+                                                -ctime [+|-] <==== dia de creacion/modificacion
+                                                -cnewer /ruta/fichero
+                                            Estas opciones se pueden combinar con op.logicos AND [-a] o OR(-o)
+                                            ej: find /home/pablo -type f .regex "*\.txt$" -ctime +2 <== busca en /home/pablo, ficheros cuyo nombre acabe en .txt
+                                                                                                        y cuya fecha de modificacion sea de al menos 2 dias
+en directorio documents, ficheros, con extension pdf o docx o txt o doc, de tamaño superior a 15M, fecha de creacion de hace una semana o menos
+find /home/Documents -type f -regex "*\.[pdf|docx|txt|doc]$" -size +15M -atime -7
+
+find /home/pablo/documents -type f size 15M -ctime -7 -regex "*\.[pdf|docx|txt|doc]$" | cpio -o -v > /tmp/backup_doc_office.cpio -- guarda la salida del comando en el fichero
+
+RESTAURAR EL BACKUP DE CPIO
+cpio -i [-opciones_auxiliares] < /ruta/fichero_cpio -- extraccion de contenido empaquetado
+    -v ===> forma detallada
+    -t ===> NO RESTAURA,solo muestra los ficheros q contiene el backup
+    -d ===> crea directorios donde estaban situados esos ficheros (si no pones esta opcion te extrae todo en el directorio donde ejecutes cpio)
+    --no-absolute-filenames ===> crea ficheros en directorios actual, sino la pones intenta restaurar los ficheros donde fueron recuperados en origen
+        cp /home/susana/Documents
+        cpio -i -v -d < /tmp/backup_doc_office.cpio
+    EJ: quiero extraer el contenido del backup: /tmp/backup_doc_office.cpio hecho antes en el directorio
+        mkdir /tmp/extraer_apuntes_sistemas
+        cd /tmp/extraer_apuntes_sistemas
+        cpio -i -v -d --no-absolute-filenames < /tmp/backup_doc_office.cpio
+        ls -l
+                                            
+PRACTICA
+    - realizar un backup de todos los scripts(*.sh) y ficheros de texto de apuntes (ficheros *.txt) q tengas en tu directorio personal (no solo en Documents) que pertenezcan solo a tu usuario con CPIO
+    y el fichero de copio almacenamiento en /tmp <==== llamarlo: backup_sistemas_fecha_hora.cpio
+    comprobar que se ha creado en /tmp
+    intentar extraerlo en directorio /tmp/extraer_apuntes_sistemas <==== crear directorio si no existe
