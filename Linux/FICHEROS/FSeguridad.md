@@ -39,13 +39,11 @@ Almacenamientos de NAS profesionales/domesticos
         -v -- modo detallado de la extraccion fichero por fichero
         -z -- si esta comprimido con gzip, lo descomprime
         -f /ruta/fichero -- fichero q quieres extraer
-        
-============================================================
-backup INCREMENTAL
-con TAR para poder hacer backups incrementales, exige tener referencia un fichero de "snapshot" 
-(instantanea de ficheros/directorios copiados) para crear este fichero debes usar opcion -g /ruta/fichero_snap
-    1º) cuando haces un backup total, te creas el fichero snapshot asi
-        tar -c -v -z -f /ruta/fich_backup_total.tar.gz -g /ruta/fichero_snap /ruta_a_hacer_backup
-    2º) haces un backup del mismo directorio a copiar usando ese fichero snap creado en el backup total del paso anterior. 
-        De tal forma que antes de copiar un fichero o directorio consulta el fichero snap y mira a ver si lo tiene q copiar o no
-        tar -c -v -z -f /ruta/fich_backup_incremental_num.tar.gz -g /ruta/fichero_snap /ruta_a_hacer_backup
+    4) backup INCREMENTAL
+        con TAR para poder hacer backups incrementales, exige tener referencia un fichero de "snapshot"     
+        (instantanea de ficheros/directorios copiados) para crear este fichero debes usar opcion -g /ruta/fichero_snap
+            1º) cuando haces un backup total, te creas el fichero snapshot asi
+                tar -c -v -z -f /ruta/fich_backup_total.tar.gz -g /ruta/fichero_snap /ruta_a_hacer_backup
+            2º) haces un backup del mismo directorio a copiar usando ese fichero snap creado en el backup total del paso anterior. 
+                De tal forma que antes de copiar un fichero o directorio consulta el fichero snap y mira a ver si lo tiene q copiar o no
+                tar -c -v -z -f /ruta/fich_backup_incremental_num.tar.gz -g /ruta/fichero_snap /ruta_a_hacer_backup
