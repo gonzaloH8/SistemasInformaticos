@@ -46,7 +46,8 @@ Patron lo conforman una serie de caracteres con un significado especial:
 # GRUPOS Y RANGOS
       (...) grupo de patrones
       (?...) grupo pasivo
-      [aeiou] rango de vocales
+      [aeiou] rango de vocales. char
+      (pdf|doc|txt) rango de palabras. string
       [^abc] negacion de las letras que siguen al simbolo
       [aq] letra minuscula de la a-q
       [AQ] letra mayuscula de la A-Q
