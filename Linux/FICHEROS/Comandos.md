@@ -51,8 +51,9 @@
     : 'este es un comentario de dos o mas lineas'
 
 # OPERADORES DE TEXTO
-    > -- permite sobreescribir contenido de un fichero
-    >> -- permite agregar contenido a un fichero
+    > -- entrada de datos que permite sobreescribir contenido de un fichero
+    >> -- entrada de datos que permite agregar contenido a un fichero
+    < -- salida de datos. Restauracion de paquetado, escritura por teclado
     <<
     \ permite escapar una interpretacion distinta a la que queremos
     \t -- tabula un mensaje
