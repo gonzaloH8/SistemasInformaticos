@@ -95,3 +95,56 @@ PRACTICA
     y el fichero de copio almacenamiento en /tmp <==== llamarlo: backup_sistemas_fecha_hora.cpio
     comprobar que se ha creado en /tmp
     intentar extraerlo en directorio /tmp/extraer_apuntes_sistemas <==== crear directorio si no existe
+
+==================================
+Creacion de backups con RSYNC (Remote Syncronization Daemon tool) una de las herramientas mas potentes para hacer copias de seguridad tanto en sistemas linux(herramientas nativa) como en sistemas windows
+es muy eficaz
+    - sirve para hacer backups totaltes como incrementales (a nivel local como a nivel remoto)
+    - solo copia fragmentos de ficheros/directorios q se han modificado realmente y encima la transferencia de los datos modificados se realiza con un algoritmo de compresion muy potente, y es muy rapido
+    - permite el borrado de ficheros/directorios que se han borrado en origen (mantiene sincronizados ficheros/directorios en origen con ficheros/directorios en destino del backup),ademas permite guardar estos ficheros/directorios borrados temporalmente en otro destino como medida de seguridad
+    Uso de RSYNC de forma local
+    rsync [-opciones] /ruta/directorio_origen_SRC /ruta/directorio_copia_destino_DEST
+        ------
+            | 
+        -a ----> Copia todo de forma recursiva y mantiene permisos, usuario propietario y grupo propietario de cada elemento que copia .equivale a poner : -r -l- p -t -g -o -D
+        -v ----> te muestra todas las operaciones del comando
+        --no-wole-file ---> evita que se tansfieran de origen a destino todos los ficheros "completos", solo aquellos partes q se han modificado de los mismos (es mas rapido)
+        --delete ----> borra en DESTINO los elementos que has borrado en ORIGEN (mantiene perfectamente sincronizados ambos)
+        --backup     ---->
+        --backup-dir ----> cuando borras en DESTINO algun elemento, rsync lo almacena en el directorio q pongas en --backup-dir
+PRACTICA
+vamos a mantener sincronizados backup con rsync : SRC origen   ---> /home/gonzalo/Documents
+                                                  DEST destino ---> /tmp/backup_rsync (crear directorio)
+1 copia: rsync -a -v --no-whole-file /home/gonzalo/Escritorio/Practica /tmp/backup_rsync
+    nos metemos en /tmp/backup_rsync y vemos su contenido (deberia estar todo los documentos)
+    En documents
+        - Creamos un directorio llamador "Prueba"---> meter 4 ficheros
+        - En documents ------> crear un fichero LEEME.txt
+    Ejecutamos rsync
+        2º copia: rsync -a -v --no-whole-file /home/gonzalo/Escritorio/Practica /tmp/backup_rsync
+        nos metemos en /tmp/backup_rsync y vemos su contenido (deberia estar todo los documentos)
+        una vez que este comprobado q esta el nuevo contenido copiado
+        borrar ficheros de Documents/pruebas ----> fich1.txt y fich2.txt
+    3º ejecutamos rsync
+        rsync -a -v --no-whole-file /home/gonzalo/Escritorio/Practica /tmp/backup_rsync
+        comprobar que ha sido borrado en destino /tmp/backup_rsync
+    4º rsync -a -v --no-whole-file --delete --backup -backup.dir=/tmp/fihceros_borrados /home/gonzalo/Escritorio/Practicas /tmp/backup_rsync                           
+            
+    
+Uso de RSYNC de forma remota(cliente <===> servidor de backups)
+
+contenedor docker mirar ¡¡¡ IMPORTANTE
+sniffer del trafico
+sandbox
+
+PRACTICA (investigar): ¿Como hago la copia con rsync de lo que hemos hecho en local /home/gonzalo/Escritorio en un servidor externo (ubuntu-server, con ip ) en /tmp/backup_rsync del servidor?
+cliente ubuntu-desktop                                        servidor ubuntu-server
+        ||                    rsync+ssh(con cifrado)                    || usuario: _remoto
+    /home/gonzalo/Escritorio-----------> /tmp/backup_rsync ¿dame tu clave publica? me certifico de quien es mediante certificado digital
+    ¿comando srync?
+        |                            |
+    cifrado con la clave        sniffer del trafico
+    privada                     
+    rsync -a -v -z --no-whole-file /home/gonzalo/Escritorio _remote@ubuntu_server:/tmp/backup_rysnc -- sin cifrar
+                                                                                                       cifrado opcion -e "ssh...."
+                                                                                                       y para generar claves ssh-keygen
