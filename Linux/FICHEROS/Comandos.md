@@ -40,6 +40,7 @@
     date -- informa sobre la fecha y hora del sistema
     curl wttr.in/paris -- te permite saber la prevision meteorologica.(ciudad, codigo areopuerto o nombre dominio)
     exit -- cierra sesion de terminal actual del usuario logueado en ella. Tambien para pasar de root a usuario 
+    q -- permite salir del editor de texto
     
 # COMENTARIOS
     # este es un comentario de una linea
