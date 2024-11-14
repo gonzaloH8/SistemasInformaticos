@@ -48,11 +48,13 @@ Almacenamientos de NAS profesionales/domesticos
                 De tal forma que antes de copiar un fichero o directorio consulta el fichero snap y mira a ver si lo tiene q copiar o no
                 tar -c -v -z -f /ruta/fich_backup_incremental_num.tar.gz -g /ruta/fichero_snap /ruta_a_hacer_backup
 
-BACKUP DE CPIO
-cpio es un empaquetador mucho mas potente que tar. funciona pasandole la lista de ficheros que quieres empaquetar mediante un pipe(tuberia | ) el resultado del empaquetamiento por defecto te lo muestra por pantalla, si lo quieres almacenar en un fichero tienes que redireccionar la salida hacia el fichero que quieras
+# BACKUP DE CPIO
+cpio es un empaquetador mucho mas potente que tar. funciona pasandole la lista de ficheros que quieres empaquetar mediante un pipe(tuberia | ) 
+el resultado del empaquetamiento por defecto te lo muestra por pantalla, si lo quieres almacenar en un fichero tienes que redireccionar la salida hacia el fichero que quieras
 Con cpio no hay una opcion explicita para crear backups incrementales
+
 Funcionamiento de cpio para crear una copia o backup
-    lista_ficheros | cpio -o -- crear el fichero del backup > /ruta/fichero_backup.cpio
+   `lista_ficheros | cpio -o -- crear el fichero del backup > /ruta/fichero_backup.cpio
     pude ser ls
     el mas se suele usar es find /ruta_busqueda [-opciones de busqueda] [accion_sobre_elementos_encontrados]
                                                             |
@@ -73,22 +75,22 @@ Funcionamiento de cpio para crear una copia o backup
                                                                                                         y cuya fecha de modificacion sea de al menos 2 dias
 en directorio documents, ficheros, con extension pdf o docx o txt o doc, de tamaño superior a 15M, fecha de creacion de hace una semana o menos
 find /home/Documents -type f -regex "*\.[pdf|docx|txt|doc]$" -size +15M -atime -7
+find /home/pablo/documents -type f size 15M -ctime -7 -regex "*\.[pdf|docx|txt|doc]$" | cpio -o -v > /tmp/backup_doc_office.cpio -- guarda la salida del comando en el fichero`
 
-find /home/pablo/documents -type f size 15M -ctime -7 -regex "*\.[pdf|docx|txt|doc]$" | cpio -o -v > /tmp/backup_doc_office.cpio -- guarda la salida del comando en el fichero
 
-RESTAURAR EL BACKUP DE CPIO
-cpio -i [-opciones_auxiliares] < /ruta/fichero_cpio -- extraccion de contenido empaquetado
-    -v ===> forma detallada
-    -t ===> NO RESTAURA,solo muestra los ficheros q contiene el backup
-    -d ===> crea directorios donde estaban situados esos ficheros (si no pones esta opcion te extrae todo en el directorio donde ejecutes cpio)
-    --no-absolute-filenames ===> crea ficheros en directorios actual, sino la pones intenta restaurar los ficheros donde fueron recuperados en origen
-        cp /home/susana/Documents
-        cpio -i -v -d < /tmp/backup_doc_office.cpio
-    EJ: quiero extraer el contenido del backup: /tmp/backup_doc_office.cpio hecho antes en el directorio
-        mkdir /tmp/extraer_apuntes_sistemas
-        cd /tmp/extraer_apuntes_sistemas
-        cpio -i -v -d --no-absolute-filenames < /tmp/backup_doc_office.cpio
-        ls -l
+# RESTAURAR EL BACKUP DE CPIO
+    cpio -i [-opciones_auxiliares] < /ruta/fichero_cpio -- extraccion de contenido empaquetado
+        -v ===> forma detallada
+        -t ===> NO RESTAURA,solo muestra los ficheros q contiene el backup
+        -d ===> crea directorios donde estaban situados esos ficheros (si no pones esta opcion te extrae todo en el directorio donde ejecutes cpio)
+        --no-absolute-filenames ===> crea ficheros en directorios actual, sino la pones intenta restaurar los ficheros donde fueron recuperados en origen
+            cp /home/susana/Documents
+            cpio -i -v -d < /tmp/backup_doc_office.cpio
+        EJ: quiero extraer el contenido del backup: /tmp/backup_doc_office.cpio hecho antes en el directorio
+            mkdir /tmp/extraer_apuntes_sistemas
+            cd /tmp/extraer_apuntes_sistemas
+            cpio -i -v -d --no-absolute-filenames < /tmp/backup_doc_office.cpio
+            ls -l
                                             
 PRACTICA
     - realizar un backup de todos los scripts(*.sh) y ficheros de texto de apuntes (ficheros *.txt) q tengas en tu directorio personal (no solo en Documents) que pertenezcan solo a tu usuario con CPIO
@@ -96,14 +98,13 @@ PRACTICA
     comprobar que se ha creado en /tmp
     intentar extraerlo en directorio /tmp/extraer_apuntes_sistemas <==== crear directorio si no existe
 
-==================================
-Creacion de backups con RSYNC (Remote Syncronization Daemon tool) una de las herramientas mas potentes para hacer copias de seguridad tanto en sistemas linux(herramientas nativa) como en sistemas windows
-es muy eficaz
+# Creacion de backups con RSYNC (Remote Syncronization Daemon tool) 
+una de las herramientas mas potentes para hacer copias de seguridad tanto en sistemas linux(herramientas nativa) como en sistemas windows es muy eficaz
     - sirve para hacer backups totaltes como incrementales (a nivel local como a nivel remoto)
     - solo copia fragmentos de ficheros/directorios q se han modificado realmente y encima la transferencia de los datos modificados se realiza con un algoritmo de compresion muy potente, y es muy rapido
     - permite el borrado de ficheros/directorios que se han borrado en origen (mantiene sincronizados ficheros/directorios en origen con ficheros/directorios en destino del backup),ademas permite guardar estos ficheros/directorios borrados temporalmente en otro destino como medida de seguridad
     Uso de RSYNC de forma local
-    rsync [-opciones] /ruta/directorio_origen_SRC /ruta/directorio_copia_destino_DEST
+    `rsync [-opciones] /ruta/directorio_origen_SRC /ruta/directorio_copia_destino_DEST
         ------
             | 
         -a ----> Copia todo de forma recursiva y mantiene permisos, usuario propietario y grupo propietario de cada elemento que copia .equivale a poner : -r -l- p -t -g -o -D
@@ -111,8 +112,9 @@ es muy eficaz
         --no-wole-file ---> evita que se tansfieran de origen a destino todos los ficheros "completos", solo aquellos partes q se han modificado de los mismos (es mas rapido)
         --delete ----> borra en DESTINO los elementos que has borrado en ORIGEN (mantiene perfectamente sincronizados ambos)
         --backup     ---->
-        --backup-dir ----> cuando borras en DESTINO algun elemento, rsync lo almacena en el directorio q pongas en --backup-dir
-PRACTICA
+        --backup-dir ----> cuando borras en DESTINO algun elemento, rsync lo almacena en el directorio q pongas en --backup-dir`
+
+# PRACTICA
 vamos a mantener sincronizados backup con rsync : SRC origen   ---> /home/gonzalo/Documents
                                                   DEST destino ---> /tmp/backup_rsync (crear directorio)
 1 copia: rsync -a -v --no-whole-file /home/gonzalo/Escritorio/Practica /tmp/backup_rsync
@@ -130,14 +132,13 @@ vamos a mantener sincronizados backup con rsync : SRC origen   ---> /home/gonzal
         comprobar que ha sido borrado en destino /tmp/backup_rsync
     4º rsync -a -v --no-whole-file --delete --backup -backup.dir=/tmp/fihceros_borrados /home/gonzalo/Escritorio/Practicas /tmp/backup_rsync                           
             
-    
 Uso de RSYNC de forma remota(cliente <===> servidor de backups)
 
 contenedor docker mirar ¡¡¡ IMPORTANTE
 sniffer del trafico
 sandbox
 
-PRACTICA (investigar): ¿Como hago la copia con rsync de lo que hemos hecho en local /home/gonzalo/Escritorio en un servidor externo (ubuntu-server, con ip ) en /tmp/backup_rsync del servidor?
+# PRACTICA (investigar): ¿Como hago la copia con rsync de lo que hemos hecho en local /home/gonzalo/Escritorio en un servidor externo (ubuntu-server, con ip ) en /tmp/backup_rsync del servidor?
 cliente ubuntu-desktop                                        servidor ubuntu-server
         ||                    rsync+ssh(con cifrado)                    || usuario: _remoto
     /home/gonzalo/Escritorio-----------> /tmp/backup_rsync ¿dame tu clave publica? me certifico de quien es mediante certificado digital
