@@ -1,6 +1,6 @@
 # ENLACES
--[DOCUMENTACION](https://noroute2host.com/color-bash.html)
--[AMPLIACION](https://misc.flogisoft.com/bash/tip_colors_and_formatting)
+- [DOCUMENTACION](https://noroute2host.com/color-bash.html)
+- [AMPLIACION](https://misc.flogisoft.com/bash/tip_colors_and_formatting)
 
 # SECUENCIA DE ESCAPE
     \e
