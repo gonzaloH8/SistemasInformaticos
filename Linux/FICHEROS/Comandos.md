@@ -25,7 +25,8 @@
     chmod +x archivo.sh -- nos permite ejecutar el archivo en terminal y ver el resultado
     
     SHELL: intérprete de comandos que permite a los usuarios de Linux y Unix controlar sus sistemas operativos con interfaces de línea de comandos
-
+    KERNEL: componente central de un sistema operativo y sirve como interfaz principal entre el hardware físico de la computadora y los procesos que se ejecutan en ella a través del software
+    
 # COMANDOS GENERICOS
     sudo -l -- cambia de $ a #
     sudo + comando. -- permite ejecutar un comando con permisos de administrador de manera puntual
