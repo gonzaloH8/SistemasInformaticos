@@ -1,15 +1,10 @@
-# TEORIA 19-09-2024
-
 # ENLACES
-<ul>
-    <li><a href="https://keepcoding.io/blog/que-es-y-como-usar-el-comando-dd-en-linux/">DD</a> mas informacion</li>
-</ul>
+- [DD mas informacion](https://keepcoding.io/blog/que-es-y-como-usar-el-comando-dd-en-linux/)
 
-# PARTICIONES
-    SE NECESITAN PERMISOS DE ADMINISTRADOR
+# PARTICIONES(permisos de admin)
     mkefs -- formatea todo
     fdisk -l -- permite ver las particiones
-     sudo -l -- cambia de $ a #
+    sudo -l -- cambia de $ a #
     sudo bas -- cambiamos de usuario a administrador
     
     dumpe2fs /dev/particion -- ves la informacion de la particion
@@ -29,7 +24,7 @@
     dd -- permite realizar copias de seguridad, clonar discos y particiones, tranferencia de datos
         info dd -- permite consultar toda la informacion del comando
 
-    df -h -- coprueba el espacio en disco
+    df -h -- comprueba el espacio en disco
 
     losetup -- 
     losetup -f -- para saber cual esta libre
