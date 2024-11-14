@@ -3,6 +3,7 @@
   - [GENERADOR DE TIEMPO ](https://crontab.guru/)
   - [GENERADOR DE TIEMPO ](https://www.freeformatter.com/cron-expression-generator-quartz.html)
   - [DOCUMENTACION](https://geekland.eu/planificar-tareas-con-cron-y-anacron-en-linux/)
+
 # TAREAS PROGRAMADAS AUTOMATICAS
 (Programacion de tareas)
 el servicio encargado de programacion de tareas CICLICAS (tareas que se repiten a lo largo del tiempo) se llama
@@ -139,6 +140,3 @@ clear
 # se ejecuta cada 5min, de 15 a 17h los LUNES,MARTES,JUEVES(cualquier mes y todos los dias del mes, del 1 al 31)
 # lo que hace es copiar el directorio "Documentos" del usuario gonzalo en /tmp
 */5 15-17 * * 1,2,4 cp -r /home/profesor/Documentos/* /tmp
-
-
-
