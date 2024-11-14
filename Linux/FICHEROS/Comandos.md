@@ -1,6 +1,8 @@
+# ENLACES
 - [COMANDOS estilo terminal(sudo apt install tmux --consola enriquecida)](https://tmuxcheatsheet.com/)
-- [COLORES](https://dev.to/ifenna__/adding-colors-to-bash-scripts-48g4)
-
+- [CURL WTTR.IN mas informacion](http://wttr.in/:help.)
+- [Personalizacion del Terminal](https://computernewage.com/2014/12/25/como-personalizar-el-aspecto-del-prompt-de-la-terminal-de-linux/)
+- 
 # SHORTS COMANDOS
     CTRL + MAYUS + T -- abre una nueva terminal
     CTRL + MAYUS + C -- copia el contenido seleccionado
@@ -12,7 +14,7 @@
     CTRL + C -- cancela la ejecucion de un comando
     CTRL + L -- limpia el terminal == clear
     
-# INFORMACION ADICCIONAL
+# VOCABULARIO Y INFORMACION ADICIONAL
     Ruta Abosoluta: aplicas la ruta en orden /home/usuario/descargas/archivo1.txt /home/usuario/Documentos/archivo1.txt
     Ruta Relativa: aplica la ruta corta si estan al mismo nivel. Descargas/archivo1.txt Documentos/archivo1.txt
     En linux no contiene extensiones, son todo nombres. El sistema de archivos es mediante inodos
@@ -21,11 +23,8 @@
     Terminales TTY mediante las combinaciones de teclado 'CTRL+ALT+F1' hasta 'CTRL+ALT+F7'
     EMULADORES PTS: GNOME Terminal, Konsole, Xterm, Yakuake, Guake, etc.
     chmod +x archivo.sh -- nos permite ejecutar el archivo en terminal y ver el resultado
-    { echo "Hello World"; | ls; } > resultado.txt
-
-# ENLACES AMPLIACION CG
-- [CURL WTTR.IN mas informacion](http://wttr.in/:help.)
-- [Personalizacion del Terminal](https://computernewage.com/2014/12/25/como-personalizar-el-aspecto-del-prompt-de-la-terminal-de-linux/)
+    
+    SHELL: intérprete de comandos que permite a los usuarios de Linux y Unix controlar sus sistemas operativos con interfaces de línea de comandos
 
 # COMANDOS GENERICOS
     sudo -l -- cambia de $ a #
@@ -40,11 +39,6 @@
     date -- informa sobre la fecha y hora del sistema
     curl wttr.in/paris -- te permite saber la prevision meteorologica.(ciudad, codigo areopuerto o nombre dominio)
     exit -- cierra sesion de terminal actual del usuario logueado en ella. Tambien para pasar de root a usuario 
-
-# SHELL(bash)
-    cat /etc/shells -- nos permite ver los shells a instalar
-    cat /etc/bahts -- en caso de que no tengamos ninguno instalado
-    echo $SHELL -- permite ver el que tenemos instalado
     
 # COMENTARIOS
     # este es un comentario de una linea
@@ -58,6 +52,7 @@
     \ permite escapar una interpretacion distinta a la que queremos
     \t -- tabula un mensaje
     \n -- salto de linea
+    { echo "Hello World"; | ls; } > resultado.txt
     
 # OPERADORES DE COMPARACION
     -eq -- igualdad ==
@@ -69,9 +64,9 @@
     "$var" != "cadena"
 
 # OPERADORES LOGICOS
-    && -- AND necesita que se cumplan ambas condiciones especificadas
+    && -a -- AND necesita que se cumplan ambas condiciones especificadas
     || -o -- OR necesita que se cumpla una de las condiciones especificadas
-    | -- permite ejecutar varios comandos por separado al mismo tiempo
+    | -- pipe permite ejecutar varios comandos por separado al mismo tiempo
 
 # VARIABLES
     declare -r variableConstante = 123 -- solo lectura
@@ -170,7 +165,7 @@
             break
         fi
     done
-
+    
 # BUCLES WHILE
     number =1
     while [ $number -ne 10 ] -- mientras sea cierto se ejecuta el do
@@ -184,6 +179,12 @@
         echo $number
         number = $((number + 1))
     done
+
+    Permite leer linea a linea el fichero
+    while read a
+    do
+        echo $a
+    done < fichero
 
 # BREAK Y CONTINUE
     for (( i=0; i < 10; i++ ))
