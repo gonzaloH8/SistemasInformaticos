@@ -1,9 +1,6 @@
-# ENLACES 30-09-2024
-Patron lo conforman una serie de caracteres con un significado especial:  
-<ul>
-      <li><a href="https://emailregex.com/">Patron de Email</a></li>
-      <li><a href="https://10minutemail.com/">Email temporales</a></li>
-</ul>
+# ENLACES 
+- [Patron de Email](https://emailregex.com/)
+- [Email temporales](https://10minutemail.com/)
 
 # COMANDOS
       grep [-opciones] /ruta/fichero
@@ -20,10 +17,8 @@ Patron lo conforman una serie de caracteres con un significado especial:
       -x, --line-regexp         coincide solamente con líneas completas
       -z, --null-data           una línea de datos termina en un byte 0, no en un carácter de nueva línea
 
---------------------
 # PATRONES
---------------------
-# ANCLAS
+## ANCLAS
     ^ -- principio de linea o cadena
     $ -- fin de linea o cadena
     . -- en esa posicion de la expresion puede aparecer cualquier caracter
@@ -34,7 +29,7 @@ Patron lo conforman una serie de caracteres con un significado especial:
     \< inicio de palabra
     \> fin de palabra
     
-# CUANTIFICADORES
+## CUANTIFICADORES
     * -- cero o mas repeticiones de la anterior expresion a partir de esa posicion
     + -- una o mas repeticiones de la expresion anterior en esa posicion
     ? -- cero o una repeticion de la expresion anterior.Opcional
@@ -43,7 +38,7 @@ Patron lo conforman una serie de caracteres con un significado especial:
     [^._-$#] -- en esa posicion NO PUEDE aparecer cualquier caracter enumerado en la lista
     (expresion1 | expresion2 | ...) -- en esa posicion puede darse cualquiera de esas expresiones, es un OR
     
-# GRUPOS Y RANGOS
+## GRUPOS Y RANGOS
       (...) grupo de patrones
       (?...) grupo pasivo
       [aeiou] rango de vocales. char
@@ -54,7 +49,7 @@ Patron lo conforman una serie de caracteres con un significado especial:
       [0-9] digito del 0 al 7
       \incognita numero de grupo/subpatron "x"
       
-# CLASES DE PERSONAJES
+## CLASES DE PERSONAJES
       \do personaje de control
       \s espacio en blanco
       \S no es espacio en blanco
@@ -65,13 +60,12 @@ Patron lo conforman una serie de caracteres con un significado especial:
       \incognita digito hexadecimal
       \O digito octal
       
-      
-# SECUENCIAS DE ESCAPE
+## SECUENCIAS DE ESCAPE
       \ escapa el siguiente caracter
       \Q inicia secuencia literal
       \MI fin de secuencia literal
       
-# MODIFICADORES DE PATRONES
+## MODIFICADORES DE PATRONES
       i* sin distincion entre mayusculas y minusculas
       yo* varias lineas
       s * tratar la cadena como una sola linea
@@ -79,7 +73,7 @@ Patron lo conforman una serie de caracteres con un significado especial:
       mi * evaluar reemplazo
       Tu* patron no codicioso
 
-# SISTEMA DE ARCHIVOS POSIX
+## SISTEMA DE ARCHIVOS POSIX
       [:superior:] letras mayusculas
       [:mas abajo:] letras minusculas
       [:alfa:] todas las letras
@@ -94,7 +88,7 @@ Patron lo conforman una serie de caracteres con un significado especial:
       [:imprimir:] caracteres impresos y espacio
       [:palabra:] cifras,letras y guiones bajos
 
-# REEMPLAZO DE CUERDAS
+## REEMPLAZO DE CUERDAS
       $n n-esimo grupo no pasivo
       $2 "xyz" en /^(abc(xyz))$/
       $1 "xyz" en /^(?:abc)(xyz)$/
@@ -103,7 +97,7 @@ Patron lo conforman una serie de caracteres con un significado especial:
       $+ ultima cadena coincidente
       $& cadena completa coincidente
       
-# AFIRMACIONES
+## AFIRMACIONES
       ?= Afirmacion de anticipacion
       ?! mirada negativa hacia delante
       ?<= o ?<! mirada negativa hacia atras
@@ -112,7 +106,7 @@ Patron lo conforman una serie de caracteres con un significado especial:
       ?()| condicion[si entonces de lo contrario]
       ?# comentario
       
-# CARACTERES ESPECIALES
+## CARACTERES ESPECIALES
       \norte nueva linea
       \r retorno de carro
       \t pestaña
@@ -121,21 +115,21 @@ Patron lo conforman una serie de caracteres con un significado especial:
       \xxx caracter octal xxx
       \xhh caracter hexadecimal hh
 
-# PRACTICAS
-        -patron definido asi: ^[0-9]{8}-[a-zA-Z]$ --- que empieze por un numero de 8 numeros con un guion y con una letra
-        ¿Cumplen estos campos el patron?
-            aAfasdf12323 NO --- empieza por letra
-            12345435645654Z NO --- contiene mas numeros de los permitidos
-            000-ADFc NO --- no llega a la cantidad de numeros exigido
-            08982312-T SI ----- cumple con la cantidad de numeros exigida, guion y letra unica exigida
+## PRACTICAS
+      -patron definido asi: ^[0-9]{8}-[a-zA-Z]$ --- que empieze por un numero de 8 numeros con un guion y con una letra
+      ¿Cumplen estos campos el patron?
+      aAfasdf12323 NO --- empieza por letra
+      12345435645654Z NO --- contiene mas numeros de los permitidos
+      000-ADFc NO --- no llega a la cantidad de numeros exigido
+      08982312-T SI ----- cumple con la cantidad de numeros exigida, guion y letra unica exigida
+      
+      - define un patron para validar numeros de telefono movil (ej: +34 688 88 11 22, el +34 es opcional)
+        ^(\+[0-9]{2})?[0-9]{9}$
+      
+      - define un patron para validar emails: gmail, msn, hotmail, yahoo. gonzasaa8@gmail.com
+        ^.+@(gmail|hotmail|msn|hotmail|yahoo)\.[a-z]{2,3}
 
-        - define un patron para validar numeros de telefono movil (ej: +34 688 88 11 22, el +34 es opcional)
-              ^(\+[0-9]{2})?[0-9]{9}$
-
-        - define un patron para validar emails: gmail, msn, hotmail, yahoo. gonzasaa8@gmail.com
-              ^.+@(gmail|hotmail|msn|hotmail|yahoo)\.[a-z]{2,3}
-
-# PRACTICA CON GREP Y EXPRESIONES REGULARES
+## PRACTICA CON GREP Y EXPRESIONES REGULARES
         - crear en tus Documentos un fichero texto llamado DATOS_CLIENTES.txt con este formato:
             nombre_cliente : apellidos_cliente : NIF : tel movil : email
             (meter varias lineas,ej):
