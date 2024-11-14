@@ -1,14 +1,13 @@
-# SERVICIOS
-<ul>
-    <li><a href="https://computernewage.com/2014/08/10/como-configurar-el-firewall-ufw-en-ubuntu/">UFW</a> ampliado</li>
-</ul>
+# ENLACES
+- [UFW ampliado](https://computernewage.com/2014/08/10/como-configurar-el-firewall-ufw-en-ubuntu/)
 
+# SERVICIOS
     UFW: servicio que se encarga de gestionar el cortafuegos del kernel en Ubuntu
     CRON: servicio de editor de texto
     ssh: servicio
     sudo systemctl status -- nos permite ver todos los servicios cargados en tu sistema
     sudo systemctl status nombre_servicio -- nos permite conocer el estado de ufw, si esta activo en memoria o no.
-    sudo systemctl star nombre_servicio -- nos permite iniciar el servicio. Tiene que estar habilitado, si no no lo reconocera
+    sudo systemctl start nombre_servicio -- nos permite iniciar el servicio. Tiene que estar habilitado, si no no lo reconocera
     sudo systemctl stop nombre_servicio -- nos permite detener el servicio. Deshabilitas
     sudo systemctl restart nombre_servicio -- nos permite reiniciar el servicio
     sudo systemctl is-enabled nombre_servicio -- comprueba si el servicio esta configurado para iniciarse en cada arranque o no
@@ -28,11 +27,11 @@
     sudo /ent/init.d/ufw restart -- reinicia el servicio
 
 # TEORIA 08-10-2024
-administracion servicios linux SYSTEMD
+Administracion servicios linux SYSTEMD
 Un servicio es una aplicacion(ejecutable) que no tiene interaccion con el usuario, suele lanzar o en el arranque del sistema o antes eventos o señales; el encargado de la gestion de los servicios es SYSTEMD
 (proceso inicial del arranque)
 
-systemd ejecuta los servicios a lanzar en paralelo(todos a la vez) en funcion de TARGETS(sonlas formas en las que el usuario quiere ejecutar el sistema operativo:
+SYSTEMD ejecuta los servicios a lanzar en paralelo(todos a la vez) en funcion de TARGETS(sonlas formas en las que el usuario quiere ejecutar el sistema operativo:
     - ejecutarlo en modo recuperacion de errores: sin entorno grafico, sin red, monousuario root
     - ejecutarlo sin entorno grafico pero multiusuario
     - ejecutarlo con entorno grafico, multiusuario y con red
