@@ -9,9 +9,9 @@ Un backup es una copia de seguridad de ficheros de usuario(s)/sitema, de tal for
 
 tipos de backup
 A lo largo del mes se crea una planificacion de backups
-    - backup totales: es una copia de todos los ficheros/directorios de usuario(s)/sistema como si no se hubiese realizado antes ninguna copia nada. 
+- **backup totales:** es una copia de todos los ficheros/directorios de usuario(s)/sistema como si no se hubiese realizado antes ninguna copia nada. 
         Al menos una vez a la semana hacer un backup total(generalmente a primera hora del lunes)
-    - backup incrementales: copia de ficheros/directorios que han sido modificados desde el ultimo backup. Estos backup siempre se apoyan en un backup anterior, ya se total o incremental
+- **backup incrementales:** copia de ficheros/directorios que han sido modificados desde el ultimo backup. Estos backup siempre se apoyan en un backup anterior, ya se total o incremental
 Entre semana, realizar backup incremental.
 Ejemplo: si se cae todo el viernes a ultima hora, para restaurar los datos hay que hacer. Se parte del ultimo backup total y a partir de ahi se recupera los backup incrementales
 Almacenamientos de NAS profesionales/domesticos
@@ -29,7 +29,7 @@ Almacenamientos de NAS profesionales/domesticos
             -f /ruta/fichero -- indica la ruta y el nombre del fichero de backup o tar-file
     2) VER EL CONTENIDO
         tar -t -v -z -f /tmp/backup_documentos.tat.gz -- muestra el contenido del fichero creado
-             tar -t list backup -- permite ver el contenido del backup
+            tar -t list backup -- permite ver el contenido del backup
             tar -v modo detallado del contenido del fichero backup
             tar -f /ruta/fichero indicas el fichero tar que quieres ver
     3) RESTAURAR EL CONTENIDO el contenido de un BACKUP: 1º te debes situar en el directorio donde quieres extraer el backup      
@@ -39,7 +39,7 @@ Almacenamientos de NAS profesionales/domesticos
         -v -- modo detallado de la extraccion fichero por fichero
         -z -- si esta comprimido con gzip, lo descomprime
         -f /ruta/fichero -- fichero q quieres extraer
-    4) backup INCREMENTAL
+    4) BACKUP INCREMENTAL
         con TAR para poder hacer backups incrementales, exige tener referencia un fichero de "snapshot"     
         (instantanea de ficheros/directorios copiados) para crear este fichero debes usar opcion -g /ruta/fichero_snap
             1º) cuando haces un backup total, te creas el fichero snapshot asi
@@ -49,9 +49,9 @@ Almacenamientos de NAS profesionales/domesticos
                 tar -c -v -z -f /ruta/fich_backup_incremental_num.tar.gz -g /ruta/fichero_snap /ruta_a_hacer_backup
 
 # BACKUP DE CPIO
-cpio es un empaquetador mucho mas potente que tar. funciona pasandole la lista de ficheros que quieres empaquetar mediante un pipe(tuberia | ) 
-el resultado del empaquetamiento por defecto te lo muestra por pantalla, si lo quieres almacenar en un fichero tienes que redireccionar la salida hacia el fichero que quieras
-Con cpio no hay una opcion explicita para crear backups incrementales
+CPIO es un empaquetador mucho mas potente que tar. funciona pasandole la lista de ficheros que quieres empaquetar mediante un pipe(tuberia | ) 
+El resultado del empaquetamiento por defecto te lo muestra por pantalla, si lo quieres almacenar en un fichero tienes que redireccionar la salida hacia el fichero que quieras
+Con CPIO no hay una opcion explicita para crear backups incrementales
 
 Funcionamiento de cpio para crear una copia o backup
    `lista_ficheros | cpio -o -- crear el fichero del backup > /ruta/fichero_backup.cpio
@@ -77,7 +77,6 @@ en directorio documents, ficheros, con extension pdf o docx o txt o doc, de tama
 find /home/Documents -type f -regex "*\.[pdf|docx|txt|doc]$" -size +15M -atime -7
 find /home/pablo/documents -type f size 15M -ctime -7 -regex "*\.[pdf|docx|txt|doc]$" | cpio -o -v > /tmp/backup_doc_office.cpio -- guarda la salida del comando en el fichero`
 
-
 # RESTAURAR EL BACKUP DE CPIO
     cpio -i [-opciones_auxiliares] < /ruta/fichero_cpio -- extraccion de contenido empaquetado
         -v ===> forma detallada
@@ -98,11 +97,11 @@ PRACTICA
     comprobar que se ha creado en /tmp
     intentar extraerlo en directorio /tmp/extraer_apuntes_sistemas <==== crear directorio si no existe
 
-# Creacion de backups con RSYNC (Remote Syncronization Daemon tool) 
+# CREACION DE BACKUPS CON RSYNC (Remote Syncronization Daemon tool) 
 una de las herramientas mas potentes para hacer copias de seguridad tanto en sistemas linux(herramientas nativa) como en sistemas windows es muy eficaz
-    - sirve para hacer backups totaltes como incrementales (a nivel local como a nivel remoto)
-    - solo copia fragmentos de ficheros/directorios q se han modificado realmente y encima la transferencia de los datos modificados se realiza con un algoritmo de compresion muy potente, y es muy rapido
-    - permite el borrado de ficheros/directorios que se han borrado en origen (mantiene sincronizados ficheros/directorios en origen con ficheros/directorios en destino del backup),ademas permite guardar estos ficheros/directorios borrados temporalmente en otro destino como medida de seguridad
+- sirve para hacer backups totaltes como incrementales (a nivel local como a nivel remoto)
+- solo copia fragmentos de ficheros/directorios q se han modificado realmente y encima la transferencia de los datos modificados se realiza con un algoritmo de compresion muy potente, y es muy rapido
+- permite el borrado de ficheros/directorios que se han borrado en origen (mantiene sincronizados ficheros/directorios en origen con ficheros/directorios en destino del backup),ademas permite guardar estos ficheros/directorios borrados temporalmente en otro destino como medida de seguridad
     Uso de RSYNC de forma local
     `rsync [-opciones] /ruta/directorio_origen_SRC /ruta/directorio_copia_destino_DEST
         ------
