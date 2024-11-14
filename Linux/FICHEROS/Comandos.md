@@ -288,3 +288,24 @@
 # VARIOS
     brute force attack jhon the ripper -- forzado de hash
     echo "Hola1234" | sha512sum -- generador de hash 
+
+# ECHO
+    read opcion -- permite al usuario a aplicar un valor a la variable
+    read -p "texto" opcion -- permite imprimir un texto y posteriormente permitir al usuario dar valor a la variable
+    echo "Hola Mundo"
+    echo $linea
+        -e -- opcion que permite la ejecucion de saltos de lina(\n) y tabulacion(\t) dentro del echo
+        -n -- no imprime la nueva linea
+    CARACTERES DE CONTROL
+        \a	Sonido de alerta
+        \b	Retroceder
+        \c	Suprimir salto de texto
+        \f	Atrás
+        \n	Salto de línea
+        \r	Volver al inicio de línea
+        \t	Tabulador (horizontal)
+        \v	Tabulador (vertical)
+        \\	Ver carácter de barra invertida
+        \0nnn	Caracteres ASCII en forma octal (solo sh y ksk)
+        \nnn	Caracteres ASCII en forma octal (solo Bash)
+        
