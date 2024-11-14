@@ -29,8 +29,8 @@ Los procesos marginales, no requieren urgencia en ejecutarse:
     nombre_aplicacion -- ejecuta la aplicacion, pero se cierra al quitar la terminal
     nombre_aplicacion & -- ejecuta la aplicacion en segundo plano
     nohup nombre_aplicacion & -- version mas corta
-    bg %1 -- permite ejecutar la apliacion en 2º plano
-    jobs -- permite ver las apliaciones en 2º plano
+    bg %1 -- permite ejecutar la aplicacion en 2º plano
+    jobs -- permite ver las aplicaciones en 2º plano
     fg %1 -- vuelve la apliacion a 1º plano
   
     app firefox: /usr/bin ---> firefox 7.7KB --> BCP-firefox
