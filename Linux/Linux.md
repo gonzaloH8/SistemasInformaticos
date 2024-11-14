@@ -116,6 +116,9 @@ Es el encargado de almacenar archivos de configuracion tanto a nivel de componen
     deluser.conf: Que se hace cuando se elimina a un usuario.
     services: Servicios de la red.
     timezone: Zona horaria.
+    cat /etc/shells -- nos permite ver los shells a instalar
+    cat /etc/bahts -- en caso de que no tengamos ninguno instalado
+    echo $SHELL -- permite ver el que tenemos instalado
 
 ## HOME(directorio personar de las carpetas de usuario)
 Es el directorio de usuarios estandar, destinado a almacenar todos los archivos de usuario(/documentos, /Imagenes, /videos, /musica, /plantillas,etc). Es usual ubicar el /home en una particion separada del resto
