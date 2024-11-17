@@ -34,7 +34,9 @@
     + -- una o mas repeticiones de la expresion anterior en esa posicion
     ? -- cero o una repeticion de la expresion anterior.Opcional
     {n,m} -- la expresion anterior se repite mas de n-veces pero menos de n-veces
-    {n,} -- la expresion anterior se repite exactamente n-veces
+    {n} -- la expresion anterior se repite exactamente n-veces
+    {n,} -- la expresion anterior se repite un minimo de veces, sin limite superior
+    {,n} -- la expresion anterior se repite un maximo de veces, sin limite inferior
     [^._-$#] -- en esa posicion NO PUEDE aparecer cualquier caracter enumerado en la lista
     (expresion1 | expresion2 | ...) -- en esa posicion puede darse cualquiera de esas expresiones, es un OR
     
