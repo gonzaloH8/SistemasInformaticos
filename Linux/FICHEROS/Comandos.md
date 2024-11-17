@@ -2,7 +2,7 @@
 - [COMANDOS estilo terminal(sudo apt install tmux --consola enriquecida)](https://tmuxcheatsheet.com/)
 - [CURL WTTR.IN mas informacion](http://wttr.in/:help.)
 - [Personalizacion del Terminal](https://computernewage.com/2014/12/25/como-personalizar-el-aspecto-del-prompt-de-la-terminal-de-linux/)
-- 
+
 # SHORTS COMANDOS
     CTRL + MAYUS + T -- abre una nueva terminal
     CTRL + MAYUS + C -- copia el contenido seleccionado
