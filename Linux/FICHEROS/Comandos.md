@@ -45,6 +45,7 @@
 # COMENTARIOS
     # este es un comentario de una linea
     : 'este es un comentario de dos o mas lineas'
+    : <<'END_COMMENT' COMENTARIO END_COMMENT
 
 # OPERADORES DE TEXTO
     > -- entrada de datos que permite sobreescribir contenido de un fichero
