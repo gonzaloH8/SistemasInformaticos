@@ -32,6 +32,7 @@ Los procesos marginales, no requieren urgencia en ejecutarse:
     bg %1 -- permite ejecutar la aplicacion en 2º plano
     jobs -- permite ver las aplicaciones en 2º plano
     fg %1 -- vuelve la apliacion a 1º plano
+    top -- permite ver los procesos en tiempo real
   
     app firefox: /usr/bin ---> firefox 7.7KB --> BCP-firefox
   
@@ -61,6 +62,22 @@ Los procesos marginales, no requieren urgencia en ejecutarse:
       prioridad
       bondad
       ejecutable
+
+     %C     pcpu     %CPU -- hilos que esta usando el proceso en la cpu
+     %G     group    GROUP -- grupo al que pertenece el usuario
+     %P     ppid     PPID -- 
+     %U     user     USER -- usuario
+     %a     args     COMMAND
+     %c     comm     COMMAND
+     %g     rgroup   RGROUP
+     %n     nice     NI -- bondad del proceso
+     %p     pid      PID -- numero del proceso
+     %r     pgid     PGID
+     %t     etime    ELAPSED
+     %u     ruser    RUSER
+     %x     time     TIME
+     %y     tty      TTY
+     %z     vsz      VSZ
 
     nice -n + 1 firefox -- lanza la aplicacion con la prioridad que tu indiques en primer plano
     renice -n valor_bondad -p pid_proceso <--- cambias el valor de la prioridad (alterando su bondad) en PROCESOS EN EJECUCION
