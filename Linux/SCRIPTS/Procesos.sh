@@ -65,3 +65,48 @@ done
         echo "Salimos del Script"
     ;;
     esac
+
+# =============================================================================
+#!/bin/bash
+clear
+
+echo "MENU"
+echo "1) Ejecucion de la aplicacion"
+echo "2) Mirar sus procesos de todas las formas posibles"
+echo "3) Cambiar la bondad del proceso"
+echo "4) Mata el proceso"
+echo "5) SALIR"
+
+read -p "Dime la aplicacion a consultar: " app
+
+read -p "Dime una opcion: " opcion
+case $opcion in
+
+1)
+    $app &
+;;
+
+2)
+    ps -C $app -o pid,cmd,nice,pri
+;;
+
+3)
+    ps -C $app -o pid,nice
+    read -p "Dime el numero del pid: " pid
+    renice -n +15 -p $pid
+;;
+
+4)
+    echo "Vemos todos las señales de kill, que podemos ejecutar"
+    kill -l
+    ps -C $app -o pid
+    read -p "Dime el numero del pid: " pid
+    sudo kill -s SIGTERM $pid
+;;
+
+5)
+    echo "Salimos del Script"
+    exit 0
+;;
+
+esac
