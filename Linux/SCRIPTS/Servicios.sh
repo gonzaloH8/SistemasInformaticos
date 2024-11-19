@@ -1,53 +1,47 @@
-# PRACTICA
 #!/bin/bash
 clear
-# 1º paso pedir por teclado el nombre de un servicio
-# 2º mostrar este menu
-    # 1º Mostrar fichero de configuracion del servicio
-    # 2º Mostrar estado del servicio
-    # 3º Parar servicio
-    # 4º Arrancar servicio
-    # 5º Deshabilitar servicio
-    # 6º Habilitar servicio
-    # 7º Salir del script 
-
-read -p "Dime el nombre del servicio a trabajar: " serv
 opcion=0
-# while [ $opcion -ne 7 ]
-# do
-    echo "1º Mostrar fichero de configuracion del servicio"
-    echo "2º Mostrar estado del servicio"
-    echo "3º Parar servicio"
-    echo "4º Arrancar servicio"
-    echo "5º Deshabilitar servicio"
-    echo "6º Habilitar servicio"
-    echo "7º Salir del script"
+while [ $opcion -ne 7 ]
+do
+echo -e "\nMENU"
+echo "1) Muestra el fichero de configuracion"
+echo "2) Muestra lo servicios"
+echo "3) Inicia el servicio"
+echo "4) Para el servicio"
+echo "5) Desactiva el servicio"
+echo "6) Activa el servicio"
+echo "*) SALIR"
 
-read opcion
-case $opcion in
-    1)
-        systemctl cat $serv.service
-    ;;
+read -p "Dime una opcion: " opcion
+read -p "Dime el servicio: " serv
 
-    2)
-        systemctl status $serv.service
-    ;;
+case $opcion in 
+1)
+    sudo systemctl cat $serv.service
+;;
+2)
+    sudo systemctl status $serv.service
+;;
 
-    3)
-        systemctl stop $serv.service
-    ;;
+3)
+    sudo systemctl start $serv.service
+;;
 
-    4)
-        systemctl start $serv.service
-    ;;
-    5)
-        sudo systemctl disable $serv.service
-    ;;
+4)
+    sudo systemctl stop $serv.service
+;;
 
-    6)
-        sudo systemctl enable $serv.service
-    ;;
+5)
+    sudo systemctl disable $serv.service
+;;
 
-    *)
-        echo "Salimos del Script"
+6)
+    sudo systemctl enable $serv.service
+;;
+
+*)
+    echo "Salimos del Script"
+    exit 0
+;;
 esac
+done
