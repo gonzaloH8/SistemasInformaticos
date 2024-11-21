@@ -64,3 +64,35 @@ comprobar con ls q se ha restaurado ya fichero LEEME.txt y directorio "otros" co
 #                            el propio script debe ser capaz de programar una tarea para q se ejecute al dia siguiente y haga el backup incremental de ese directorio usando ese dichero snap
 # 4. ===SALIR===
 # 5. opcion_
+
+PRACTICA
+config serv
+Hay que tener instalado el paquete: openssh-server
+                                    sudo apt install openssh-server
+                                    sudo systemctl enable ssh.service
+                                    sudo systemctl daemon-reload
+                                    sudo systemctl status ssh.service ===> debe estar arrancado
+2º paso)
+    Nos creamos directorio de destino de backups:
+        mkdir /tmp/backups_cliente
+
+config cliente
+1º paso: generamos claves publica y privada para cifrar trafico
+    ssh-keygen -f /home/gonzalo/.ssh/id_rsa -- guardas las claves. Genera un fichero con claves publicas y un fichero con claves privadas
+    Enter password-key: ""
+    Re-Enter password-key: ""
+
+Vemos si las ha generado: ls -l /home/gonzalo/.ssh ===> crea dos ficheros: id_rsa(clave privada)
+                                                                           id_rsa.pub(clave publica)
+
+2º paso necesitamos subir (copiar) la clave publica al servidor para que pueda descifrar el trafico generado con la clave privada del cliente en la conexion ssh con rsync. 
+    En el servidor el cliente tiene una cuenta llamada: gonza
+    (necesito saber la ip del servidor) ejecutar comando: ipconfig o bien: ip address show
+        scp /home/user/.ssh/id_rsa.pub user_server@ip_server:/home/user/.ssh/authorized_keys    -- permite copiar ficheros desde una maquina local a una del servidor
+            --------------------------         ----------------------------
+            origen local cliente            destino remoto servidor: gondaw@10.0.2.15:/directorio_destino/nombre_fich/
+
+3º paso) ejecutamos backup
+    rsync -a -v -z -e 'ssh -i /home/gonzalo/.ssh/id_rsa' /home/gonzalo/Documents gondaw@10.0.2.15:/tmp/backups_cliente
+                        cifrar trafico con clave privada        origen-backups        destino en server de ficheros
+    para comprobar si ha sido ok, ir al server y ver el contenido del directorio: /tmp/backups:cliente
