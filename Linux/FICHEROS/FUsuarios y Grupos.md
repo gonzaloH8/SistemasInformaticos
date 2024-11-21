@@ -1,10 +1,11 @@
+# ENLACES
+
 # ADMINISTRACION DE USUARIOS
 Por defecto en linux la info de los usuarios esta en un fichero: /etc/passwd
 Cada linea del fichero es una cuenta de usuario: dos tipos de usuarios o cuentas:
-- Usuarios de sistema: cuentas de usuario q no pueden usarse para iniciar sesion usadas por servicios
-- Usuarios normales: cuentas de usuario con las que puedes iniciar sesion e intercambiar con el SO
-Cada linea del fichero /etc/passwd o bien es una cuenta del sistema o bien es una cuenta de usuario normal
-el formato de las lineas:
+- **Usuarios de sistema:** cuentas de usuario q no pueden usarse para iniciar sesion usadas por servicios
+- **Usuarios normales:** cuentas de usuario con las que puedes iniciar sesion e intercambiar con el SO
+Cada linea del fichero /etc/passwd o bien es una cuenta del sistema o bien es una cuenta de usuario normal el formato de las lineas:
 nombre_usuario : x : user_id : group_principal_id : comentarios : ruta/directorio : shell_interactiva
 Ejemplo:
   Usuarios normales: en el campo shell_interactiva tienen una shell q pueden ejecutar para introducir comandos para manejar el SO
@@ -18,11 +19,11 @@ Ejemplo:
                                                                 comentarios Gonzalo,,,
                                                                 directorio personal: /home/pablo
                                                                 shell: /bin/bash
-  En usuario normales los UID > 1000 en cuentas del sistema UID <=1000
-  Las contraseñas se almacenan en un fichero al q solo tiene acceso el root, q se llama /etc/shadow
-  Los permisos son muy restrictivos ls -l /etc/shadow
-  Cada linea representa la informacion de una contraseña de una cuenta de usuario(tienen q coincidir el nunmero de lineas con el de /etc/passwd), tiene estos campo
-  nombre_usuario: has_passwd | ! | * : .... campos que indican la durabilidad de la contraseña, etc
+En usuario normales los UID > 1000 en cuentas del sistema UID <=1000
+Las contraseñas se almacenan en un fichero al q solo tiene acceso el root, q se llama /etc/shadow
+Los permisos son muy restrictivos ls -l /etc/shadow
+Cada linea representa la informacion de una contraseña de una cuenta de usuario(tienen q coincidir el nunmero de lineas con el de /etc/passwd), tiene estos campo
+nombre_usuario: has_passwd | ! | * : .... campos que indican la durabilidad de la contraseña, etc
 
 # COMANDOS
     GLOBALES 
@@ -39,25 +40,26 @@ Ejemplo:
     sudo addgroup + nombreGrupo -- Crear un grupo
     sudo adduser + nombreUsuario + nombreGrupo -- Añadir un usuario al grupo
     groups + nombreUsuario -- Comprobacion de en que grupos esta el usuario
-    su + nombreUsuario -- Cambiar de sesion de usuario. Para abandonar esta sesion y recuperar la anterior: exit
+    su + nombreUsuario -- Cambia de sesion de usuario.
     sudo deluser usuario --remove-home -- Para borrar un usuario y su carpeta personal
     sudo deluser usuario grupo --  Para borrar un usuario del grupo
     sudo delgroup grupo -- Para borrar un grupo
     sudo deluser usuario --group grupo  -- Para borrar un grupo y su carpeta personal
     sudo passwd -u nombre_de_usuario -- permite desbloquear la cuenta
     sudo passwd -S nombre_de_usuario -- comprueba si la cuenta esta bloqueada
+    exit -- Para abandonar esta sesion y recuperar la anterior
 
 # GRUPOS
 La forma de linux de guardar info sobre los grupos de usuarios (conjunto de cuentas con mismo rol: permisos acceso a recursos) es fichero
 /etc/group <====== cada linea representa un grupo de usuarios, y tiene este formato:
-nombre_grupo : x : GID : <=== lista de usuarios separados por comas---> actualmente suele meterse en fichero gshadow
-GID(Group-identifier):, numero exclusivo q identifica al grupo para grupos de sistema este numero es inferior a 1000
-Cuando crear una cuenta Linux lo que hace es asociarla a un grupo con el mismo nombre de la cuenta del usuario (solo para ese usuario ìedes cambiarlo con comando)
+nombre_grupo : x : GID : <=== lista de usuarios separados por comas ===> actualmente suele meterse en fichero gshadow
+GID(Group-identifier): numero exclusivo q identifica al grupo para grupos de sistema este numero es inferior a 1000
+Cuando crear una cuenta Linux lo que hace es asociarla a un grupo con el mismo nombre de la cuenta del usuario (solo para ese usuario puedes cambiarlo con comando)
 usermod -g GID | nombre_grupo_principal nombre_usuario
-Los grupos vinen por defecto sin password, pero pude asignarles una password de acceso, acceso: esta password se almacena en fichero:
+Los grupos vienen por defecto sin password, pero pudes asignarles una password de acceso, acceso: esta password se almacena en fichero:
 /etc/gshadow <====== cada linea representa la info de password de acceso a un grupo y lista de usuarios grupo: nombre_grupo: hash_password | ! | * : usuario1, usuario2, ...
-* si aparece un * el grupo esta deshabilitado(no se puede acceder a el)
-* si aparece una ! password del grupo ha expirado, el root o el administrador del grupo tiene q reactivarla, cambiandolo.
+- Si aparece un * el grupo esta deshabilitado(no se puede acceder a el)
+- Si aparece una ! password del grupo ha expirado, el root o el administrador del grupo tiene q reactivarla, cambiandolo.
 
 # COMANDOS
     GLOBALES
