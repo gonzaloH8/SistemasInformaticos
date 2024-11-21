@@ -1,3 +1,5 @@
+# ENLACES
+
 # TEORIA 03-10-2024
 Un proceso es una estructura de datos que el modulo de gestion de procesos del kernel (SCHEDULER o planificador) crea para cualquier aplicacion que se quiere ejecutar en ese instante
 y se llama BCP (bloque control proceso). Aqui se almacena valores necesarios para la ejecucion de esa aplicacion
@@ -29,10 +31,11 @@ Los procesos marginales, no requieren urgencia en ejecutarse:
     nombre_aplicacion -- ejecuta la aplicacion, pero se cierra al quitar la terminal
     nombre_aplicacion & -- ejecuta la aplicacion en segundo plano
     nohup nombre_aplicacion & -- version mas corta
-    bg %1 -- permite ejecutar la aplicacion en 2º plano
+    bg %numero_id_comando_background -- permite ejecutar la aplicacion en 2º plano
     jobs -- permite ver las aplicaciones en 2º plano
-    fg %1 -- vuelve la apliacion a 1º plano
+    fg %1 -- vuelve la aplicacion al 1º plano
     top -- permite ver los procesos en tiempo real
+    trap comando_ejecutar nombre_señal -----> permite ejecutar un comando/s cuando se produce una determinada señal
   
     app firefox: /usr/bin ---> firefox 7.7KB --> BCP-firefox
   
@@ -91,39 +94,10 @@ Los procesos marginales, no requieren urgencia en ejecutarse:
     kill -l -- ves todos las señales de kill
     sudo kill -9 -p `pidof firefox`-- cierra la aplicacion
     sudo kill -9 -p 1 -- borra el proceso principal preguntando
-    init 0 -- borra el proceso principal sin preguntar
+    kill -s SIGTERM `pidof firefox`
+    init 0 -- borra el proceso principal sin preguntar(no hacer nunca)
     
     chrt -- permite ver caracteristicas de los algoritmos de planificacion del scheduler; tambien permite cambiar procesos de un algoritmo a otro
     chrt -p num_prioridad -- muestra la prioridad de la aplicacion
-    
-# PRACTICAS
-ver algoritmos y sus prioridades: chrt -m
-cambiar un proceso a SCHED_FIFO y que tenga prioridad 10, para BCP con pid del proceso 175: chrt -f --pid 10 75
-
-07/10/2024
-ej lanzar el navegador (p.e firefox)
-abres consola, consultamos el proceso creado para firefox con el valor de su prioridad y bondad
-ps -C firefox -o pid,nice,pri,cmd ---> 1992 o 19 firefox
-matamos proceso:
-kill -s SIGTERM `pidof firefox`
-lanzamos el navegador, desde consola con otra bondad-prioridad
-nice -n +1 firefox <=== para bondodes negativas exige permisos de root(via sudo)
-volvemos a consultar el proceso nuevo de firefox
-ps -C firefox -o pid,nice,pri,cmd ----> 2019
-
-PARA MANDAR COMANDOS A SEGUNDO PLANO
-  - pulsar 1º: CTRL + Z -----> asi pausamos el comando
-  - ejecutar: bg %numero_id_comando_background
-  - para listar todos los comandos en background jobs
-  - para pasar a primer plano un comando fg %numero_id_comando_background
-
-ej:
-    - Lanzo navegador desde consola -----> bloqueara la consola desde donde lo lanzas
-    - para poder usar la consola, mandamos a background el proceso del navegador: CTRL + z
-        [2] detenido   firefox ..... <--- navegador esta congelado, pausado
-    - mandamos a background el proceso que esta pausado  bg %2 <---- navegador operativo ya
-    - comprobamos: jobs
-    - mandamos a primer plano otra vez el anvegador: fg %2 <----- consola esta otra vez bloqueada
-    - finalizamos navegador con CTRL + Z
-
-trap comando_ejecutar nombre_señal -----> permite ejecutar un comando/s cuando se produce una determinada señal
+    chrt -m -- ver algoritmos y sus prioridades
+    chrt -f --pid 10 75 -- cambiar un proceso a SCHED_FIFO y que tenga prioridad 10, para BCP con pid del proceso 175
