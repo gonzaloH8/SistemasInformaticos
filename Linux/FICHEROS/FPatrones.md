@@ -41,78 +41,78 @@
     (expresion1 | expresion2 | ...) -- en esa posicion puede darse cualquiera de esas expresiones, es un OR
     
 ## GRUPOS Y RANGOS
-      (...) grupo de patrones
-      (?...) grupo pasivo
-      [aeiou] rango de vocales. char
-      (pdf|doc|txt) rango de palabras. string
-      [^abc] negacion de las letras que siguen al simbolo
-      [aq] letra minuscula de la a-q
-      [AQ] letra mayuscula de la A-Q
-      [0-9] digito del 0 al 7
-      \incognita numero de grupo/subpatron "x"
+    (...) grupo de patrones
+    (?...) grupo pasivo
+    [aeiou] rango de vocales. char
+    (pdf|doc|txt) rango de palabras. string
+    [^abc] negacion de las letras que siguen al simbolo
+    [aq] letra minuscula de la a-q
+    [AQ] letra mayuscula de la A-Q
+    [0-9] digito del 0 al 7
+    \incognita numero de grupo/subpatron "x"
       
 ## CLASES DE PERSONAJES
-      \do personaje de control
-      \s espacio en blanco
-      \S no es espacio en blanco
-      \d digito
-      \D no es digito
-      \w en esa posicion aparece una palabra, sinonimo de [a-zA-Z]+
-      \W no es palabra
-      \incognita digito hexadecimal
-      \O digito octal
+    \do personaje de control
+    \s espacio en blanco
+    \S no es espacio en blanco
+    \d digito
+    \D no es digito
+    \w en esa posicion aparece una palabra, sinonimo de [a-zA-Z]+
+    \W no es palabra
+    \incognita digito hexadecimal
+    \O digito octal
       
 ## SECUENCIAS DE ESCAPE
-      \ escapa el siguiente caracter
-      \Q inicia secuencia literal
-      \MI fin de secuencia literal
+    \ escapa el siguiente caracter
+    \Q inicia secuencia literal
+    \MI fin de secuencia literal
       
 ## MODIFICADORES DE PATRONES
-      i* sin distincion entre mayusculas y minusculas
-      yo* varias lineas
-      s * tratar la cadena como una sola linea
-      x * Permitir comentarios y espacios en blanco en el patron
-      mi * evaluar reemplazo
-      Tu* patron no codicioso
+    i* sin distincion entre mayusculas y minusculas
+    yo* varias lineas
+    s * tratar la cadena como una sola linea
+    x * Permitir comentarios y espacios en blanco en el patron
+    mi * evaluar reemplazo
+    Tu* patron no codicioso
 
 ## SISTEMA DE ARCHIVOS POSIX
-      [:superior:] letras mayusculas
-      [:mas abajo:] letras minusculas
-      [:alfa:] todas las letras
-      [:numero:] cifras y letras
-      [:digito:] Digitos
-      [:xdigito:] digitos hexadecimales
-      [:punto:] puntuacion
-      [:blanco:] espacio y tabulacion
-      [:espacio:] caracteres en blanco
-      [:control:] personajes de control
-      [:grafico:] caracteres impresos
-      [:imprimir:] caracteres impresos y espacio
-      [:palabra:] cifras,letras y guiones bajos
+    [:superior:] letras mayusculas
+    [:mas abajo:] letras minusculas
+    [:alfa:] todas las letras
+    [:numero:] cifras y letras
+    [:digito:] Digitos
+    [:xdigito:] digitos hexadecimales
+    [:punto:] puntuacion
+    [:blanco:] espacio y tabulacion
+    [:espacio:] caracteres en blanco
+    [:control:] personajes de control
+    [:grafico:] caracteres impresos
+    [:imprimir:] caracteres impresos y espacio
+    [:palabra:] cifras,letras y guiones bajos
 
 ## REEMPLAZO DE CUERDAS
-      $n n-esimo grupo no pasivo
-      $2 "xyz" en /^(abc(xyz))$/
-      $1 "xyz" en /^(?:abc)(xyz)$/
-      $` Antes de la cadena coincidente
-      $' despues de la cadena coincidente
-      $+ ultima cadena coincidente
-      $& cadena completa coincidente
+    $n n-esimo grupo no pasivo
+    $2 "xyz" en /^(abc(xyz))$/
+    $1 "xyz" en /^(?:abc)(xyz)$/
+    $` Antes de la cadena coincident
+    $' despues de la cadena coincidente
+    $+ ultima cadena coincidente
+    $& cadena completa coincidente
       
 ## AFIRMACIONES
-      ?= Afirmacion de anticipacion
-      ?! mirada negativa hacia delante
-      ?<= o ?<! mirada negativa hacia atras
-      ?> subexpresion de una sola vez
-      ?() condicion[si entonces]
-      ?()| condicion[si entonces de lo contrario]
-      ?# comentario
+    ?= Afirmacion de anticipacion
+    ?! mirada negativa hacia delante
+    ?<= o ?<! mirada negativa hacia atras
+    ?> subexpresion de una sola vez
+    ?() condicion[si entonces]
+    ?()| condicion[si entonces de lo contrario]
+    ?# comentario
       
 ## CARACTERES ESPECIALES
-      \norte nueva linea
-      \r retorno de carro
-      \t pestaña
-      \v pestaña vertical
-      \F avance de formato
-      \xxx caracter octal xxx
-      \xhh caracter hexadecimal hh
+    \norte nueva linea
+    \r retorno de carro
+    \t pestaña
+    \v pestaña vertical
+    \F avance de formato
+    \xxx caracter octal xxx
+    \xhh caracter hexadecimal hh
