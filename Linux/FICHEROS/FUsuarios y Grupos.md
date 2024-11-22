@@ -1,6 +1,6 @@
 # ENLACES
 
-# ADMINISTRACION DE USUARIOS
+# USUARIOS
 Por defecto en linux la info de los usuarios esta en un fichero: /etc/passwd
 Cada linea del fichero es una cuenta de usuario: dos tipos de usuarios o cuentas:
 - **Usuarios de sistema:** cuentas de usuario q no pueden usarse para iniciar sesion usadas por servicios
@@ -29,15 +29,16 @@ nombre_usuario: has_passwd | ! | * : .... campos que indican la durabilidad de l
     GLOBALES 
     /etc/ssh/sshd_config (PasswordAuthentication yes) -- archivo de directivas varias
     sudo pam-auth-update
-    
-    USUARIOS
+    who -- muestra los usuarios logeados en el sistema
     id -- te indica el nombre de usuario con el que has iniciado session y estas trabajando
     w -- te da informacion de todos los usuarios q estan usando el sistema y lo que estan haciendo
+    
+    USUARIOS
     useradd + nombre_usuario -- añade usuario
       -c -- añade comentarios
       -s -- añade shell
     userdel + nombre_usuario -- elimina usuario
-    sudo addgroup + nombreGrupo -- Crear un grupo
+    sudo addgroup + nombreGrupo -- Crea un grupo
     sudo adduser + nombreUsuario + nombreGrupo -- Añadir un usuario al grupo
     groups + nombreUsuario -- Comprobacion de en que grupos esta el usuario
     su + nombreUsuario -- Cambia de sesion de usuario.
