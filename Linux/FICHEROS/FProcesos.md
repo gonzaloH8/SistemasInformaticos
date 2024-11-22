@@ -96,6 +96,16 @@ Los procesos marginales, no requieren urgencia en ejecutarse:
     sudo kill -9 -p 1 -- borra el proceso principal preguntando
     kill -s SIGTERM `pidof firefox`
     init 0 -- borra el proceso principal sin preguntar(no hacer nunca)
+
+    SEÑALES
+      SIGHUP (1): cuelgue del terminal o muerte del proceso controlador
+      SIGTERM (15): mata el proceso permitiéndole terminar correctamente
+      SIGKILL (9): mata el proceso sin permitirle terminar
+      SIGSTOP (19): para el proceso
+      SIGCONT (18): continúa si parado
+      SIGINT (2): interrupción de teclado (Ctrl-C)
+      SIGTSTP (20): stop de teclado (Ctrl-Z)
+      SIGQUIT (3): salida de teclado (Ctrl-\)
     
     chrt -- permite ver caracteristicas de los algoritmos de planificacion del scheduler; tambien permite cambiar procesos de un algoritmo a otro
     chrt -p num_prioridad -- muestra la prioridad de la aplicacion
