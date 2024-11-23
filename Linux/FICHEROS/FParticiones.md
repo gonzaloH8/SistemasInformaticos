@@ -3,7 +3,20 @@
 
 # PARTICIONES(permisos de admin)
     mkefs -- formatea todo
-    fdisk -l -- permite ver las particiones
+    FDISK
+        -m muestra el menu de opciones de este comando
+        -l -- permite ver las particiones
+        -d -- borra una partición
+        -F -- lista el espacio libre no particionado
+        -l -- lista los tipos de particiones conocidos
+        -n -- añade una nueva partición
+        -p -- muestra la tabla de particiones
+        -t -- cambia el tipo de una partición
+        -v -- verifica la tabla de particiones
+        -i -- imprime información sobre una partición
+        -w --  escribe la tabla en el disco y sale
+        -q -- sale sin guardar los cambios
+   
     sudo -l -- cambia de $ a #
     sudo bas -- cambiamos de usuario a administrador
     
