@@ -8,7 +8,7 @@
     sudo bas -- cambiamos de usuario a administrador
     
     dumpe2fs /dev/particion -- ves la informacion de la particion
-    dunpe2fs -h /dev/sad2 -- lees la informacion de la particion maestra o principal 0
+    dumpe2fs -h /dev/sad2 -- lees la informacion de la particion maestra o principal 0
     dumpe2fs -o superblock=inodo
     dumpe2fs -o superblock=32768 -o blocksize=4096 /dev/sda1 | less -- sale reducido   
     
