@@ -54,28 +54,27 @@ El resultado del empaquetamiento por defecto te lo muestra por pantalla, si lo q
 Con CPIO no hay una opcion explicita para crear backups incrementales
 
 Funcionamiento de cpio para crear una copia o backup
-   `lista_ficheros | cpio -o -- crear el fichero del backup > /ruta/fichero_backup.cpio
-    pude ser ls
-    el mas se suele usar es find /ruta_busqueda [-opciones de busqueda] [accion_sobre_elementos_encontrados]
-                                                            |
-                                                mirar pagina de manual
-                                                -type f|d|l|p|s <==== find busca elementos dentro de ruta_busqueda del tipo esp
-                                                -user nombre <==== busca elementos que pertenezca a ese usuario
-                                                -group grupo <=== busca elementos que pertenezcan a ese grupo
-                                                -perm permisos <=== busca elementos que cumplan con ese patron
-                                                -regex "patron" <==== busca elementos que cumplan con ese patron
-                                                -amin [+|-]numero <==== minutos de acceso al fichero
-                                                -atime [+|-]numero <==== dias de acceso al fichero
-                                                -anewer /ruta/fichero_ref <==== busca elementos q se haya ACCEDIDO antes o igual q el fichero de referencia
-                                                -cmin [+|-]numero <===== minutos de creacion/modificacion
-                                                -ctime [+|-] <==== dia de creacion/modificacion
-                                                -cnewer /ruta/fichero
-                                            Estas opciones se pueden combinar con op.logicos AND [-a] o OR(-o)
-                                            ej: find /home/pablo -type f .regex "*\.txt$" -ctime +2 <== busca en /home/pablo, ficheros cuyo nombre acabe en .txt
-                                                                                                        y cuya fecha de modificacion sea de al menos 2 dias
+lista_ficheros | cpio -o -- crear el fichero del backup > /ruta/fichero_backup.cpio
+pude ser ls
+el mas se suele usar es find /ruta_busqueda [-opciones de busqueda] [accion_sobre_elementos_encontrados]
+  |-----------------------------------------------------|
+  | -> mirar pagina de manual
+-type f|d|l|p|s <==== find busca elementos dentro de ruta_busqueda del tipo esp
+-user nombre <==== busca elementos que pertenezca a ese usuario
+-group grupo <=== busca elementos que pertenezcan a ese grupo
+-perm permisos <=== busca elementos que cumplan con ese patron
+-regex "patron" <==== busca elementos que cumplan con ese patron
+-amin [+|-]numero <==== minutos de acceso al fichero
+-atime [+|-]numero <==== dias de acceso al fichero
+-anewer /ruta/fichero_ref <==== busca elementos q se haya ACCEDIDO antes o igual q el fichero de referencia
+-cmin [+|-]numero <===== minutos de creacion/modificacion
+-ctime [+|-] <==== dia de creacion/modificacion
+-cnewer /ruta/fichero
+Estas opciones se pueden combinar con op.logicos AND [-a] o OR(-o)
+EJ: find /home/pablo -type f .regex "*\.txt$" -ctime +2 <== busca en /home/pablo, ficheros cuyo nombre acabe en .txt y cuya fecha de modificacion sea de al menos 2 dias
 en directorio documents, ficheros, con extension pdf o docx o txt o doc, de tamaño superior a 15M, fecha de creacion de hace una semana o menos
 find /home/Documents -type f -regex "*\.[pdf|docx|txt|doc]$" -size +15M -atime -7
-find /home/pablo/documents -type f size 15M -ctime -7 -regex "*\.[pdf|docx|txt|doc]$" | cpio -o -v > /tmp/backup_doc_office.cpio -- guarda la salida del comando en el fichero`
+find /home/pablo/documents -type f size 15M -ctime -7 -regex "*\.[pdf|docx|txt|doc]$" | cpio -o -v > /tmp/backup_doc_office.cpio -- guarda la salida del comando en el fichero
 
 # RESTAURAR EL BACKUP DE CPIO
     cpio -i [-opciones_auxiliares] < /ruta/fichero_cpio -- extraccion de contenido empaquetado
@@ -83,7 +82,7 @@ find /home/pablo/documents -type f size 15M -ctime -7 -regex "*\.[pdf|docx|txt|d
         -t ===> NO RESTAURA,solo muestra los ficheros q contiene el backup
         -d ===> crea directorios donde estaban situados esos ficheros (si no pones esta opcion te extrae todo en el directorio donde ejecutes cpio)
         --no-absolute-filenames ===> crea ficheros en directorios actual, sino la pones intenta restaurar los ficheros donde fueron recuperados en origen
-            cp /home/susana/Documents
+            cd /home/susana/Documents
             cpio -i -v -d < /tmp/backup_doc_office.cpio
         EJ: quiero extraer el contenido del backup: /tmp/backup_doc_office.cpio hecho antes en el directorio
             mkdir /tmp/extraer_apuntes_sistemas
