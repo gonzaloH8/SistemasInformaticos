@@ -65,7 +65,63 @@ comprobar con ls q se ha restaurado ya fichero LEEME.txt y directorio "otros" co
 # 4. ===SALIR===
 # 5. opcion_
 
-PRACTICA
+
+MI PRACTICA
+echo "BACKUP TOTAL"
+echo "1) Crea una carpeta y ficheros en Documents"
+echo "2) Empaqueta el contenido creado en el punto 1"
+echo "3) Mira el contenido"
+echo "4) Restaura el contenido"
+echo "BACKUP INCREMENTAL"
+echo "5) Crea un fichero para el backup Incremental"
+echo "6) Copia el contenido si ha sido modificado"
+echo "CPIO"
+echo "7) Haz un backup con CPIO"
+echo "*) SALIMOS DEL SCRIPT"
+
+read -p "Dime opcion: " opcion
+
+case $opcion in
+1)
+    mkdir /documents/Empaquetador
+    touch fich{1..4}.txt
+    touch leeme.txt
+;;
+
+2)
+    tar -cvzf /tmp/backup_empaque.tar.gz /home/gonzalo/documents
+;;
+
+3)
+    tar -tvzf /tmp/backup_empaque.tar.gz
+;;
+
+4)
+    mkdir Escritorio/Extraccion
+    cd Extraccion
+    tar -xvzf Extraccion
+;;
+
+5)
+    tar -cvzf /tmp/backup_total.tar.gz -g /tmp/fichero_snap /documents/Empaquetador
+;;
+
+6)
+    tar -c -v -z -f /ruta/backup_incremental.tar.gz -g /tmp/fichero_snap /documents/Empaquetador
+;;
+
+7)
+    mkdir /tmp/backup_total.cpio
+    cpio -i -v -d --no-absolute-filenames < /tmp/backup_total.cpio
+;;
+*)
+    echo "Salimos del Script"
+    exit 0
+;;
+esac
+
+
+PRACTICA SERVER
 config serv
 Hay que tener instalado el paquete: openssh-server
                                     sudo apt install openssh-server
