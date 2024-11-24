@@ -67,6 +67,8 @@ comprobar con ls q se ha restaurado ya fichero LEEME.txt y directorio "otros" co
 
 
 MI PRACTICA
+#!/bin/bash
+clear
 echo "BACKUP TOTAL"
 echo "1) Crea una carpeta y ficheros en Documents"
 echo "2) Empaqueta el contenido creado en el punto 1"
@@ -83,13 +85,14 @@ read -p "Dime opcion: " opcion
 
 case $opcion in
 1)
-    mkdir /documents/Empaquetador
+    mkdir /home/gonzalo/Documentos/Empaquetador
+    cd /home/gonzalo/Documentos/Empaquetador
     touch fich{1..4}.txt
     touch leeme.txt
 ;;
 
 2)
-    tar -cvzf /tmp/backup_empaque.tar.gz /home/gonzalo/documents
+    tar -cvzf /tmp/backup_empaque.tar.gz /home/gonzalo/Documentos/Empaquetador
 ;;
 
 3)
@@ -97,23 +100,23 @@ case $opcion in
 ;;
 
 4)
-    mkdir Escritorio/Extraccion
-    cd Extraccion
-    tar -xvzf Extraccion
+    mkdir /home/gonzalo/Escritorio/Extraccion
+    cd /home/gonzalo/Escritorio/Extraccion
+    tar -xvzf /tmp/backup_empaque.tar.gz 
 ;;
 
 5)
-    tar -cvzf /tmp/backup_total.tar.gz -g /tmp/fichero_snap /documents/Empaquetador
+    tar -cvzf /tmp/backup_total.tar.gz -g /tmp/fichero_snap /Documentos/Empaquetador
 ;;
 
 6)
-    tar -c -v -z -f /ruta/backup_incremental.tar.gz -g /tmp/fichero_snap /documents/Empaquetador
+    tar -cvzf /tmp/backup_incremental.tar.gz -g /tmp/fichero_snap /home/gonzalo/Documentos/Empaquetador
 ;;
 
 7)
-    mkdir /tmp/backup_total.cpio
-    cpio -i -v -d --no-absolute-filenames < /tmp/backup_total.cpio
+
 ;;
+
 *)
     echo "Salimos del Script"
     exit 0
