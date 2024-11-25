@@ -52,6 +52,7 @@ tar -x -v -z -f /tmp/backup_incremental_pruebas.tar.gz -g /dev/null
 comprobar con ls q se ha restaurado ya fichero LEEME.txt y directorio "otros" con fichero fich_otros.txt
 
 
+#!/bin/bash
 # PRACTICA SCRIPT
 #    CREACION BACKUP
 # 1. crear backup total aislado ===> pedir el directorio a copiar(comprobar que existe, si no existe, error).
@@ -59,14 +60,50 @@ comprobar con ls q se ha restaurado ya fichero LEEME.txt y directorio "otros" co
 #                                   hacer backup con TAR llamado: backup_TOTAL_nombre_directorio_fecha_hora.tar.gz
 # 2. crear backup total+Incremental ====> pedir directorio a copiar(comprobar que existe, si no existe, error)
 #                                         pedir el directorio destino de los backup totales e incrementales(comprobar q existe, si no existe, error)
-#                                         hacer 1º backup total con tar llamado: backup_TOTAL_nombre_directorio_feche_hora.tat.gz
+#                                         hacer 1º backup total con tar llamado: backup_TOTAL_nombre_directorio_fecha_hora.tar.gz
 #                                           el dichero snap meterlo en directorio destino backups: nombre_directorio_snap
 #                            el propio script debe ser capaz de programar una tarea para q se ejecute al dia siguiente y haga el backup incremental de ese directorio usando ese dichero snap
 # 4. ===SALIR===
 # 5. opcion_
+clear
 
+    echo "MENU DE OPCIONES A EJECUTAR"
+    echo "1) Crear un backup total aislado"
+    echo "2) Crear un backup+Incremental"
+    echo "3) SALIR"
 
-MI PRACTICA
+read -p "Dime una opcion: " opcion
+
+case $opcion in
+1)
+    if [ -d /tmp ] && [ -d /home/gonzalo/Escritorio/Scripts ]
+    then
+        echo "Existe el directorio origen y destino, Procedemos a hacer el backup"
+        tar -c -v -z -f /tmp/backup_TOTAL_nombre_directorio_$(date '+%Y-%m-%d-%H:%M').tar.gz /home/gonzalo/Escritorio/Scripts
+        tar -t -v -z -f /tmp/backup_TOTAL_nombre_directorio_$(date '+%Y-%m-%d-%H:%M').tar.gz
+        
+    else
+        echo "El directorio no ha sido encontrado"
+    fi
+;;
+2)
+    if [ -d /tmp ] && [ -d /home/gonzalo/Escritorio/Scripts ]
+    then
+        echo "Existe el directorio origen y destino, Procedemos a hacer el backup total e Incremental"
+        tar -c -v -z -f /tmp/backup_total_pruebas.tar.gz -g /tmp/pruebas_snap /tmp/pruebas/
+        tar -c -v -z -f /tmp/fich_backup_incremental_num.tar.gz -g /tmp/fichero_snap /tmp/pruebas
+    else
+        echo "El directorio no ha sido encontrado"
+    fi
+;;
+
+3)
+    echo "SALIMOS DEL SCRIPT"
+    exit 0
+;;
+esac
+
+# MI PRACTICA
 #!/bin/bash
 clear
 echo "BACKUP TOTAL"
@@ -77,8 +114,12 @@ echo "4) Restaura el contenido"
 echo "BACKUP INCREMENTAL"
 echo "5) Crea un fichero para el backup Incremental"
 echo "6) Copia el contenido si ha sido modificado"
+echo "7) Borra un archivo y comprueba que se ha actualizado"
 echo "CPIO"
 echo "7) Haz un backup con CPIO"
+echo "8) Extramenos el contenido del backup CPIO"
+echo " RSYNC "
+echo "9) Creamos una copia"
 echo "*) SALIMOS DEL SCRIPT"
 
 read -p "Dime opcion: " opcion
@@ -92,17 +133,19 @@ case $opcion in
 ;;
 
 2)
-    tar -cvzf /tmp/backup_empaque.tar.gz /home/gonzalo/Documentos/Empaquetador
+    echo -e "COMPRIMIMOS EL CONTENIDO EN EL DIRECTORIO Empaquetador"
+    tar -cvzf /tmp/backup_total.tar.gz /home/gonzalo/Documentos/Empaquetador
 ;;
 
 3)
-    tar -tvzf /tmp/backup_empaque.tar.gz
+    echo -e "VEMOS EL CONTENIDO"
+    tar -tvzf /tmp/backup_total.tar.gz
 ;;
 
 4)
     mkdir /home/gonzalo/Escritorio/Extraccion
     cd /home/gonzalo/Escritorio/Extraccion
-    tar -xvzf /tmp/backup_empaque.tar.gz 
+    tar -xvzf /tmp/backup_total.tar.gz 
 ;;
 
 5)
@@ -114,7 +157,35 @@ case $opcion in
 ;;
 
 7)
+    cd /home/gonzalo/Documentos/Empaquetador
+    cpio -o > /tmp/backup_doc_office.cpio
+;;
 
+8)
+    mkdir /tmp/extraer_apuntes_sistemas
+    cd /tmp/extraer_apuntes_sistemas
+    cpio -i -v -d --no-absolute-filenames < /tmp/backup_doc_office.cpio
+    ls -l
+;;
+
+9)
+    mkdir /tmp/backup_rsync
+    rsync -a -v --no-whole-file /home/gonzalo/Documentos/Empaquetador /tmp/backup_rsync
+    ls -l /tmp/backup_rsync
+;;
+
+10)
+    mkdir /home/gonzalo/Documentos/Pruebas
+    cd /home/gonzalo/Documentos/Pruebas
+    touch fich{1..4}.txt
+    cd /home/gonzalo/Documentos
+    touch leeme.txt
+    rsync -a -v --no-whole-file /home/gonzalo/Documentos/Pruebas /tmp/backup_rsync
+    ls -l /tmp/backup_rsync
+    cd /home/gonzalo/Documentos/Pruebas
+    rm fich1.txt fich2.txt
+    rsync -a -v --no-whole-file /home/gonzalo/Documentos/Pruebas /tmp/backup_rsync
+    rsync -a -v --no-whole-file --delete --backup --backup-dir=/tmp/ficheros_borrados /home/gonzalo/Documentos/Pruebas /tmp/backup_rsync
 ;;
 
 *)
