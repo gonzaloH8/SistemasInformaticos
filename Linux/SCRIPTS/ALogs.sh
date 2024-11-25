@@ -32,6 +32,7 @@
         done
     (cambiar permisos: chmod a+x miscript.sh)
     2º PASO) en el fichero de reglas de rsyslog: /etc/rsyslog.d/50-default.conf
+        Modificamos el archivo con : nano 50-default.conf
                 añadimos esta regla:
                     daemon.info     /tmp/miscript.log
             grabamos cambios y reiniciar el servicio¡¡¡¡:
