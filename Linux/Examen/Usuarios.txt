@@ -1,0 +1,6 @@
+/bin/bash	c/juan de austria,3 tlfno-666112233	alumnos	6000	juli1234	julian.contreras
+/bin/bash	c/avila 1ºa,3 tlfno-677221133	alumnos	6001	peponNiet1234	pepon.nieto
+/bin/bash	plaza cervantes bajo a,2 tlfno-687981133	alumnos	6002	gemaMeng1234	gema.mengual
+/bin/bash	c/lope figueroa,1 2ºa tlfno-698123456	profesores	7001	blackPanther1234	natalia.grandes
+/bin/bash	c/ronda fiscal,2 3ºb izqdo tlfno-698223344	profesores	7002	alv.Great4321	alvaro.gomez
+/bin/bash	c/ramiro segundo,3 5ºc tlfno-676883344	profesores	7003	alb.Soft4321	alberto.ruiz

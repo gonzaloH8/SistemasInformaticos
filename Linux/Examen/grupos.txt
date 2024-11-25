@@ -1,0 +1,3 @@
+gid	grupo	password
+6999	alumnos	alumnosDAW
+7999	profesores	profesoresDAW
