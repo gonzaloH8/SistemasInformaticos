@@ -55,6 +55,28 @@
         if $msg contains "miscript.sh" then /var/log/milog -- forma nueva programadores. Ir a la ruta dirigida donde se generara el archivo
         tail -f /var/log/milog
 
+MI VERSION
+#!/bin/bash
+    clear
+    while true
+    do
+        fecha=$(date '+%Y-%m-%d__%H:%M') # poner la comilla invertida es mas eficaz que el $(.....)<=== subshell
+        echo "..mandando mensaje al log a las $date..."
+        logger -p daemon.info -t "[miscript.sh]" "mensaje mandado por script: miscript.sh a las $fecha..."
+        sleep 1m
+    done
+
+# /etc/rsyslog.d/50-default.conf -- Hacede a este archivo
+# Modificamos el archivo con : nano 50-default.conf
+# Ingresa esta regla en el fichero 50-default.conf: daemon.info /tmp/miscript.log
+# Guardar los cambios, reiniciar el servicio
+    # sudo systemctl daemon-reload
+    # sudo systemctl restart rsyslog.service
+    # sudo systemctl status rsyslog.service
+# ejecutamos el script Logs.sh
+# tail -f /tmp/miscript.log
+# if $msg contains "miscript.sh" then /var/log/milog -- Introducelo en el archivo 50-default.conf. Filtra mensajes para que solo aparezca los del Script
+
 # PRACTICA
     rsyslog templates -- plantillas visitar la pagina
     crear plantillas rsyslog almacene el mensaje que manda el script 
