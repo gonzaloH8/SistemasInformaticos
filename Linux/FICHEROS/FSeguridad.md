@@ -59,17 +59,18 @@ pude ser ls
 el mas se suele usar es find /ruta_busqueda [-opciones de busqueda] [accion_sobre_elementos_encontrados]
   |-----------------------------------------------------|
   | -> mirar pagina de manual
--type f|d|l|p|s <==== find busca elementos dentro de ruta_busqueda del tipo esp
--user nombre <==== busca elementos que pertenezca a ese usuario
--group grupo <=== busca elementos que pertenezcan a ese grupo
--perm permisos <=== busca elementos que cumplan con ese patron
--regex "patron" <==== busca elementos que cumplan con ese patron
--amin [+|-]numero <==== minutos de acceso al fichero
--atime [+|-]numero <==== dias de acceso al fichero
--anewer /ruta/fichero_ref <==== busca elementos q se haya ACCEDIDO antes o igual q el fichero de referencia
--cmin [+|-]numero <===== minutos de creacion/modificacion
--ctime [+|-] <==== dia de creacion/modificacion
--cnewer /ruta/fichero
+- -type f|d|l|p|s <==== find busca elementos dentro de ruta_busqueda del tipo esp
+- -user nombre <==== busca elementos que pertenezca a ese usuario
+- -group grupo <=== busca elementos que pertenezcan a ese grupo
+- -perm permisos <=== busca elementos que cumplan con ese patron
+- -regex "patron" <==== busca elementos que cumplan con ese patron
+- -amin [+|-]numero <==== minutos de acceso al fichero
+- -atime [+|-]numero <==== dias de acceso al fichero
+- -anewer /ruta/fichero_ref <==== busca elementos q se haya ACCEDIDO antes o igual q el fichero de referencia
+- -cmin [+|-]numero <===== minutos de creacion/modificacion
+- -ctime [+|-] <==== dia de creacion/modificacion
+- -cnewer /ruta/fichero
+
 Estas opciones se pueden combinar con op.logicos AND [-a] o OR(-o)
 EJ: find /home/pablo -type f .regex "*\.txt$" -ctime +2 <== busca en /home/pablo, ficheros cuyo nombre acabe en .txt y cuya fecha de modificacion sea de al menos 2 dias
 en directorio documents, ficheros, con extension pdf o docx o txt o doc, de tamaño superior a 15M, fecha de creacion de hace una semana o menos
