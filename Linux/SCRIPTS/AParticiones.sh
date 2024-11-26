@@ -1,5 +1,4 @@
 # PRACTICA
-    PRÁCTICA:
 	1- Crearnos en un dispositivo virtual un mini-disco duro, creando un fichero y asociándolo a /dev/loop0
 	2- Lo intentamos particionar con: fdisk, parted, ...
 	3- En una partición sobre el disp.virtual vamos a formatear una partición con ext4: mke2fs
