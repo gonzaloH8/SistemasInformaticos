@@ -55,7 +55,7 @@
         if $msg contains "miscript.sh" then /var/log/milog -- forma nueva programadores. Ir a la ruta dirigida donde se generara el archivo
         tail -f /var/log/milog
 
-MI VERSION
+# MI VERSION
 #!/bin/bash
     clear
     while true
@@ -67,15 +67,15 @@ MI VERSION
     done
 
 # /etc/rsyslog.d/50-default.conf -- Hacede a este archivo
-# Modificamos el archivo con : nano 50-default.conf
-# Ingresa esta regla en el fichero 50-default.conf: daemon.info /tmp/miscript.log
-# Guardar los cambios, reiniciar el servicio
-    # sudo systemctl daemon-reload
-    # sudo systemctl restart rsyslog.service
-    # sudo systemctl status rsyslog.service
-# ejecutamos el script Logs.sh
-# tail -f /tmp/miscript.log
+# -- nano 50-default.conf -- Hacede al archivo mediante este editor de textos
+# daemon.info /tmp/miscript.log -- Ingresa esta regla en el fichero 50-default.conf
 # if $msg contains "miscript.sh" then /var/log/milog -- Introducelo en el archivo 50-default.conf. Filtra mensajes para que solo aparezca los del Script
+# Guardar los cambios y reiniciar el servicio
+    # sudo systemctl daemon-reload
+    # sudo systemctl restart rsyslog.service -- reinicia el servicio
+    # sudo systemctl status rsyslog.service -- verifica el estado del servicio
+# Ejecutamos el script Logs.sh
+# tail -f /tmp/miscript.log -- vemos el texto del script
 
 # PRACTICA
     rsyslog templates -- plantillas visitar la pagina
