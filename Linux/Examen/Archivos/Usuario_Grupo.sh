@@ -1,7 +1,7 @@
 #!/bin/bash
 # Ejercicio 1 Gonzalo San Andres Anton 1º DAW
 clear
-
+sudo mysql -uroot datosex -e 'SELECT * FROM usuarios;' > ./Usuarios.txt
 while read linea
 do
     
@@ -19,6 +19,7 @@ do
 done < Usuarios.txt 
 
 # Ejercicio 2
+sudo mysql -uroot datosex -e 'SELECT * FROM grupos;' > ./grupos.txt
 while read linea
 do
      gid=$(echo "$linea" | cut -f 1)
