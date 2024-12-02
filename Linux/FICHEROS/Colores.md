@@ -12,24 +12,45 @@
     Parpadeo: \e[5m
 
 # COLOR DE FUENTE
-    Color por defecto: \e[39m
-    COLOR_ROJO='\e[31m'
-    COLOR_VERDE='\e[32m'
-    COLOR_AMARILLO='\e[33m'
-    COLOR_AZUL='\e[34m'
-    COLOR_MORADO='\e[35m'
-    COLOR_CYAN='\e[36m'
-    COLOR_RESET='\e[0m'
+    COLOR_POR_DEFECTO: \e[39m
+    NEGRO='\e[30m'
+    ROJO='\e[31m'
+    VERDE='\e[32m'
+    AMARILLO='\e[33m'
+    AZUL='\e[34m'
+    MORADO='\e[35m'
+    CYAN='\e[36m'
+    LIGHT_GRAY='\e[37m'
+    DARK_GRAY='\e[90m'
+    LIGTH_RED='\e[91m'
+    LIGTH_GREEN='\e[92m'
+    LIGTH_YELLOW='\e[93m'
+    LIGTH_BLUE='\e[94m'
+    LIGTH_MAGENTA='\e[95m'
+    LIGTH_CYAN='\e[96m'
+    WHITE='\e[97m'
 
 # COLOR DE FONDO
-    Rojo: \e[41m
-    Verde: \e[42m
-    Amarillo: \e[43m
-    Azul: \e[44m
+    COLOR_POR_DEFECTO: \e[49m
+    NEGRO='\e[40m'
+    ROJO='\e[41m'
+    VERDE='\e[42m'
+    AMARILLO='\e[43m'
+    AZUL='\e[44m'
+    MORADO='\e[45m'
+    CYAN='\e[46m'
+    LIGHT_GRAY='\e[47m'
+    DARK_GRAY='\e[100m'
+    LIGTH_RED='\e[101m'
+    LIGTH_GREEN='\e[102m'
+    LIGTH_YELLOW='\e[103m'
+    LIGTH_BLUE='\e[104m'
+    LIGTH_MAGENTA='\e[105m'
+    LIGTH_CYAN='\e[106m'
+    WHITE='\e[107m'
 
 # COLORES COMBINADOS
-    COLOR_BACKROJO_LETAMARILLO='\e[1;33;31m'
-    Negrita+Texto_Amarillo+Fondo_Azul: \e[1;33;44m
+    NEGRITA_AMARILLO_ROJO='\e[1;43;31m'
     Texto rojo + Fondo azul: \e;31;44m
     
 # CODIGOS DE RESET
@@ -37,4 +58,3 @@
     Reset de negrita: \e[21
     Reset del color de fuente: \e[39m
     Reset del color de fondo: \e[49m
-    
