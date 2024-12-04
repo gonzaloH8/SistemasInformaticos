@@ -18,20 +18,32 @@ clear
 # MI PRACTICA
 #!/bin/bash
 clear
-echo " BACKUP TOTAL "
-echo "1) Crea una carpeta y ficheros en Documents"
-echo "2) Empaqueta el contenido creado en el punto 1"
-echo "3) Mira el contenido"
-echo "4) Restaura el contenido"
-echo "BACKUP INCREMENTAL"
-echo "5) Crea un fichero para el backup Incremental"
-echo "6) Copia el contenido si ha sido modificado, Borra un archivo y comprueba que se ha actualizado"
-echo " CPIO "
-echo "7) Haz un backup con CPIO"
-echo "8) Extramenos el contenido del backup CPIO"
-echo " RSYNC "
-echo "9) Creamos una copia"
-echo "*) SALIMOS DEL SCRIPT"
+
+N_ALMOHADILLA='\e[1;32m'
+N_AZUL='\e[1;34m'
+N_OPCION='\e[1;96m'
+N_ROJO='\e[1;31m'
+N_LAZUL='\e[1;34m'
+RESET='\e[0m'
+
+echo -e "\t\t\t $N_ALMOHADILLA ################################################################################ $RESET"
+echo -e "\t\t\t $N_ALMOHADILLA ################################### $RESET $N_AZUL PAQUETES $RESET $N_ALMOHADILLA ################################### $RESET"
+echo -e "\t\t\t $N_ALMOHADILLA ################################################################################ $RESET"
+echo -e "\t\t\t $N_LAZUL BACKUP TOTAL $RESET"
+echo -e "\t\t\t $N_OPCION 1) Crea una carpeta y ficheros en Documents $RESET"
+echo -e "\t\t\t $N_OPCION 2) Empaqueta el contenido creado en el punto 1 $RESET "
+echo -e "\t\t\t $N_OPCION 3) Mira el contenido $RESET"
+echo -e "\t\t\t $N_OPCION 4) Restaura el contenido $RESET"
+echo -e "\t\t\t $N_LAZUL BACKUP INCREMENTAL $RESET"
+echo -e "\t\t\t $N_OPCION 5) Crea un fichero para el backup Incremental $RESET"
+echo -e "\t\t\t $N_OPCION 6) Copia el contenido si ha sido modificado $RESET"
+echo -e "\t\t\t $N_OPCION 7) Borra un archivo y comprueba que se ha actualizado $RESET"
+echo -e "\t\t\t $N_LAZUL CPIO $RESET"
+echo -e "\t\t\t $N_OPCION 8) Haz un backup con CPIO $RESET"
+echo -e "\t\t\t $N_OPCION 9) Extramenos el contenido del backup CPIO $RESET"
+echo -e "\t\t\t $N_LAZUL RSYNC $RESET"
+echo -e "\t\t\t $N_OPCION 10) Creamos una copia $RESET"
+echo -e "\t\t\t $N_ROJO *) SALIMOS DEL SCRIPT $RESET"
 
 read -p "Dime opcion: " opcion
 
@@ -104,6 +116,7 @@ case $opcion in
     exit 0
 ;;
 esac
+
 
 # PRACTICA SERVER
 CONFIG SERV
