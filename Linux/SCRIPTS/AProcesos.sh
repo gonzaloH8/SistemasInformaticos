@@ -71,31 +71,36 @@ esac
 #!/bin/bash
 clear
 
-echo "MENU"
-echo "1) Ejecucion de la aplicacion"
-echo "2) Mirar sus procesos de todas las formas posibles"
-echo "3) Cambiar la bondad del proceso"
-echo "4) Mata el proceso"
-echo "5) SALIR"
+N_ALMOHADILLA='\e[1;32m'
+N_AZUL='\e[1;34m'
+N_OPCION='\e[1;96m'
+N_ROJO='\e[1;31m'
+RESET='\e[0m'
+
+echo -e "\t\t\t $N_ALMOHADILLA ################################################################################ $RESET"
+echo -e "\t\t\t $N_ALMOHADILLA ################################### $RESET $N_AZUL PROCESOS $RESET $N_ALMOHADILLA ################################### $RESET"
+echo -e "\t\t\t $N_ALMOHADILLA ################################################################################ $RESET"
+echo -e "\t\t\t $N_OPCION 1) Ejecucion de la aplicacion $RESET"
+echo -e "\t\t\t $N_OPCION 2) Mirar sus procesos de todas las formas posibles $RESET "
+echo -e "\t\t\t $N_OPCION 3) Cambiar la bondad del proceso $RESET"
+echo -e "\t\t\t $N_OPCION 4) Mata el proceso $RESET"
+echo -e "\t\t\t $N_ROJO   *) SALIR DEL SCRIPT $RESET"
 
 read -p "Dime la aplicacion a consultar: " app
 read -p "Dime una opcion: " opcion
-case $opcion in
 
+case $opcion in
 1)
     $app &
 ;;
-
 2)
     ps -C $app -o pid,cmd,nice,pri
 ;;
-
 3)
     ps -C $app -o pid,nice
     read -p "Dime el numero del pid: " pid
     renice -n +15 -p $pid
 ;;
-
 4)
     echo "Vemos todos las señales de kill, que podemos ejecutar"
     kill -l
@@ -103,8 +108,7 @@ case $opcion in
     read -p "Dime el numero del pid: " pid
     sudo kill -s SIGTERM $pid
 ;;
-
-5)
+*)
     echo "Salimos del Script"
     exit 0
 ;;
