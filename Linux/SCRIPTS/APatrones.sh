@@ -16,18 +16,25 @@
 #!/bin/bash
 clear
 
+N_ALMOHADILLA='\e[1;32m'
+N_AZUL='\e[1;34m'
+N_OPCION='\e[1;96m'
+N_ROJO='\e[1;31m'
+RESET='\e[0m'
+
+echo -e "\t\t\t $N_ALMOHADILLA ################################################################################ $RESET"
+echo -e "\t\t\t $N_ALMOHADILLA ################################### $RESET $N_AZUL PATRONES $RESET $N_ALMOHADILLA ################################### $RESET"
+echo -e "\t\t\t $N_ALMOHADILLA ################################################################################ $RESET"
+echo -e "\t\t\t $N_OPCION 1) NOMBRES $RESET"
+echo -e "\t\t\t $N_OPCION 2) APELLIDOS$RESET "
+echo -e "\t\t\t $N_OPCION 3) DNI $RESET"
+echo -e "\t\t\t $N_OPCION 4) TELEFONOS $RESET"
+echo -e "\t\t\t $N_OPCION 5) EMAIL $RESET"
+echo -e "\t\t\t $N_OPCION 6) LINEA COMPLETA $RESET"
+echo -e "\t\t\t $N_ROJO 7) SALIR DEL SCRIPT $RESET"
+
 fichero=/home/gonzalo/Escritorio/Scripts/Practicas/leeme.txt
-
-echo "MENU"
-echo "1) NOMBRES"
-echo "2) APELLIDOS"
-echo "3) DNI"
-echo "4) TELEFONOS"
-echo "5) EMAIL"
-echo "6) LINEA COMPLETA"
-echo "7) SALIR"
-
-read -p "Dime opcion: " opcion
+read -p "dime opcion: " opcion
 cat $fichero
 
 case $opcion in
@@ -59,7 +66,7 @@ case $opcion in
     grep --color -E "^[a-zA-Z]{4}:[a-zA-Z]{1,}\s[a-zA-Z]{1,}:[0-9]{8}-[A-Z]{1}:\+34\s[0-9]{3}(\s[0-9]{2}){,3}:[a-zA-Z]+\.[a-zA-Z]+@[a-zA-Z]+\.(madrid)\.(org)" $fichero
 
 ;;
-7)
+*)
     echo "Salimos del script Patrones"
     exit 0
 ;;
