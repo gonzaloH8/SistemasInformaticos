@@ -23,7 +23,7 @@ N_ROJO='\e[1;31m'
 RESET='\e[0m'
 
 echo -e "\t\t\t $N_ALMOHADILLA ################################################################################ $RESET"
-echo -e "\t\t\t $N_ALMOHADILLA ################################### $RESET $N_AZUL PATRONES $RESET $N_ALMOHADILLA ################################### $RESET"
+echo -e "\t\t\t $N_ALMOHADILLA ################################### $RESET $N_AZUL PATRONES $RESET $N_ALMOHADILLA ############################### $RESET"
 echo -e "\t\t\t $N_ALMOHADILLA ################################################################################ $RESET"
 echo -e "\t\t\t $N_OPCION 1) NOMBRES $RESET"
 echo -e "\t\t\t $N_OPCION 2) APELLIDOS$RESET "
