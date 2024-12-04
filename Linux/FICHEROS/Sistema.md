@@ -35,3 +35,7 @@
 
     curl wttr.in -- consulta la prevision meteorologica de los proximos 3 dias
     curl wttr.in/paris -- consulta la prevision de una zona en concreto
+
+# HASH
+    sha512sum -- crea un hash de una longitud de 128 caracteres
+    echo $RANDOM | sha512sum | head -c 8
