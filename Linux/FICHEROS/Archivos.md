@@ -2,12 +2,6 @@
 - [USUARIOS](https://computernewage.com/2015/06/27/conoce-la-estructura-de-permisos-de-linux-al-detalle/)
 - [Informacion Extra](https://victorhckinthefreeworld.com/2017/07/06/comando-cp-de-linux-un-par-de-trucos-utiles/)
 
-# BUSCA DIRECTORIOS Y ARCHIVOS
-    find ./Documentos -- permite buscar archivos y te muestra el contenido de estos
-    find ./Documentos -name archivo.txt
-    find ./Documentos -name *.pdf -- busca todos los archivos con este nombre(extension)
-    locate archivo.txt -- permite localizar archivos. Algo parecido a find
-
 # CREACION DE ARCHIVOS
     touch nombreArchivo -- permite crear uno o varios archivos vacios en formato txt
     > fichero1.txt > fichero2.txt -- permite crear fichero vacios
