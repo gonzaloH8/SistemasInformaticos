@@ -3,32 +3,14 @@
   - [GENERADOR DE TIEMPO ](https://crontab.guru/)
   - [GENERADOR DE TIEMPO ](https://www.freeformatter.com/cron-expression-generator-quartz.html)
   - [DOCUMENTACION](https://geekland.eu/planificar-tareas-con-cron-y-anacron-en-linux/)
+  - [MANUAL](https://www.linuxtotal.com.mx/?cont=info_admon_006)
 
-# TAREAS PROGRAMADAS AUTOMATICAS
-(Programacion de tareas)
-El servicio encargado de programacion de tareas CICLICAS (tareas que se repiten a lo largo del tiempo) se llama
-  cron.service <---- servcio principal
-Hay otro servicio secundario que apoya a cron.service, en el caso de que cron.service no haya ejecutado alguna tarea:
-  anacron.service <----- servicio secundario
-Para tareas que se EJECUTAN UNA UNICA VEZ a futuro, se usa el servicio, hay que instalar el servicio: 
-  atd.servicie
-Comprobar si estan los servicios corriendo:
-  systemctl status cron.service
-  systemctl status ancron.service
-====> Si estos servicios estuvieran parados no podriamos programar tareas <======
-Funcionamiento del servicio CRON (var/spool/crontab directorio donde se almacena todos las tareas programadas)
-  cron.service ===>
-    timer(temporizador): cada minuto despierta al servicio CRON para que chequee
-  
-Formato ficheros de tareas programadas(crontabs)
-Son ficheros de texto plano, las lineas que comienzan con # son comentarios
-Pueden tener definidas VARIABLES antes de las tareas(por si estas tareas las usan)
-Cada linea del fichero despues de la def. de las variables representan una tarea, y deben de tener este formato:(!!OJO si no el servicio NO LAS EHJECUTA)[]==>opcional
-  MINUTOS: valor 0-59 representa el minuto en el cual quieres que se ejecute la tarea
-  HORAS: valor 0-23, representa la hora en el cual quieres que se ejecute la tarea
-  DIA_MESs: valor 1-31, representa los dias del mes en el cual que se ejecute la tarea
-  MES: valor 1-12, representa el mes en el cual quieres que se ejecute la tarea
-  DIA_SEMANA: 0(Domingo)-6, representa el dia_semana en el cual quieres que se ejecute la tarea
+# ESTRUCTURA DE CRON.SERVICE
+  **MINUTOS:** valor 0-59 representa el minuto en el cual quieres que se ejecute la tarea
+  **HORAS:** valor 0-23, representa la hora en el cual quieres que se ejecute la tarea
+  **DIA_MESs:** valor 1-31, representa los dias del mes en el cual que se ejecute la tarea
+  **MES:** valor 1-12, representa el mes en el cual quieres que se ejecute la tarea
+  **DIA_SEMANA:** 0(Domingo)-6, representa el dia_semana en el cual quieres que se ejecute la tarea
   [usuario_ejecuta_tarea]
   comando(s)_a_ejecutar
 ejemplo:
@@ -100,4 +82,4 @@ Para saber si toca ejecutar, consulta fichero: /var/spool/anacron/ <----cron.dai
     identificador: nombre_cualquiera(identificable en los logs)
     comando: tarea a ejecutar
     
-     Ejemplo: 7 10 backup.weekly /bin/bash /home/joan/scripts/backup.sh
+    Ejemplo: 7 10 backup.weekly /bin/bash /home/joan/scripts/backup.sh
