@@ -1,8 +1,6 @@
 # ENLACES
-<ul>
-    <li><a href="https://wttr.in/:help">Documentacion Ampliado</a>  Meteorologia</li>
-</ul>
-
+- [Documentacion Ampliado(Meteorologia)](https://wttr.in/:help)
+  
 # INFORMACION DEL SISTEMA
     uname -- nuestra el nombre del Kernel
     uname -o .. muestra el nombre del SO
@@ -13,10 +11,6 @@
     who -a -- informa de la fecha y hora del ultimo arranque del sistema por parte de algun usuario
     who -H -- lista de usuarios logeados, sesiones de terminal a las que estan conectados
     whoami -- muestra por pantalla el nombre del usuario que acaba de ejecutar el comando
-    
-    ifconfig -- muestra las interfaces activas
-    ifconfig -a -- muestra las interfaces de red disponibles en tu sistema, esten en uso o no y sus paramentro basicos
-    ifconfig eth0 -- permite acotar el resultado para mostrar la informacion de una interfaz determinada
 
     dmicode -s system-manufacturer -- puedes ver el fabricante del PC, ya sea Asus,HP,Dell,Lenovo,etc
     dmicode -s processor-manufacturer -- muestra el nombre del fabricante de la CPU, INTEL o AMD
@@ -35,7 +29,3 @@
 
     curl wttr.in -- consulta la prevision meteorologica de los proximos 3 dias
     curl wttr.in/paris -- consulta la prevision de una zona en concreto
-
-# HASH
-    sha512sum -- crea un hash de una longitud de 128 caracteres
-    echo $RANDOM | sha512sum | head -c 8
