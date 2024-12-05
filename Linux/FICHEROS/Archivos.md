@@ -1,6 +1,7 @@
 # ENLACES
 - [USUARIOS](https://computernewage.com/2015/06/27/conoce-la-estructura-de-permisos-de-linux-al-detalle/)
 - [Informacion Extra](https://victorhckinthefreeworld.com/2017/07/06/comando-cp-de-linux-un-par-de-trucos-utiles/)
+- [AWK](https://vergaracarmona.es/guia-del-comando-awk/)
 
 # CREACION DE ARCHIVOS
     touch nombreArchivo -- permite crear uno o varios archivos vacios en formato txt
@@ -80,3 +81,6 @@
     sudo apt intall vim -- instalacion de vim
     vim -- abre el editor de texto
     :help -- archivo de ayuda sobre los comandos de vim
+
+# AWK
+    
