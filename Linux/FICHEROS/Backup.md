@@ -1,8 +1,3 @@
-# FIREWALL
-    sudo ufw status -- Comprobar estado
-    sudo ufw enable -- Activar firewall
-    sudo ufw disable -- Desactivar firewall
-
 # COPIAS DE SEGURIDAD ====> programacion de tareas
 Un backup es una copia de seguridad de ficheros de usuario(s)/sitema, de tal forma que si hay un determinado fallo puedes restaurar el sistema o bien los doc, del usuario(s) a como estaban en el momento de hacer el backup.
 (Ataque de cifrado de contenido)
