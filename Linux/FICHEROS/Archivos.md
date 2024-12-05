@@ -83,4 +83,40 @@
     :help -- archivo de ayuda sobre los comandos de vim
 
 # AWK
+    DELIMITADORES
+    IFS: '|'
+    awk '{print}' archivo.txt -- imprime el contenido
+    awk -F ':' '{print $1}' archivo.txt -- cambiar el delimitador y extre la primera columna
+    awk -F '|' '{print $2, $4}' archivo.txt -- extrae varias columnas, teniendo como delimitador |
+    awk 'BEGIN {FS = ":"}' '{print $1, $3}' archivo.txt
+    awk -F '/' '{print $NF}' archivo.txt -- se utiliza el / como delimitador y se imprime el ultimo delimitador de cada linea  
+    awk 'BEGIN {system("comando")}' archivo.txt -- ejecuta el comando
+
+    FUNCIONES
+    awk '/patron/ {print}' archivo.txt -- imprime la lineas que sigan el patron
+    awk '/condición/ {print $2, $4}' archivo.txt -- imprime las lineas que cumplen la condicion
+    awk '/condición1/ && /condición2/ {print}' archivo.txt -- imprime las lineas que cumplan con ambas condiciones
+    awk '{print length}' archivo.txt -- permite ver la longitud de cada linea
+    awk 'length == 5 {print length}' archivo.txt -- imprime las lineas que contengan un numero determinado de caracteres
+    awk -F ':' '{if ($NF == "palabra") print}' archivo.txt -- imprime todas las lineas cuyo ultimo delimitador sea igual a una determinada palabra
+    awk '{print substr($0, 3)}' archivo.txt -- imprime todas las lineas eliminando las 3 primeros caracteres
+    awk 'match($0, /patrón/) {print RSTART}' archivo.txt -- imprime la posicion en la que se encuenta el patron
+    awk 'match($0, /patrón/) {print RLENGTH}' archivo.txt -- imprime la longitud del patron encontrado en cada linea
+    
+    VARIABLE NF
+    awk -F '/' '{print $(NF-1)}' archivo.txt -- imprime del penultimo o antepenultimo delimitador
+
+    VARIABLE NR
+    awk 'END {print NR}' archivo.txt -- cuenta el numero de lineas de un fichero o de salida de un comando
+    awk 'NR == 1 {print}' archivo.txt - imprime la primera linea de un fichero o salida de un comando
+    awk 'NR >= 5 {print}' archivo.txt -- imprime todas las lineas a partir de la linea 5
+    awk 'NR >= 3 && NR <= 7 {print}' archivo.txt -- imprime un rango de lineas, desde la 3 a la 7 linea
+
+    GSUB
+    awk '{gsub(/patrón/, "reemplazo"); print}' archivo.txt -- busca todas las coincidencias con el patron y las reemplaza
+    awk -F ':' '{gsub(/patrón/, "reemplazo", $2); print}' archivo.txt -- establece un delimitador, busca y reemplaza el patron en la segunda columna
+    
+
+    SCRIPTS
+    awk -f script.awk archivo.txt
     
