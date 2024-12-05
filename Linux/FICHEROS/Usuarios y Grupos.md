@@ -46,18 +46,6 @@ nombre_usuario: has_passwd | ! | * : .... campos que indican la durabilidad de l
     sudo passwd -S nombre_de_usuario -- comprueba si la cuenta esta bloqueada
     exit -- Para abandonar esta sesion y recuperar la anterior
 
-# GRUPOS
-La forma de linux de guardar info sobre los grupos de usuarios (conjunto de cuentas con mismo rol: permisos acceso a recursos) es fichero
-/etc/group <====== cada linea representa un grupo de usuarios, y tiene este formato:
-nombre_grupo : x : GID : <=== lista de usuarios separados por comas ===> actualmente suele meterse en fichero gshadow
-GID(Group-identifier): numero exclusivo q identifica al grupo para grupos de sistema este numero es inferior a 1000
-Cuando crear una cuenta Linux lo que hace es asociarla a un grupo con el mismo nombre de la cuenta del usuario (solo para ese usuario puedes cambiarlo con comando)
-usermod -g GID | nombre_grupo_principal nombre_usuario
-Los grupos vienen por defecto sin password, pero pudes asignarles una password de acceso, acceso: esta password se almacena en fichero:
-/etc/gshadow <====== cada linea representa la info de password de acceso a un grupo y lista de usuarios grupo: nombre_grupo: hash_password | ! | * : usuario1, usuario2, ...
-- Si aparece un * el grupo esta deshabilitado(no se puede acceder a el)
-- Si aparece una ! password del grupo ha expirado, el root o el administrador del grupo tiene q reactivarla, cambiandolo.
-
 # COMANDOS GRUPOS
     /etc/group -- formato nombre_grupo : x : GID :
         GID(Group-identifier):, numero exclusivo q identifica al grupo para grupos de sistema este numero es inferior a 1000
@@ -72,6 +60,7 @@ Los grupos vienen por defecto sin password, pero pudes asignarles una password d
     sudo usermod g nuevogrupo -G anteriorgrupo usuario -- Cambio de grupo principal de un usuario, manteniendo el anterior como secundario
     sudo usermod -d /home/nuevousuario -- Cambio de directorio personal
         -m --  Copia del contenido del antiguo directorio personal se añade
+    usermod -g GID | nombre_grupo_principal nombre_usuario -- modifica el grupo del usuario con ese GID
 
     groupadd -opciones nombre_grupo ====> comando para crear un grupo (GID)
     groupdel -opciones nombre_grupo ====> comando para borrar un grupo
