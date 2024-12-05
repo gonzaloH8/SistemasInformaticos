@@ -1,24 +1,7 @@
 # ENLACES
 - [UFW ampliado](https://computernewage.com/2014/08/10/como-configurar-el-firewall-ufw-en-ubuntu/)
-
-# TEORIA 08-10-2024
-Administracion servicios linux SYSTEMD
-Un servicio es una aplicacion(ejecutable) que no tiene interaccion con el usuario, suele lanzar o en el arranque del sistema o antes eventos o señales; el encargado de la gestion de los servicios es SYSTEMD
-(proceso inicial del arranque)
-
-SYSTEMD ejecuta los servicios a lanzar en paralelo(todos a la vez) en funcion de TARGETS(sonlas formas en las que el usuario quiere ejecutar el sistema operativo:
-    - ejecutarlo en modo recuperacion de errores: sin entorno grafico, sin red, monousuario root
-    - ejecutarlo sin entorno grafico pero multiusuario
-    - ejecutarlo con entorno grafico, multiusuario y con red
-    - apager el sistema: systemd va finalizando los servicios levantados de forma ordenada
-    ...)
-
-En cada TARGET tienes(ficheros de unidad):
-    - servicios
-    - sockets o conexiones a establecer para comunicar procesos entre si
-    - paths o señales para detectar cambios en el sistema de ficheros
-      ...
-    
+- [MANUAL](https://www.linuxtotal.com.mx/index.php?cont=info_admon_003#google_vignette)
+   
 # MOSTRAR DETALLES FICH.UNIDAD DE UN SERVICIO
 El servicio de LOGS del sistema, se llama ryslog.service
     systemctl cat rsyslog.service
@@ -27,25 +10,7 @@ En un servicio ES OBLIGATORIO que tengan las secciones:
     - [Unit] establece una descripcion, docmentacion, usuario que lo creo,... el servicio
     - [Service] especificas el tipo de servicio(ejecutable,variables de entorno,como reiniciar de nuevo el servicio,permisos,...)
     - [Install] se especifica las dependencias que necesita el servicio para iniciarse(p.e si necesita de otros servicios, de algun target, timers, sockets)
-
-**FICHERO:** /lib/systemd/system/cron.service
-[Unit]
-- Description=Regular background program processing daemon ===> muestra la descripcion breve de lo que hace el servicio
-- Documentation=man:cron(8) ===> donde consultar como funciona el servicio
-- After=remote-fs.target nss-user-lookup.target ===> unidades que tienen que estar levantados antes de ejecutar el servicio
-
-[Service]
-- EnvironmentFile=-/etc/default/cron ===> fichero para poner variables de conf. de entorno del servicio
-- ExecStart=/usr/sbin/cron -f -P $EXTRA_OPTS ===> es el ejecutable de la apliacion. (se ejecutamos la variable, inicia la aplicacion)
-- ExecReload=/bin/kill -HUP $MAINPID ===> en caso de fallo no-critico del servicio, se ejecuta mandar señal SIGHUP(despertar de nuevo)
-- IgnoreSIGPIPE=false ===> ignora cualquier señal
-- KillMode=process ===> especifica que el servicio puede ser susceptible de recibir señales como un proceso
-- Restart=on-failure ===> en caso de que el equipo se caiga, reinicia el servicio ante fallos
-- RestartSec=30s ===> tiempo entre servicios
-- SysLogFacility=cron ===> como se mandan mensajes al LOG del servicio
-
-[Install]
-- WantedBy=multi-user.target -----> indica que unidades necesitan estar cargadas para el servicio
+Ejemplo ver: /lib/systemd/system/cron.service
   
 # COMANDOS
     GLOBALES
