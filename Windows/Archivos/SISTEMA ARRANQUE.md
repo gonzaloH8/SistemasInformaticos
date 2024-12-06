@@ -31,7 +31,3 @@ El kernel entra en estado Wait y toma el control el Session Manager, comenzando 
           - Leer variables de entorno para el usuario --> definido en el registro de Windows
           - Ejecuta WINLOGON.EXE ---> pantalla de inicio encargada de recoger credenciales de acceso(login + password)
       - El SESSION-MANAGER a la vez q ejecuta el CSRSS.EXE, carga en memoria el ejecutable  LSASS.EXE (Local Security Authenticator SubSystem) se encarga de recoger el login + password del WinLogon y comprobar que existe en su almacen de datos: WinLogon(Login + Password) ---> hash(password)[LSASS.EXE]--> base de datos de credenciales. LANZA SHELL-GRAFICA escritorio para el usuario(EXPLORER.EXE)
-        
-
-    garbage collector java !!! IMPORTANTE
-    Exploid en windows
