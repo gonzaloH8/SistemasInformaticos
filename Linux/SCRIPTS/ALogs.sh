@@ -95,3 +95,39 @@ clear
         logger -t miscript.sh "IP: $IP_LOCAL - Este es un mensaje desde el script"
         sleep 1m
     done
+
+PRACTICA
+creamos un Script para que genere mensajes aleatorios en fichero /tmp/milog.log
+#!/bin/bash
+clear
+echo "llenando el fichero /tmp/milog.log"
+[ ! -e /tmp/milog.log ] && touch /tmp/milog.log
+while true
+do
+    clear
+    ls -lh /tmp/milog.log*
+    dd if=/dev/urandom bs=1024 count=10000 | tr -dc '[a-zA-Z0-9]' >> /tmp/milog.log
+    sleep 1s
+done
+
+- creamos reglas de rotacion para este fichero: /etc/logrotate.d ----> fichero milog
+
+/tmp/milog.log
+{
+    su root root
+    rotate 3
+    size 5M
+    compress
+    missingok
+    notifempty
+    postrotate
+       [ -e /tmp/milog.log.3.gz ] && cp /tmp/milog.log.3gz /tmp/BACKUP___MILOG.3.gz.$(date '%Y-%m-%d__%H:%M')
+    endscript
+}
+
+
+- en dos terminales:
+      1º terminal lanzais script
+      2º terminal sudo logrotate -f /etc/logrotate.d/milog -- rota solo el fichero indicado. Ejecutarlo 3
+
+
