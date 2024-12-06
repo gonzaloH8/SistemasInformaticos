@@ -27,20 +27,6 @@
     SHELL: intérprete de comandos que permite a los usuarios de Linux y Unix controlar sus sistemas operativos con interfaces de línea de comandos
     KERNEL: componente central de un sistema operativo y sirve como interfaz principal entre el hardware físico de la computadora y los procesos que se ejecutan en ella a través del software
     
-# COMANDOS GENERICOS
-    sudo -l -- cambia de $ a #
-    sudo + comando. -- permite ejecutar un comando con permisos de administrador de manera puntual
-    sudo su o bash -- permite hacer un cambio de sesion de usuario, sin la necesidad de cerrar la sesion del usuario actual
-    man + comando -- guia completa del comando
-    clear -- limpia la pantalla sin borrar el contenido, hace scroll hacia abajo
-    uname -- informacion del SO usado
-    history -- imprime por pantalla un listado de los ultimos comandos usados
-    ping -- permite saber si un cliente o servidor esta operativo mediante la direccion IP o url
-    date -- informa sobre la fecha y hora del sistema
-    curl wttr.in/paris -- te permite saber la prevision meteorologica.(ciudad, codigo areopuerto o nombre dominio)
-    exit -- cierra sesion de terminal actual del usuario logueado en ella. Tambien para pasar de root a usuario 
-    q -- permite salir del editor de texto
-    
 # COMENTARIOS
     # este es un comentario de una linea
     : 'este es un comentario de dos o mas lineas'
