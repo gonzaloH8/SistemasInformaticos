@@ -1,15 +1,13 @@
 # ADMINISTRACION LOGS SISTEMA: rsyslog(remote system logger daemon)
 Un LOG es un fichero(por defecto, no tiene por que, pueden almacenarse en una BD) donde el sistema operativo, va a ir registrando aspectos de su funcionamiento en tiempo real; se registran acciones como: 
-    - inicio sesion de usuarios, cierre sesion, intento de conexion, cambio de contraseña,....
-    - aspectos del funcionamiento de servicios (si se modifica un servicio, si se para, si se deshabilita, si el servicio al funcionar quiere registrar su accion...)   
-    - aspectos del hardware (drivers dispositivos q no funcionan, deteccion de dispositivos montados,...)
-        ...    
+- Inicio sesion de usuarios, cierre sesion, intento de conexion, cambio de contraseña,....
+- Aspectos del funcionamiento de servicios (si se modifica un servicio, si se para, si se deshabilita, si el servicio al funcionar quiere registrar su accion...)   
+- Aspectos del hardware (drivers dispositivos q no funcionan, deteccion de dispositivos montados,...)    
                                 
 # COMO FUNCIONA EL SERVICIO
-    input-modules                                    output-modules
-    (modulos de entrada de registros) --------------> rsyslog.service   ------------->    (modulos de registro de mensajes) ficheros LOG, BD-mysql,            
-                                     fichero de configuracion          servidor externo, ...
-                                     de reglas de registro:                                                                       
+INPUT-MODULES(modulos de entrada de registros)
+OUTPUT-MODULES (rsyslog.service) fichero de configuracion de reglas de registro
+SERVIDOR-EXTERNNO (modulos de registro de mensajes) ficheros LOG, BD-mysql                                                   
 
 # ARCHIVO EN CUARENTENA
 - Como input-modules siempre por defecto van a ser otros servicios los q mandan mensajes a rsyslog para q los registre en los LOG; rsyslog a estos servicios los clasifica por grupos:
@@ -17,9 +15,8 @@ Un LOG es un fichero(por defecto, no tiene por que, pueden almacenarse en una BD
     - servicios de autentifcacion:   grupo auth
     - servicios de prog.tareas:      grupo cron
     - servicios de impresion:        grupo lpt
-    ....
-- Los mensajes originados por estos grupos se almacenan en un OUTPUT-MODULE determinado en funcion del fichero de configuracion de reglas de rsyslog:  /etc/rsyslog.conf
-- Como OUTPUT-MODULE son el destino donde rsyslog va a almacenar los mensajes q mandan estos servicios, por defecto siempre en ficheros LOG (se suelen almacenar en /var/log/  
+- Los mensajes originados por estos grupos se almacenan en un OUTPUT-MODULE determinado en funcion del fichero de configuracion de reglas de rsyslog:  **/etc/rsyslog.conf**
+- Como OUTPUT-MODULE son el destino donde rsyslog va a almacenar los mensajes q mandan estos servicios, por defecto siempre en ficheros LOG (se suelen almacenar en **/var/log/**  
 - rsyslog almacena los mensajes en los output-modules en funcion de TEMPLATES (plantillas); por defecto tiene definida una plantilla general, pero puedes personalizarlas y usarlas
 - Como OUTPUT-MODULE puedo usar aparte de ficheros LOG lo siguiente: (man rsyslog.conf)
   - @x.y.z.w[;nombre_plantilla_personalizada] <--- mandas los mensajes al servidor con ip: x.y.w.z por TCP
@@ -46,19 +43,11 @@ consulta fichero: /etc/rsyslog.conf ===> $includeConfig /etc/rsyslog.d/*.conf --
 # VARIABLES DE RSYSLOG
     $includeConfig -- directorio
 
-# FORMATO DE LAS REGLAS DE REGISTRO
-En cada linea del fichero supone una regla de registro, el servicio las procesa todas:
-    
-     filtro(selector)            destino om-module[;plantilla_mensaje]
-     ------->  el formato                               ---------> lugar donde se registran
-               puede ser:                                          los mensajes q cumplen el filtro con un determinado
-                                                                   formato definido por "plantilla_mensaje"                                      
-    1º caso:
-    --------  
+# FORMATO DE LAS REGLAS DE REGISTRO                                  
      origen_im[, origen2_im,...].importancia_mensaje [;...] 
 
     REGLAS PREDETERMINADAS EN EL SISTEMA
-    filtro(origen)               acciones(destinos)
+    filtro(origen)               acciones(destinos) lugar donde se registran los mensajes
     kern.*				        -/var/log/kern.log <=== NO LA CUMPLE(filtra mensajes originados por kernel)
     mail.*			        	-/var/log/mail.log<==== NO LA CUMPLE(filtra mensajes originados por serv.mail)
     mail.err        			/var/log/mail.err
@@ -77,14 +66,13 @@ En cada linea del fichero supone una regla de registro, el servicio las procesa 
                                                                                                                                                                
     Ejemplo:
         *.* ;             auth,authpriv.none                        -/var/log/syslog
-        -----            -------------------                        -----------------    
-         |                       |                                se registran en este fichero LOG
-         todos              salvo (.none)                         el [-] delante del fichero significa q los mensajes
-         los                mensajes grupo servicios              no se registran de forma inmediata en el fichero sino
-         servicios          de autentificacion                    q se almacenan temporalmente en buffer de memoria RAM
-         q generan                                                y luego se volcaran mas adelante
-         cualquier
-         mensaje
+         |                         |                                         |         
+        todos              salvo (.none)                         se registran en este fichero LOG
+        los                mensajes grupo servicios              el [-] delante del fichero significa q los mensajes
+        servicios          de autentificacion                    no se registran de forma inmediata en el fichero sino
+        q generan                                                q se almacenan temporalmente en buffer de memoria RAM
+        cualquier                                                y luego se volcaran mas adelante
+        mensaje
 
 # COMANDOS
     /etc/rsyslog.d/ -- directorio donde se importan las reglas
@@ -190,6 +178,7 @@ El texto especificado entre dos signos de porcentaje (%) especifica una propieda
      property(name="timereported" dateFormat="rfc3339" caseConversion="lower")
      constant(value="\n")
      }
+     
 ## SUBARBOL
     set $!usr!tpl2!msg = $msg;
     set $!usr!tpl2!dataflow = field($msg, 58, 2);
@@ -340,37 +329,3 @@ Contenido de rsyslog.conf
     		/usr/lib/rsyslog/rsyslog-rotate
     	endscript
     }
-
-PRACTICA
-creamos un Script para que genere mensajes aleatorios en fichero /tmp/milog.log
-#!/bin/bash
-clear
-echo "llenando el fichero /tmp/milog.log"
-[ ! -e /tmp/milog.log ] && touch /tmp/milog.log
-while true
-do
-    clear
-    ls -lh /tmp/milog.log*
-    dd if=/dev/urandom bs=1024 count=10000 | tr -dc '[a-zA-Z0-9]' >> /tmp/milog.log
-    sleep 1s
-done
-
-- creamos reglas de rotacion para este fichero: /etc/logrotate.d ----> fichero milog
-
-/tmp/milog.log
-{
-    su root root
-    rotate 3
-    size 5M
-    compress
-    missingok
-    notifempty
-    postrotate
-       [ -e /tmp/milog.log.3.gz ] && cp /tmp/milog.log.3gz /tmp/BACKUP___MILOG.3.gz.$(date '%Y-%m-%d__%H:%M')
-    endscript
-}
-
-
-- en dos terminales:
-      1º terminal lanzais script
-      2º terminal sudo logrotate -f /etc/logrotate.d/milog -- rota solo el fichero indicado. Ejecutarlo 3
