@@ -32,18 +32,16 @@
     cal -- muestra el calendario de un mes o año especificados
     cal -y 2019 -- muestra el calendario del año especificado
 
-  # CURL
+# CURL
     curl wttr.in -- consulta la prevision meteorologica de los proximos 3 dias
     curl wttr.in/paris -- consulta la prevision de una zona en concreto
 
+# VARIOS
     sudo -l -- cambia de $ a #
     sudo + comando. -- permite ejecutar un comando con permisos de administrador de manera puntual
     sudo su o bash -- permite hacer un cambio de sesion de usuario, sin la necesidad de cerrar la sesion del usuario actual
     man + comando -- guia completa del comando
     clear -- limpia la pantalla sin borrar el contenido, hace scroll hacia abajo
     history -- imprime por pantalla un listado de los ultimos comandos usados
-    ping -- permite saber si un cliente o servidor esta operativo mediante la direccion IP o url
-    date -- informa sobre la fecha y hora del sistema
-    curl wttr.in/paris -- te permite saber la prevision meteorologica.(ciudad, codigo areopuerto o nombre dominio)
     exit -- cierra sesion de terminal actual del usuario logueado en ella. Tambien para pasar de root a usuario 
     q -- permite salir del editor de texto
