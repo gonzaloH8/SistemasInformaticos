@@ -26,4 +26,5 @@ En windows la prioridad base se forma a partir de dos valores:
 El rango de valores va de 0(Baja) a 31(Alta)
 Los usuarios solo pueden asignar los valores del 0 al 15 de prioridad, 8 es el rango medio
 Los valores del kernel es de 16 a 31, no accesibles para el usuario
-Para cambiar la prioridad base (aumentarla o disminuirla), puedes o cambiar la prioridad del procesos o la de cada hilo
+Para cambiar la prioridad base (aumentarla o disminuirla), puedes o cambiar la prioridad del procesos o la de cada hilo.
+Para que te aparezca la columna de prioridades: Click Derecho(columnas) + Select Columns + Process Perfornmace + Process TimeLine
