@@ -16,3 +16,14 @@ Para ver la lista de procesos en windows: Adiministrador de Tareas (Control+shif
 - [EXPLORADOR-DE-PROCESOS](https://learn.microsoft.com/es-es/sysinternals/downloads/process-explorer)
 - [PROCESS-MONITOR](https://learn.microsoft.com/es-es/sysinternals/downloads/procmon)
 
+# PRIORODADES EN PROCESOS E HILOS
+OJO!!! en windows la prioridad NO ES ESTATICA!!!  es dinamica, cambia en funcion de acciones del usuario, carga del sistema, etc... todos los procesos e hilos nacen con una prioridad base
+En windows la prioridad base se forma a partir de dos valores:
+- PRIORIDAD BASE
+  - Prority-class del proceso (clase de prioridad del proceso) NORMAL_PRIORITY_CLASS(8)
+  - Priority-level del thread(clase de prioridad del hilo)THREAD_PRIORITY_NORMAL(8)
+  - La prioridad base asignada por defecto a un proceso y sus hilos es de 8(normal)
+El rango de valores va de 0(Baja) a 31(Alta)
+Los usuarios solo pueden asignar los valores del 0 al 15 de prioridad, 8 es el rango medio
+Los valores del kernel es de 16 a 31, no accesibles para el usuario
+Para cambiar la prioridad base (aumentarla o disminuirla), puedes o cambiar la prioridad del procesos o la de cada hilo
