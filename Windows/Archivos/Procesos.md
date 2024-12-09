@@ -28,3 +28,7 @@ Los usuarios solo pueden asignar los valores del 0 al 15 de prioridad, 8 es el r
 Los valores del kernel es de 16 a 31, no accesibles para el usuario
 Para cambiar la prioridad base (aumentarla o disminuirla), puedes o cambiar la prioridad del procesos o la de cada hilo.
 Para que te aparezca la columna de prioridades: Click Derecho(columnas) + Select Columns + Process Perfornmace + Process TimeLine
+
+# COMANDOS
+ El IDE para programar en powesherll: Powershell_ise.exe --- ejecutar como administrador
+ Ver --- Activar panel de Script -- Atajo Control + R
