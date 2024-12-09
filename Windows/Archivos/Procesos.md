@@ -12,5 +12,7 @@ EJEMPLO: quiero ejecutar el notepad.exe
 - DISPATCHER: recoge eprocess listo para ejecutarse y lo mete en la CPU
 - CPU: se mantiene el t.eje si no acabase al salir, el SCHEDULER lo pone al final de la cola ROUND-ROBIN
 Para ver la lista de procesos en windows: Adiministrador de Tareas (Control+shift+Esc). Se reemplaza por la herramienta de SysInternals: Process-Monitor
-- []()
+- [SYSINTERNALS](https://learn.microsoft.com/es-es/sysinternals/)
+- [EXPLORADOR-DE-PROCESOS](https://learn.microsoft.com/es-es/sysinternals/downloads/process-explorer)
+- [PROCESS-MONITOR](https://learn.microsoft.com/es-es/sysinternals/downloads/procmon)
 
