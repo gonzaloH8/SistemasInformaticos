@@ -32,3 +32,20 @@ Para que te aparezca la columna de prioridades: Click Derecho(columnas) + Select
 # COMANDOS
  El IDE para programar en powesherll: Powershell_ise.exe --- ejecutar como administrador
  Ver --- Activar panel de Script -- Atajo Control + R
+
+
+ # WINDOWS + R
+     perfmon.msc -- monitoriza el rendimiento del sistema
+
+
+# ESTADO DE LOS HILOS DE UN PROCESO
+Un proceso cuando se crea al menos tiene un hilo(instrucciones q se van a ejecutar en la cpu) nada mas crearse el estado asignado es INIT (estado inicial)
+Una vez creado el SCHEDULER lo mete en la cola ROUND-ROBIN y le asigna un tiempo de ejecucion para cuando entre a la cpu, pasa al estado DEFERED-READY. Justo antes de entrar a la cpu gracias al dispacher, pasa al estado READY, y cuando esta dentro de la CPU el estado es RUNNING
+Cada estado se identifica con un numero
+- INIT = 0
+- DEFERED-READY = 7
+- READY = 2
+- FINISHED O TERMINATED = 4
+- WAITING = 5 (segundo plano)
+Cuando un hilo esta dentro de la CPU ejecutandose y necesita acceder a los recursos del sistema q conllevan tiempo, se le saca de forma momentanea hasta q se consiguen esos recursos, pasando el hilo a estado
+STANDBY(3); cuando los tiene, el dispatcher lo duelve a meter en la CPU y pasa a estado RUNNING
