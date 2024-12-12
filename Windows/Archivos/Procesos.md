@@ -49,3 +49,36 @@ Cada estado se identifica con un numero
 - WAITING = 5 (segundo plano)
 Cuando un hilo esta dentro de la CPU ejecutandose y necesita acceder a los recursos del sistema q conllevan tiempo, se le saca de forma momentanea hasta q se consiguen esos recursos, pasando el hilo a estado
 STANDBY(3); cuando los tiene, el dispatcher lo duelve a meter en la CPU y pasa a estado RUNNING
+
+
+
+
+
+
+# COMANDOS POWERSHELL gestion de procesos/hilos
+Para devolver la lista de procesos
+    get-Process -- te devuelve la coleccion de objetos "proceso" q se estan ejecutando en el sistema. Cada objeto "proceso" pertenece a esta clase: System.Diagnostics.Process
+Si quiero recuperar la informacion de un determinado proceso, con "opciones" puedo seleccionar el proceso por su propiedad nombre(Name de la clase System.Diagnostics.Process)
+
+Get-Process -Name nombre_proceso -- nos da la informacion del proceso
+Get-Process -Name nombre_proceso | Get-Member -- Si quiero saber el tipo de objeto que me devuelve el comando
+Get-Process -Name nombre_proceso | Get-Member
+Get-Process -Name nombre_proceso | Select-Object -Property * -- Para mostrar todas las propiedades del objeto
+Get-Process -Name nombre_proceso | Select-Object -Property Name, Id, BasePriority, PriorityClass -- seleccionamos las propiedades que queremos ver
+get-help get-process -examples o -full -- Para ver la ayuda de cualquier comando
+Stop-Process -- para el proceso
+System.Diagnostics.Process q se llama kill
+ <# comentarios #>
+ Para matar un proceso ejecutamos Sopt-Process/kill/spps
+variable de proceso[System.Diagnostics.Process]
+
+# PRACTICA 
+Pedir por teclado el nombre de un proceso y mostrar del mismo esta informacion:
+Nombres del proceso, id, prioridad, fecha de inicio o creacion del proceso, numero de threads
+¿Que tipo de dato se almacena en cada propiedad: string, float, numberm decimal? acudimos al comando get-member
+
+clear-host
+[string]$proceso = read-host -Prompt "Dime el nombre del proceso a ejecutar "
+Get-Process -Name $proceso | Select-Object -Property Name, Id, BasePriority, StartTime, Threads | spps
+[System.Diagnostics.Process]$nombre=Get-Process -Name $proceso
+$nombre.kill()
