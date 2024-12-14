@@ -3,7 +3,7 @@
 - [Informacion Extra](https://victorhckinthefreeworld.com/2017/07/06/comando-cp-de-linux-un-par-de-trucos-utiles/)
 - [AWK](https://vergaracarmona.es/guia-del-comando-awk/)
 - [AWK Ejemplos](https://geekland.eu/uso-del-comando-awk-en-linux-y-unix-con-ejemplos/)
-- [AWK LEARN](https://learn.microsoft.com/en-us/windows/win32/procthread/scheduling-priorities)
+- [MANUAL AWK](https://congresos.nnb.unam.mx/TIB2014/sites/default/files/TIB2014/manual_awk.pdf)
 
 # CREACION DE ARCHIVOS
     touch nombreArchivo -- permite crear uno o varios archivos vacios en formato txt
