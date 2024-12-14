@@ -1,3 +1,8 @@
+# ENLACES
+- [SYSINTERNALS](https://learn.microsoft.com/es-es/sysinternals/)
+- [EXPLORADOR-DE-PROCESOS](https://learn.microsoft.com/es-es/sysinternals/downloads/process-explorer)
+- [PROCESS-MONITOR](https://learn.microsoft.com/es-es/sysinternals/downloads/procmon)
+  
 # PROCESOS
 El modulo encargado de la gestion de procesos en windows: PROCESS MANAGER(esta en comunicacion con el OBJECT MANAGER, para crear los objetos que necesita)
 El PROCESS MANEGER lo forman:
@@ -12,9 +17,6 @@ EJEMPLO: quiero ejecutar el notepad.exe
 - DISPATCHER: recoge eprocess listo para ejecutarse y lo mete en la CPU
 - CPU: se mantiene el t.eje si no acabase al salir, el SCHEDULER lo pone al final de la cola ROUND-ROBIN
 Para ver la lista de procesos en windows: Adiministrador de Tareas (Control+shift+Esc). Se reemplaza por la herramienta de SysInternals: Process-Monitor
-- [SYSINTERNALS](https://learn.microsoft.com/es-es/sysinternals/)
-- [EXPLORADOR-DE-PROCESOS](https://learn.microsoft.com/es-es/sysinternals/downloads/process-explorer)
-- [PROCESS-MONITOR](https://learn.microsoft.com/es-es/sysinternals/downloads/procmon)
 
 # PRIORODADES EN PROCESOS E HILOS
 OJO!!! en windows la prioridad NO ES ESTATICA!!!  es dinamica, cambia en funcion de acciones del usuario, carga del sistema, etc... todos los procesos e hilos nacen con una prioridad base
@@ -50,27 +52,17 @@ Cada estado se identifica con un numero
 Cuando un hilo esta dentro de la CPU ejecutandose y necesita acceder a los recursos del sistema q conllevan tiempo, se le saca de forma momentanea hasta q se consiguen esos recursos, pasando el hilo a estado
 STANDBY(3); cuando los tiene, el dispatcher lo duelve a meter en la CPU y pasa a estado RUNNING
 
-
-
-
-
-
 # COMANDOS POWERSHELL gestion de procesos/hilos
-Para devolver la lista de procesos
+    System.Diagnostics.Process -- Clase/Objeto de Procesos
     get-Process -- te devuelve la coleccion de objetos "proceso" q se estan ejecutando en el sistema. Cada objeto "proceso" pertenece a esta clase: System.Diagnostics.Process
-Si quiero recuperar la informacion de un determinado proceso, con "opciones" puedo seleccionar el proceso por su propiedad nombre(Name de la clase System.Diagnostics.Process)
-
-Get-Process -Name nombre_proceso -- nos da la informacion del proceso
-Get-Process -Name nombre_proceso | Get-Member -- Si quiero saber el tipo de objeto que me devuelve el comando
-Get-Process -Name nombre_proceso | Get-Member
-Get-Process -Name nombre_proceso | Select-Object -Property * -- Para mostrar todas las propiedades del objeto
-Get-Process -Name nombre_proceso | Select-Object -Property Name, Id, BasePriority, PriorityClass -- seleccionamos las propiedades que queremos ver
-get-help get-process -examples o -full -- Para ver la ayuda de cualquier comando
-Stop-Process -- para el proceso
-System.Diagnostics.Process q se llama kill
- <# comentarios #>
- Para matar un proceso ejecutamos Sopt-Process/kill/spps
-variable de proceso[System.Diagnostics.Process]
+    Get-Process -Name nombre_proceso -- nos da la informacion del proceso
+    Get-Process -Name nombre_proceso | Get-Member -- Si quiero saber el tipo de objeto que me devuelve el comando
+    Get-Process -Name nombre_proceso | Select-Object -Property * -- Para mostrar todas las propiedades del objeto
+    Get-Process -Name nombre_proceso | Select-Object -Property Name, Id, BasePriority, PriorityClass -- seleccionamos las propiedades que queremos ver
+    Stop-Process -- mata el proceso
+    System.Diagnostics.Process q se llama kill
+    Para matar un proceso ejecutamos Sopt-Process/kill/spps
+    variable de clase del proceso[System.Diagnostics.Process]
 
 # PRACTICA 
 Pedir por teclado el nombre de un proceso y mostrar del mismo esta informacion:
