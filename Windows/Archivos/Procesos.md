@@ -2,6 +2,7 @@
 - [SYSINTERNALS](https://learn.microsoft.com/es-es/sysinternals/)
 - [EXPLORADOR-DE-PROCESOS](https://learn.microsoft.com/es-es/sysinternals/downloads/process-explorer)
 - [PROCESS-MONITOR](https://learn.microsoft.com/es-es/sysinternals/downloads/procmon)
+- [PROCESS_LEARN](https://learn.microsoft.com/en-us/windows/win32/procthread/scheduling-priorities)
   
 # PROCESOS
 El modulo encargado de la gestion de procesos en windows: PROCESS MANAGER(esta en comunicacion con el OBJECT MANAGER, para crear los objetos que necesita)
