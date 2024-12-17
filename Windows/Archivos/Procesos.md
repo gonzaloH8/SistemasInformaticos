@@ -60,10 +60,22 @@ STANDBY(3); cuando los tiene, el dispatcher lo duelve a meter en la CPU y pasa a
     Get-Process -Name nombre_proceso | Get-Member -- Si quiero saber el tipo de objeto que me devuelve el comando
     Get-Process -Name nombre_proceso | Select-Object -Property * -- Para mostrar todas las propiedades del objeto
     Get-Process -Name nombre_proceso | Select-Object -Property Name, Id, BasePriority, PriorityClass -- seleccionamos las propiedades que queremos ver
-    Stop-Process -- mata el proceso
+    Stop-Process -- mata/para el proceso Sopt-Process/kill/spps
+    Start-Process -FilePath nombre_ejecutable.exe -ArgumentList 'ruta absoluta del archivo o web' -- crear un proceso(arranca una aplicacion)
+    
     System.Diagnostics.Process q se llama kill
-    Para matar un proceso ejecutamos Sopt-Process/kill/spps
     variable de clase del proceso[System.Diagnostics.Process]
+
+# CAMBIAR PRIORIDAD PROCESOS/HILOS
+La prioridad en procesos/hilos es una propiedad de clase en procesos:
+  [System.Diagnostics.Process] ----> propiedad.PriorityClass
+    Ej:
+      (get-process -name powershell_ise).PriorityClass -- permite ver la prioridad del proceso
+      (get-process -name powersehll_ise) | get-member -- obtienes
+      System.Diagnostics.ProcessPriorityClass: -- cambio de prioridad objeto de lectura y escritura
+      (Get-Process -name powershell_ise).PriorityClass = [System.Diagnostics.ProcessPriorityClass]::High -- cambio de prioridad. :: indica que estamos tratando con un array enumerado con variables const
+      
+
 
 # PRACTICA 
 Pedir por teclado el nombre de un proceso y mostrar del mismo esta informacion:
