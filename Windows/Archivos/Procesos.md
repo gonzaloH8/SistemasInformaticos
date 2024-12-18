@@ -32,15 +32,6 @@ Los valores del kernel es de 16 a 31, no accesibles para el usuario
 Para cambiar la prioridad base (aumentarla o disminuirla), puedes o cambiar la prioridad del procesos o la de cada hilo.
 Para que te aparezca la columna de prioridades: Click Derecho(columnas) + Select Columns + Process Perfornmace + Process TimeLine
 
-# COMANDOS
- El IDE para programar en powesherll: Powershell_ise.exe --- ejecutar como administrador
- Ver --- Activar panel de Script -- Atajo Control + R
-
-
- # WINDOWS + R
-     perfmon.msc -- monitoriza el rendimiento del sistema
-
-
 # ESTADO DE LOS HILOS DE UN PROCESO
 Un proceso cuando se crea al menos tiene un hilo(instrucciones q se van a ejecutar en la cpu) nada mas crearse el estado asignado es INIT (estado inicial)
 Una vez creado el SCHEDULER lo mete en la cola ROUND-ROBIN y le asigna un tiempo de ejecucion para cuando entre a la cpu, pasa al estado DEFERED-READY. Justo antes de entrar a la cpu gracias al dispacher, pasa al estado READY, y cuando esta dentro de la CPU el estado es RUNNING
@@ -74,46 +65,3 @@ La prioridad en procesos/hilos es una propiedad de clase en procesos:
       (get-process -name powersehll_ise) | get-member -- obtienes
       System.Diagnostics.ProcessPriorityClass: -- cambio de prioridad objeto de lectura y escritura
       (Get-Process -name powershell_ise).PriorityClass = [System.Diagnostics.ProcessPriorityClass]::High -- cambio de prioridad. :: indica que estamos tratando con un array enumerado con variables const
-      
-
-
-# PRACTICA 
-Pedir por teclado el nombre de un proceso y mostrar del mismo esta informacion:
-Nombres del proceso, id, prioridad, fecha de inicio o creacion del proceso, numero de threads
-¿Que tipo de dato se almacena en cada propiedad: string, float, numberm decimal? acudimos al comando get-member
-
-clear-host
-[string]$proceso = read-host -Prompt "Dime el nombre del proceso a ejecutar "
-Get-Process -Name $proceso | Select-Object -Property Name, Id, BasePriority, StartTime, Threads | spps
-[System.Diagnostics.Process]$nombre=Get-Process -Name $proceso
-$nombre.kill()
-
-
-# SCRIPT
-<#
-Script para cambiar prioridad de procesos ejecutandose
-#>
-clear
-try{
-[string]$proceso=read-host -name "Introduce el nombre de un proceso"
-
-write-host "-----------------" -BackgroundColor Red -ForegroundColor Yellow
-write-host "INFO DEL PROCESO" -BackgroundColor Red -ForegroundColor Yellow
-write-host "-----------------" -BackgroundColor Red -ForegroundColor Yellow
-Get-Process -Name $proceso -ErrorAction Stop | Select-Object ProcessName, Id, PriorityClass
-
-write-host "-----------------" -BackgroundColor Red -ForegroundColor Yellow
-Write-Host "POSIBLES VALORES DE PRIORIDAD" -BackgroundColor Red -ForegroundColor Yellow
-write-host "-----------------" -BackgroundColor Red -ForegroundColor Yellow
-write-host $([System.enum]::GetValues([System.Diagnostics.ProcessPriorityClass])) <# Te muestra los valores del proceso #>
-
-[string]$nuevaPrioridad=read-host -name "Introduce nueva prioridad de la lista de arriba"
-Write-Host ".... cambiando la prioridad..."
-(Get-Process -name $process -ErrorAction Stop).PriorityClass=[System.Diagnostics.ProcessPriorityClass]::$nuevaPrioridad
-#===================================================
-
-}
-catch [System.Exception]{
-Write-Output "..excepcion..." $_E
-
-}
